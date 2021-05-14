@@ -43,4 +43,7 @@ export default {};
 .v-btn__content {
   padding: 30px !important;
 }
+.v-btn {
+  border: 2px solid white;
+}
 </style>

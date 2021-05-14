@@ -1,16 +1,24 @@
 <template>
   <v-app>
+    <!-- <v-container class="pa-0 ma-0">
+      <SignLayout />
+      <router-view />
+    </v-container> -->
+
     <v-container class="pa-0 ma-0">
-      <Sign />
+      <MainLayout />
+
       <router-view />
     </v-container>
   </v-app>
 </template>
 
 <script>
-import Sign from "./views/Sign.vue";
+import SignLayout from "./views/SignLayout.vue";
+import MainLayout from "./views/MainLayout.vue";
+
 export default {
-  components: { Sign },
+  components: { SignLayout, MainLayout },
   data: () => ({
     //
   }),

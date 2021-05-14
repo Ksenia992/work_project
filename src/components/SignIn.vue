@@ -59,4 +59,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.v-btn {
+  border: 2px solid white;
+}
 </style>

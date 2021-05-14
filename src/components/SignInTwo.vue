@@ -42,7 +42,7 @@
               required
             ></v-text-field>
 
-            <v-text-field
+            <!-- <v-text-field
               v-model="password"
               label="Password"
               prepend-inner-icon="fas fa-lock"
@@ -50,7 +50,19 @@
               :type="passwordFieldType"
               @click:append="hidePass()"
               required
+            ></v-text-field> -->
+
+            <v-text-field
+              v-model="password"
+              label="Password"
+              prepend-inner-icon="fas fa-lock"
+              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[rules.required, rules.min]"
+              :type="show1 ? 'text' : 'password'"
+              name="input-10-1"
+              @click:append="show1 = !show1"
             ></v-text-field>
+
             <p class="font-weight-bold text-decoration-underline pointer">
               Forgot your password?
             </p>
@@ -75,14 +87,15 @@
 export default {
   data: () => ({
     password: "",
-    passwordFieldType: "password",
-  }),
-  methods: {
-    hidePass() {
-      this.passwordFieldType =
-        this.passwordFieldType === "password" ? "text" : "password";
+    show1: false,
+    show2: true,
+    show3: false,
+    show4: false,
+    rules: {
+      required: (value) => !!value || "Required.",
+      emailMatch: () => `The email and password you entered don't match`,
     },
-  },
+  }),
 };
 </script>
 

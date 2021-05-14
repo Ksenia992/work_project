@@ -27,12 +27,12 @@
               required
             ></v-text-field>
 
-            <v-text-field
+            <!-- <v-text-field
               v-model="password"
               label="Password"
               prepend-inner-icon="fas fa-lock"
-              append-icon="far fa-eye-slash"
               :type="passwordFieldType"
+              append-icon="far fa-eye-slash"
               @click:append="hidePass('passwordFieldType')"
               required
             ></v-text-field>
@@ -45,7 +45,30 @@
               :type="passwordFieldType_two"
               @click:append="hidePass('passwordFieldType_two')"
               required
+            ></v-text-field> -->
+
+            <v-text-field
+              v-model="password"
+              label="Password"
+              prepend-inner-icon="fas fa-lock"
+              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[rules.required, rules.min]"
+              :type="show1 ? 'text' : 'password'"
+              name="input-10-1"
+              @click:append="show1 = !show1"
             ></v-text-field>
+
+            <v-text-field
+              v-model="password_repeat"
+              label="Repeat password"
+              prepend-inner-icon="fas fa-lock"
+              :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[rules.required, rules.min]"
+              :type="show3 ? 'text' : 'password'"
+              name="input-10-1"
+              @click:append="show3 = !show3"
+            ></v-text-field>
+
             <v-checkbox v-model="checkbox">
               <template v-slot:label>
                 <div>
@@ -81,15 +104,16 @@ export default {
   data: () => ({
     password: "",
     password_repeat: "",
-    passwordFieldType_two: "password",
-    passwordFieldType: "password",
     checkbox: false,
-  }),
-  methods: {
-    hidePass(name) {
-      this[name] = this[name] === "password" ? "text" : "password";
+    show1: false,
+    show2: true,
+    show3: false,
+    show4: false,
+    rules: {
+      required: (value) => !!value || "Required.",
+      emailMatch: () => `The email and password you entered don't match`,
     },
-  },
+  }),
 };
 </script>
 
