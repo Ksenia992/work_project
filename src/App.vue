@@ -1,33 +1,34 @@
 <template>
   <v-app>
-    <!-- <v-container class="pa-0 ma-0">
-      <SignLayout />
+    <component :is="layout">
+    
       <router-view />
-    </v-container> -->
-
-    <v-container class="pa-0 ma-0">
-      <MainLayout />
-
-      <router-view />
-    </v-container>
+    </component>
+ 
   </v-app>
 </template>
 
 <script>
-import SignLayout from "./views/SignLayout.vue";
-import MainLayout from "./views/MainLayout.vue";
+import SignLayout from "@/Layouts/SignLayout.vue";
+import MainLayout from "@/Layouts/MainLayout.vue";
+
 
 export default {
-  components: { SignLayout, MainLayout },
-  data: () => ({
-    //
-  }),
+  computed: {
+    layout () {
+      return (this.$route.meta.layout || 'Sign') + '-layout'
+    }
+  },
+  components:{SignLayout, MainLayout}
 };
 </script>
 
 <style>
 * {
   user-select: none;
+}
+.v-application a {
+  text-decoration: none;
 }
 </style>
 

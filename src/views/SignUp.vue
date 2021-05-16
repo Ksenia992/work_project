@@ -1,4 +1,5 @@
 <template>
+  
   <v-container fill-height fluid>
     <v-row>
       <v-col cols="12" justify="center" align="center">
@@ -27,25 +28,7 @@
               required
             ></v-text-field>
 
-            <!-- <v-text-field
-              v-model="password"
-              label="Password"
-              prepend-inner-icon="fas fa-lock"
-              :type="passwordFieldType"
-              append-icon="far fa-eye-slash"
-              @click:append="hidePass('passwordFieldType')"
-              required
-            ></v-text-field>
-
-            <v-text-field
-              v-model="password_repeat"
-              label="Repeat password"
-              prepend-inner-icon="fas fa-lock"
-              append-icon="far fa-eye-slash"
-              :type="passwordFieldType_two"
-              @click:append="hidePass('passwordFieldType_two')"
-              required
-            ></v-text-field> -->
+           
 
             <v-text-field
               v-model="password"
@@ -97,6 +80,8 @@
       </v-col>
     </v-row>
   </v-container>
+  
+
 </template>
 
 <script>
