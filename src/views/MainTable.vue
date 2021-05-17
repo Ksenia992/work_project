@@ -10,223 +10,67 @@
       ></v-text-field>
     </v-card-title>
 
-    <v-data-table
-      :headers="headers"
-      :items="desserts"
-      sort-by="calories"
-      class="elevation-1"
-      disable-sort
-    >
-      <template v-slot:top>
-        <v-toolbar flat>
-          <v-spacer></v-spacer>
-          <v-dialog v-model="dialog" max-width="620px">
-            <template v-slot:activator="{ on, attrs }">
+    <v-row>
+      <v-col cols="12" xs="12">
+        <v-data-table
+          :headers="headers"
+          :items="desserts"
+          sort-by="calories"
+          class="elevation-1"
+          disable-sort
+        >
+          <template v-slot:top>
+            <v-toolbar flat>
+              <v-spacer></v-spacer>
               <v-btn
                 color="#1AAA8D"
                 class="white--text pa-5"
                 elevation="2"
-                v-bind="attrs"
-                v-on="on"
                 rounded
+                @click="() => (isVisible = !isVisible)"
                 >Add <v-icon right> mdi-plus-circle-outline </v-icon></v-btn
               >
-            </template>
-            <v-card>
-              <v-card-title>
-                <span class="text-h4"
-                  ><v-icon left> mdi-plus-circle-outline </v-icon
-                  >{{ formTitle }}
-                </span>
-                <v-col>
-                  <v-btn icon @click="close">
-                    <v-icon>mdi-close</v-icon>
-                  </v-btn>
-                </v-col>
-              </v-card-title>
+              <Add :show="isVisible" @close="closeModal" />
 
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col cols="4">
-                      <v-subheader>Tenant name:*</v-subheader>
-                    </v-col>
-                    <v-col cols="8">
-                      <v-text-field
-                        outlined
-                        v-model="editedItem.name"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="4">
-                      <v-subheader>Type:*</v-subheader>
-                    </v-col>
-                    <v-col cols="8">
-                      <v-text-field
-                        outlined
-                        v-model="editedItem.type"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="4">
-                      <v-subheader>Support e-mail:*</v-subheader>
-                    </v-col>
-                    <v-col cols="8">
-                      <v-text-field
-                        outlined
-                        label="callconnect@mail.com"
-                        v-model="editedItem.support"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-card-title>
-                      <span class="text-h5">Contact information</span>
-                    </v-card-title>
-
-                    <v-card-text>
-                      <v-container>
-                        <v-row>
-                          <v-col cols="4">
-                            <v-subheader>Contact name:</v-subheader>
-                          </v-col>
-                          <v-col cols="8">
-                            <v-text-field
-                              outlined
-                              v-model="editedItem.contact_name"
-                            ></v-text-field>
-                          </v-col>
-
-                          <v-col cols="4">
-                            <v-subheader>Phone number:</v-subheader>
-                          </v-col>
-                          <v-col cols="8">
-                            <v-text-field
-                              outlined
-                              v-model="editedItem.phone"
-                            ></v-text-field>
-                          </v-col>
-
-                          <v-col cols="4">
-                            <v-subheader>Email:</v-subheader>
-                          </v-col>
-                          <v-col cols="8">
-                            <v-text-field
-                              outlined
-                              v-model="editedItem.email"
-                            ></v-text-field>
-                          </v-col>
-                        </v-row>
-                      </v-container>
-                    </v-card-text>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-
-              <v-card-title>
-                <span class="text-h5">Address information</span>
-              </v-card-title>
-
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col cols="4">
-                      <v-subheader>Street:</v-subheader>
-                    </v-col>
-                    <v-col cols="8">
-                      <v-text-field
-                        outlined
-                        v-model="editedItem.street"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="4">
-                      <v-subheader>Postal code:</v-subheader>
-                    </v-col>
-                    <v-col cols="8">
-                      <v-text-field
-                        outlined
-                        v-model="editedItem.postal"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="4">
-                      <v-subheader>City:</v-subheader>
-                    </v-col>
-                    <v-col cols="8">
-                      <v-text-field
-                        outlined
-                        v-model="editedItem.city"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="4">
-                      <v-subheader>Country:</v-subheader>
-                    </v-col>
-                    <v-col cols="8">
-                      <v-text-field
-                        outlined
-                        v-model="editedItem.country"
-                      ></v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                  color="#fff"
-                  class="grey--text"
-                  rounded
-                  medium
-                  outlined
-                  @click="close"
-                >
-                  Cancel
-                </v-btn>
-                <v-btn
-                  color="#1AAA8D"
-                  class="white--text"
-                  rounded
-                  medium
-                  @click="save"
-                >
-                  Save
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-          <v-dialog v-model="dialogDelete" max-width="500px">
-            <v-card>
-              <v-card-title class="headline"
-                >Are you sure you want to delete this item?</v-card-title
-              >
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete"
-                  >Cancel</v-btn
-                >
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                  >OK</v-btn
-                >
-                <v-spacer></v-spacer>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-        </v-toolbar>
-      </template>
-      <template>
-        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-        <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
-      </template>
-      <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize"> Reset </v-btn>
-      </template>
-    </v-data-table>
+              <v-dialog v-model="dialogDelete" max-width="500px">
+                <v-card>
+                  <v-card-title class="headline"
+                    >Are you sure you want to delete this item?
+                  </v-card-title>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="closeDelete"
+                      >Cancel</v-btn
+                    >
+                    <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                      >OK</v-btn
+                    >
+                    <v-spacer></v-spacer>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-toolbar>
+          </template>
+          <template>
+            <v-icon small class="mr-2" @click="editItem(item)">
+              mdi-pencil
+            </v-icon>
+            <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+          </template>
+          <template v-slot:no-data>
+            <v-btn color="primary" @click="initialize"> Reset </v-btn>
+          </template>
+        </v-data-table>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
 <script>
+import Add from "./Add_table.vue";
 export default {
   data: () => ({
+    isVisible: false,
     dialog: false,
     dialogDelete: false,
     headers: [
@@ -288,8 +132,12 @@ export default {
   created() {
     this.initialize();
   },
+  components: { Add },
 
   methods: {
+    closeModal() {
+      this.isVisible = false;
+    },
     initialize() {
       this.desserts = [
         {
@@ -405,6 +253,9 @@ export default {
         this.desserts.push(this.editedItem);
       }
       this.close();
+    },
+    showModal() {
+      this.isVisible = true;
     },
   },
 };

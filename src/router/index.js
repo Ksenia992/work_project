@@ -28,7 +28,20 @@ const routes = [
     name: 'Search',
     meta:{layout:'Main'},
     component: () => import('../views/Search.vue')
-  }
+  },
+  {
+    path: '/details',
+    name: 'details',
+    meta:{layout:'MainTableInfo'},
+    component: () => import('../views/Check.vue')
+  },
+  {
+    path: '/add_info',
+    name: 'add',
+    meta:{layout:'MainTableInfo'},
+    component: () => import('../views/Add_table.vue')
+  },
+
 
 ]
 

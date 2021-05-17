@@ -34,27 +34,28 @@
         </v-btn>
         <p class="font-weight-thin">or use your email account</p>
         <v-col cols="12" justify="center" align="center">
-          <v-form v-model="valid">
+          <v-form v-model="valid" @submit.prevent="submitHandler">
             <v-text-field
-              v-model="lastname"
+              v-model.trim="email"
+              :class="{
+                invalid:
+                  ($v.email.$dirty && !$v.email.required) ||
+                  ($v.email.$dirty && !$v.email.email),
+              }"
               label="Email"
               prepend-inner-icon="far fa-envelope"
               required
             ></v-text-field>
 
-            <!-- <v-text-field
-              v-model="password"
-              label="Password"
-              prepend-inner-icon="fas fa-lock"
-              append-icon="far fa-eye-slash"
-              :type="passwordFieldType"
-              @click:append="hidePass()"
-              required
-            ></v-text-field> -->
-
             <v-text-field
-              v-model="password"
+              v-model.trim="password"
+              :class="{
+                invalid:
+                  ($v.password.$dirty && !$v.password.required) ||
+                  ($v.password.$dirty && !$v.password.minLength),
+              }"
               label="Password"
+              required
               prepend-inner-icon="fas fa-lock"
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="[rules.required, rules.min]"
@@ -62,7 +63,33 @@
               name="input-10-1"
               @click:append="show1 = !show1"
             ></v-text-field>
-
+            <p
+              class="invalid red--text text-overline"
+              color="red"
+              v-if="$v.email.$dirty && !$v.email.required"
+            >
+              Email required
+            </p>
+            <p
+              class="invalid red--text text-overline"
+              v-else-if="$v.email.$dirty && !$v.email.email"
+            >
+              Incorrect format of email
+            </p>
+            <p
+              class="invalid red--text text-overline"
+              color="red"
+              v-if="$v.password.$dirty && !$v.password.required"
+            >
+              Type your password
+            </p>
+            <p
+              class="invalid red--text text-overline"
+              color="red"
+              v-else-if="$v.password.$dirty && !$v.password.minLength"
+            >
+              At least 8 symbols
+            </p>
             <p class="font-weight-bold text-decoration-underline pointer">
               Forgot your password?
             </p>
@@ -84,8 +111,10 @@
 </template>
 
 <script>
+import { email, required, minLength } from "vuelidate/lib/validators";
 export default {
   data: () => ({
+    email: "",
     password: "",
     show1: false,
     show2: true,
@@ -96,6 +125,24 @@ export default {
       emailMatch: () => `The email and password you entered don't match`,
     },
   }),
+  validations: {
+    email: { email, required },
+    password: { required, minLength: minLength(8) },
+  },
+  methods: {
+    submitHandler() {
+      if (this.$v.$invalid) {
+        this.$v.$touch();
+        return;
+      }
+      const formData = {
+        email: this.email,
+        password: this.password,
+      };
+      console.log(formData);
+      this.$router.push("/");
+    },
+  },
 };
 </script>
 

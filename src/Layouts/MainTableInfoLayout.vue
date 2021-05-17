@@ -28,12 +28,68 @@
             <router-link to="/">
               <v-list-item link>
                 <v-list-item-icon>
-                  <v-icon color="white">mdi-home</v-icon>
+                  <v-icon color="white">mdi-warehouse</v-icon>
                 </v-list-item-icon>
 
                 <v-list-item-content>
                   <v-list-item-title class="white--text"
-                    >Tenants</v-list-item-title
+                    >CallConnect</v-list-item-title
+                  >
+                </v-list-item-content>
+              </v-list-item>
+            </router-link>
+
+            <router-link to="/search">
+              <v-list-item link>
+                <v-list-item-icon>
+                  <v-icon color="white">mdi-account-group-outline</v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                  <v-list-item-title class="white--text"
+                    >Groups</v-list-item-title
+                  >
+                </v-list-item-content>
+              </v-list-item>
+            </router-link>
+
+            <router-link to="/search">
+              <v-list-item link>
+                <v-list-item-icon>
+                  <v-icon color="white">mdi-phone</v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                  <v-list-item-title class="white--text"
+                    >Phone numbers</v-list-item-title
+                  >
+                </v-list-item-content>
+              </v-list-item>
+            </router-link>
+
+            <router-link to="/search">
+              <v-list-item link>
+                <v-list-item-icon>
+                  <v-icon color="white">mdi-account-circle</v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                  <v-list-item-title class="white--text"
+                    >Admins</v-list-item-title
+                  >
+                </v-list-item-content>
+              </v-list-item>
+            </router-link>
+
+            <router-link to="/search">
+              <v-list-item link>
+                <v-list-item-icon>
+                  <v-icon color="white">mdi-account-group</v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                  <v-list-item-title class="white--text"
+                    >Users</v-list-item-title
                   >
                 </v-list-item-content>
               </v-list-item>
@@ -88,15 +144,14 @@
 </template>
 
 <script>
-import MainTable from "../views/MainTable.vue";
-import Search from "../views/Search.vue";
+import Check from "../views/Check.vue";
 
 export default {
   data: () => ({
     drawer: false,
     group: null,
   }),
-  components: { MainTable, Search },
+  components: { Check },
 };
 </script>
 <style lang="scss">
