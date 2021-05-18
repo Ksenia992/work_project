@@ -14,9 +14,7 @@
     >
       <v-row class="white--text justify-center">
         <v-col cols="12" class="d-flex align-center flex-column justify-center">
-          <h1 class="display-3 text-sm-h6 text-lg-h2 font-weight-bold">
-            Hello, friend
-          </h1>
+          <h1 class="text-sm-h6 text-lg-h2 font-weight-bold">Hello, friend</h1>
           <p class="pt-10 pb-0 mb-0">Enter your personal details</p>
           <p class="py-0 mt-0">and start journey with us</p>
 

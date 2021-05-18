@@ -25,22 +25,43 @@
             >
           </v-col>
           <v-list dense nav>
-            <router-link to="/">
-              <v-list-item link>
+            <v-list-item-icon link>
+              <v-list-item-icon>
+                <v-icon color="white">mdi-warehouse</v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title class="white--text">
+                  CallConnect
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item-icon>
+            <v-divider></v-divider>
+            <v-list-item
+              link
+              v-for="(step, idx) in steps"
+              :key="idx"
+              :class="{
+                active: idx === activeIndex,
+                done: idx < activeIndex,
+              }"
+              @click="setActive(idx), (drawer = false)"
+              class="d-flex"
+            >
+              <router-link :to="{ path: step.path }">
                 <v-list-item-icon>
-                  <v-icon color="white">mdi-warehouse</v-icon>
+                  <v-icon color="white">{{ step.icon }}</v-icon>
                 </v-list-item-icon>
 
                 <v-list-item-content>
-                  <v-list-item-title class="white--text"
-                    >CallConnect</v-list-item-title
-                  >
+                  <v-list-item-title class="white--text">{{
+                    step.title
+                  }}</v-list-item-title>
                 </v-list-item-content>
-              </v-list-item>
-            </router-link>
+              </router-link>
+            </v-list-item>
 
-            <router-link to="/search">
-              <v-list-item link>
+            <!-- <v-list-item link>
                 <v-list-item-icon>
                   <v-icon color="white">mdi-account-group-outline</v-icon>
                 </v-list-item-icon>
@@ -51,9 +72,9 @@
                   >
                 </v-list-item-content>
               </v-list-item>
-            </router-link>
+        
 
-            <router-link to="/search">
+            
               <v-list-item link>
                 <v-list-item-icon>
                   <v-icon color="white">mdi-phone</v-icon>
@@ -65,9 +86,8 @@
                   >
                 </v-list-item-content>
               </v-list-item>
-            </router-link>
+         
 
-            <router-link to="/search">
               <v-list-item link>
                 <v-list-item-icon>
                   <v-icon color="white">mdi-account-circle</v-icon>
@@ -79,9 +99,8 @@
                   >
                 </v-list-item-content>
               </v-list-item>
-            </router-link>
+         
 
-            <router-link to="/search">
               <v-list-item link>
                 <v-list-item-icon>
                   <v-icon color="white">mdi-account-group</v-icon>
@@ -93,9 +112,8 @@
                   >
                 </v-list-item-content>
               </v-list-item>
-            </router-link>
+      
 
-            <router-link to="/search">
               <v-list-item link>
                 <v-list-item-icon>
                   <v-icon color="white">mdi-magnify</v-icon>
@@ -106,22 +124,29 @@
                     >Search</v-list-item-title
                   >
                 </v-list-item-content>
-              </v-list-item>
-            </router-link>
+              </v-list-item> -->
           </v-list>
         </v-col>
       </v-row>
     </v-navigation-drawer>
+
     <v-app-bar
       relative
       color="transparent"
       elevate-on-scroll
       scroll-target="#scrolling-techniques-7"
     >
-      <divider />
-      <v-toolbar-title class="font-weight-thin text-h6"
-        >Tenants
-      </v-toolbar-title>
+      <v-col cols="10" class="d-flex justify-center">
+        <v-toolbar-title class="font-weight-thin text-h6"
+          >Tenants
+
+          <v-icon>mdi-arrow-right</v-icon>
+          CallConnect
+
+          <v-icon>mdi-arrow-right</v-icon>
+          {{ activeStep.title }}
+        </v-toolbar-title>
+      </v-col>
 
       <v-spacer></v-spacer>
 
@@ -150,7 +175,54 @@ export default {
   data: () => ({
     drawer: false,
     group: null,
+    activeIndex: 0,
+    isActive: true,
+    steps: [
+      { title: "Groups", icon: "mdi-account-group-outline", path: "/groups" },
+      { title: "Phone numbers", icon: "mdi-phone", path: "" },
+      { title: "Admins", icon: "mdi-account-circle", path: "/admins" },
+      { title: "Users", icon: "mdi-account-group", path: "" },
+      { title: "Search", icon: "mdi-magnify", path: "" },
+    ],
   }),
+  methods: {
+    prev() {
+      if (this.activeIndex !== 0) {
+        this.activeIndex--;
+      }
+      // console.log(this.activeIndex)
+    },
+    reset() {
+      this.activeIndex = 0;
+      this.isActive = true;
+    },
+
+    nextOfFinish() {
+      // console.log(this.activeIndex)
+      // console.log(this.steps.length - 1)
+      if (this.activeIndex !== this.steps.length - 1) {
+        this.activeIndex++;
+      } else {
+        this.isActive = false;
+      }
+    },
+    setActive(idx) {
+      this.activeIndex = idx;
+
+      // console.log(this.activeIndex)
+    },
+  },
+  computed: {
+    activeStep() {
+      return this.steps[this.activeIndex];
+    },
+    prevDisabled() {
+      return this.activeIndex === 0;
+    },
+    isLastStep() {
+      return this.activeIndex === this.steps.length - 1;
+    },
+  },
   components: { Check },
 };
 </script>
@@ -163,5 +235,9 @@ export default {
 }
 .v-navigation-drawer__content {
   overflow: hidden !important;
+}
+
+a {
+  display: flex;
 }
 </style>

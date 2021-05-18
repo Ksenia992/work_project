@@ -358,10 +358,10 @@ export default {
 </script>
 
 <style lang="scss" >
-.pos {
-  //   position: absolute;
-  //   top: 0;
-  //   left: 0;
-  //   height: 800px;
-}
+// .pos {
+//   //   position: absolute;
+//   //   top: 0;
+//   //   left: 0;
+//   //   height: 800px;
+// }
 </style>

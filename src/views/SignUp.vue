@@ -1,5 +1,4 @@
 <template>
-  
   <v-container fill-height fluid>
     <v-row>
       <v-col cols="12" justify="center" align="center">
@@ -12,7 +11,7 @@
           <v-icon>fab fa-google-plus-g</v-icon>
         </v-btn>
         <p class="font-weight-thin">or use your email for registration</p>
-        <v-col cols="6" justify="center" align="center">
+        <v-col cols="12" md="6" justify="center" align="center">
           <v-form v-model="valid">
             <v-text-field
               v-model="firstname"
@@ -27,8 +26,6 @@
               prepend-inner-icon="far fa-envelope"
               required
             ></v-text-field>
-
-           
 
             <v-text-field
               v-model="password"
@@ -80,8 +77,6 @@
       </v-col>
     </v-row>
   </v-container>
-  
-
 </template>
 
 <script>

@@ -29,17 +29,24 @@ const routes = [
     meta:{layout:'Main'},
     component: () => import('../views/Search.vue')
   },
+ 
   {
-    path: '/details',
-    name: 'details',
+    path: '/CallConnect',
+    name: 'call',
     meta:{layout:'MainTableInfo'},
-    component: () => import('../views/Check.vue')
+    // component: () => import('../views/Add_table.vue')
+  },
+   {
+    path: '/groups',
+    name: 'groups',
+    meta:{layout:'MainTableInfo'},
+    component: () => import('../views/Groups.vue')
   },
   {
-    path: '/add_info',
-    name: 'add',
+    path: '/admins',
+    name: 'admins',
     meta:{layout:'MainTableInfo'},
-    component: () => import('../views/Add_table.vue')
+    component: () => import('../views/Admins.vue')
   },
 
 
