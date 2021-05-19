@@ -41,6 +41,7 @@
             elevation="2"
             rounded
             x-large
+            @click="open"
             >Sign In
           </v-btn>
         </v-col>
@@ -51,7 +52,11 @@
 
 <script>
 export default {
-  props: ["isOpen"],
+methods:{
+  open () {
+    this.$emit('openComp')
+  }
+}
 };
 </script>
 
