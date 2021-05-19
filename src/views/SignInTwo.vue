@@ -45,7 +45,7 @@
                 }"
                 label="Email"
                 prepend-inner-icon="far fa-envelope"
-                @input="checkValue"
+                @blur="checkValue"
                 required
               ></v-text-field>
 
@@ -64,7 +64,7 @@
                 :type="show1 ? 'text' : 'password'"
                 name="input-10-1"
                 @click:append="show1 = !show1"
-                @input="checkValue"
+                @blur="checkValue"
               ></v-text-field>
               <p
                 class="invalid red--text text-overline"
@@ -144,17 +144,36 @@ export default {
       }
       this.$refs.btn.disabled = false;
     },
-    submitHandler() {
+    // submitHandler() {
+    //   if (this.$v.$invalid) {
+    //     this.$v.$touch();
+    //     return;
+    //   }
+
+    //   const formData = {
+    //     email: this.email,
+    //     password: this.password,
+    //   };
+    //   console.log(formData);
+    //   this.$router.push("/");
+    // },
+    async submitHandler() {
       if (this.$v.$invalid) {
         this.$v.$touch();
         return;
       }
-
       const formData = {
         email: this.email,
         password: this.password,
       };
-      console.log(formData);
+      const response = await fetch("https://api-shark.herokuapp.com/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
       this.$router.push("/");
     },
   },

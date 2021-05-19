@@ -1,5 +1,4 @@
 <template>
-  
   <v-img
     lazy-src="@/assets/Background.png"
     height="100vh"
@@ -10,7 +9,7 @@
       class="d-flex align-center justify-center flex-column"
       flat
       color="transparent"
-       height="100%"
+      height="100%"
       width="100%"
     >
       <v-row>
@@ -34,9 +33,6 @@
           </h1>
           <p class="pt-10 pb-0 mb-0">To keep connected with us please</p>
           <p class="py-0 mt-0">login with your personal info</p>
-          <router-link
-          to="/sign_in"
-          >
           <v-btn
             class="pa-5 mt-10 font-weight-light"
             outlined
@@ -44,26 +40,21 @@
             elevation="2"
             rounded
             x-large
+            :to="'/sign_in'"
             >Sign In
           </v-btn>
-          </router-link>
         </v-col>
       </v-row>
     </v-card>
   </v-img>
-
-  
 </template>
 
 <script>
-export default {
-
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>
 .v-btn {
   border: 2px solid white;
 }
-
 </style>

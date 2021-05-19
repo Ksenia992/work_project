@@ -1,14 +1,8 @@
 <template>
-
-<transition name="anim">
-  <router-view></router-view>
-</transition>
-<!-- <router-view /> -->
-
-
-    
-  
-
+  <transition name="anim">
+    <router-view></router-view>
+  </transition>
+  <!-- <router-view /> -->
 </template>
 
 <script>
@@ -22,25 +16,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-
 .anim-enter-active {
-  animation:anim-in .7s;
+  animation: anim-in 0.7s;
 }
 .anim-leave-active {
-   animation:anim-in .7s reverse;
+  animation: anim-in 0.7s reverse;
 }
 @keyframes anim-in {
-  0% {transform:scale(0)}
-  
-  100% {transform:scale(1)}
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 // @keyframes anim-in {
 //  from {
 //     transform: translateX(0%);
 //   }
-  
 
 //   to {
 //     transform: translateX(100%);
