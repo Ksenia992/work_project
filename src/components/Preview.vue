@@ -33,6 +33,7 @@
           </h1>
           <p class="pt-10 pb-0 mb-0">To keep connected with us please</p>
           <p class="py-0 mt-0">login with your personal info</p>
+
           <v-btn
             class="pa-5 mt-10 font-weight-light"
             outlined
@@ -40,7 +41,6 @@
             elevation="2"
             rounded
             x-large
-            :to="'/sign_in'"
             >Sign In
           </v-btn>
         </v-col>
@@ -50,7 +50,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["isOpen"],
+};
 </script>
 
 <style lang="scss" scoped>

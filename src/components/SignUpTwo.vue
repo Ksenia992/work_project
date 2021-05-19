@@ -1,0 +1,40 @@
+<template>
+  <v-card
+    class="d-flex align-center justify-center flex-column"
+    flat
+    color="transparent"
+    height="100%"
+    width="100%"
+  >
+    <v-row class="white--text justify-center">
+      <v-col cols="12" class="d-flex align-center flex-column justify-center">
+        <h1 class="text-sm-h6 text-lg-h2 font-weight-bold">Hello, friend</h1>
+        <p class="pt-10 pb-0 mb-0">Enter your personal details</p>
+        <p class="py-0 mt-0">and start journey with us</p>
+
+        <v-btn
+          class="pa-5 mt-10 font-weight-light pa-8"
+          outlined
+          color="white"
+          elevation="2"
+          rounded
+          x-large
+          >Sign Up
+        </v-btn>
+      </v-col>
+    </v-row>
+  </v-card>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style lang="scss">
+.v-btn__content {
+  padding: 30px !important;
+}
+.v-btn {
+  border: 2px solid white;
+}
+</style>

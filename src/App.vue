@@ -7,17 +7,16 @@
 </template>
 
 <script>
-import SignLayout from "@/Layouts/SignLayout.vue";
 import MainLayout from "@/Layouts/MainLayout.vue";
 import MainTableInfoLayout from "@/Layouts/MainTableInfoLayout.vue";
 
 export default {
   computed: {
     layout() {
-      return (this.$route.meta.layout || "Sign") + "-layout";
+      return (this.$route.meta.layout || "Login") + "-layout";
     },
   },
-  components: { SignLayout, MainLayout, MainTableInfoLayout },
+  components: { MainLayout, MainTableInfoLayout },
 };
 </script>
 

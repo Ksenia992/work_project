@@ -5,8 +5,6 @@
         color="white"
         @click="drawer = true"
       ></v-app-bar-nav-icon>
-
-      <!-- <v-toolbar-title>Title</v-toolbar-title> -->
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" absolute temporary>
@@ -60,71 +58,6 @@
                 </v-list-item-content>
               </router-link>
             </v-list-item>
-
-            <!-- <v-list-item link>
-                <v-list-item-icon>
-                  <v-icon color="white">mdi-account-group-outline</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title class="white--text"
-                    >Groups</v-list-item-title
-                  >
-                </v-list-item-content>
-              </v-list-item>
-        
-
-            
-              <v-list-item link>
-                <v-list-item-icon>
-                  <v-icon color="white">mdi-phone</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title class="white--text"
-                    >Phone numbers</v-list-item-title
-                  >
-                </v-list-item-content>
-              </v-list-item>
-         
-
-              <v-list-item link>
-                <v-list-item-icon>
-                  <v-icon color="white">mdi-account-circle</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title class="white--text"
-                    >Admins</v-list-item-title
-                  >
-                </v-list-item-content>
-              </v-list-item>
-         
-
-              <v-list-item link>
-                <v-list-item-icon>
-                  <v-icon color="white">mdi-account-group</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title class="white--text"
-                    >Users</v-list-item-title
-                  >
-                </v-list-item-content>
-              </v-list-item>
-      
-
-              <v-list-item link>
-                <v-list-item-icon>
-                  <v-icon color="white">mdi-magnify</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                  <v-list-item-title class="white--text"
-                    >Search</v-list-item-title
-                  >
-                </v-list-item-content>
-              </v-list-item> -->
           </v-list>
         </v-col>
       </v-row>
@@ -169,8 +102,6 @@
 </template>
 
 <script>
-import Check from "../views/Check.vue";
-
 export default {
   data: () => ({
     drawer: false,
@@ -223,7 +154,6 @@ export default {
       return this.activeIndex === this.steps.length - 1;
     },
   },
-  components: { Check },
 };
 </script>
 <style lang="scss">
