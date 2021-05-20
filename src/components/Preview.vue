@@ -41,6 +41,7 @@
             elevation="2"
             rounded
             x-large
+            @click="open"
             >Sign In
           </v-btn>
         </v-col>
@@ -50,8 +51,15 @@
 </template>
 
 <script>
+import ButtonTr from "./Buttons/ButtonTransparent.vue";
 export default {
-  props: ["isOpen"],
+  props: ["openComp"],
+  methods: {
+    open() {
+      this.openComp();
+    },
+  },
+  components: { ButtonTr },
 };
 </script>
 
