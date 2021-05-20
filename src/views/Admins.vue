@@ -30,7 +30,6 @@
                 rounded
                 :block="!$vuetify.breakpoint.smAndUp"
                 >Add<v-icon right> mdi-plus-circle-outline </v-icon>
-                <!-- TODO: Make this button to be block only for small sizes -->
               </v-btn>
             </v-col>
           </v-row>

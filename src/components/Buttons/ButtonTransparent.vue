@@ -1,6 +1,6 @@
 <template>
   <v-btn
-    class="pa-5 mt-10 font-weight-light"
+    class="py-5 px-16 mt-10 font-weight-light"
     outlined
     color="white"
     elevation="2"
@@ -12,7 +12,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["clickHandler"],
+  methods: {
+    open() {
+      this.clickHandler();
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

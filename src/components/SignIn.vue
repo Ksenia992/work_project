@@ -144,38 +144,38 @@ export default {
       }
       this.$refs.btn.disabled = false;
     },
-    // submitHandler() {
-    //   if (this.$v.$invalid) {
-    //     this.$v.$touch();
-    //     return;
-    //   }
-
-    //   const formData = {
-    //     email: this.email,
-    //     password: this.password,
-    //   };
-    //   console.log(formData);
-    //   this.$router.push("/");
-    // },
-    async submitHandler() {
+    submitHandler() {
       if (this.$v.$invalid) {
         this.$v.$touch();
         return;
       }
+
       const formData = {
         email: this.email,
         password: this.password,
       };
-      const response = await fetch("https://api-shark.herokuapp.com/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await response.json();
+      console.log(formData);
       this.$router.push("/");
     },
+    // async submitHandler() {
+    //   if (this.$v.$invalid) {
+    //     this.$v.$touch();
+    //     return;
+    //   }
+    //   const formData = {
+    //     email: this.email,
+    //     password: this.password,
+    //   };
+    //   const response = await fetch("https://api-shark.herokuapp.com/login", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(formData),
+    //   });
+    //   const data = await response.json();
+    //   this.$router.push("/");
+    // },
   },
 };
 </script>

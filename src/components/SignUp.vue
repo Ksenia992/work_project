@@ -14,14 +14,12 @@
         <v-col cols="12" md="6" justify="center" align="center">
           <v-form v-model="valid">
             <v-text-field
-              v-model="firstname"
               label="Name"
               prepend-inner-icon="far fa-user"
               required
             ></v-text-field>
 
             <v-text-field
-              v-model="lastname"
               label="Email"
               prepend-inner-icon="far fa-envelope"
               required
@@ -45,7 +43,6 @@
               :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="[rules.required, rules.min]"
               :type="show3 ? 'text' : 'password'"
-              name="input-10-1"
               @click:append="show3 = !show3"
             ></v-text-field>
 

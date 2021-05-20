@@ -1,6 +1,6 @@
 <template>
   <v-btn
-    class="pa-5 mt-10 font-weight-light white--text mb-5"
+    class="py-5 px-16 mt-10 font-weight-light white--text mb-5"
     color="#1AAA8D"
     elevation="2"
     rounded

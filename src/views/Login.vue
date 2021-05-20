@@ -1,15 +1,21 @@
 <template>
   <v-container class="pa-0 ma-0" fluid>
-    <v-row class="py-0 my-0" v-if="!isOpen">
-      <v-col class="pa-0 ma-0" sm="5" cols="12"
-        ><Preview :openComp="setIsOpen"
-      /></v-col>
-      <v-col class="pa-0 ma-0" sm="7" cols="12"><SignUp /></v-col>
-    </v-row>
-    <v-row class="py-0 my-0" v-if="isOpen">
-      <!-- <v-col class="pa-0 ma-0" sm="7" cols="12"><Preview /></v-col> -->
-      <v-col class="pa-0 ma-0" sm="5" cols="12"><SignIn /></v-col>
-    </v-row>
+    <transition name="anim">
+      <v-row class="py-0 my-0">
+        <v-col
+          class="pa-0 ma-0"
+          :class="{ 'order-last': isOpen }"
+          sm="5"
+          cols="12"
+        >
+          <Preview :openComp="setIsOpen" />
+        </v-col>
+        <v-col class="pa-0 ma-0" sm="7" cols="12">
+          <SignIn v-if="isOpen" />
+          <SignUp v-else />
+        </v-col>
+      </v-row>
+    </transition>
   </v-container>
 </template>
 
@@ -31,6 +37,23 @@ export default {
 };
 </script>
 
+<style scoped>
+.anim-enter-active {
+  animation: anim-in 0.7s;
+}
+.anim-leave-active {
+  animation: anim-in 0.7s reverse;
+}
+@keyframes anim-in {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+</style>
      
 
 
