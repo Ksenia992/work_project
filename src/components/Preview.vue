@@ -21,29 +21,23 @@
           lg="12"
           class="d-flex justify-center align-start pa-15"
         >
-          <v-img src="@/assets/Logo.png" />
-          <span class="white--text pa-3 font-weight-bold">Rylex</span>
+          <v-col class="d-flex" v-if="logoOpen">
+            <v-img src="@/assets/Logo.png" />
+            <span class="white--text pa-3 font-weight-bold">Rylex</span>
+          </v-col>
         </v-col>
       </v-row>
 
       <v-row class="white--text justify-center">
         <v-col cols="12" class="d-flex align-center flex-column">
           <h1 class="text-sm-h6 text-lg-h2 text-xs-h6 pl-xs-4 font-weight-bold">
-            Welcome Back
+            {{ title }}
           </h1>
-          <p class="pt-10 pb-0 mb-0">To keep connected with us please</p>
-          <p class="py-0 mt-0">login with your personal info</p>
-
-          <v-btn
-            class="pa-5 mt-10 font-weight-light"
-            outlined
-            color="white"
-            elevation="2"
-            rounded
-            x-large
-            @click="open"
-            >Sign In
-          </v-btn>
+          <p class="pt-10 pb-0 mb-0">{{ text }}</p>
+          <p class="py-0 mt-0">{{ text_next }}</p>
+          <ButtonWith  :clickHandler="changeTitle" :btn_text="logoOpen ? 'Sign In' : 'Sign Up' " />
+          <!-- <ButtonWith  
+          :clickHandler="changeTitle">{{logoOpen ? 'Sign in' : 'Sign up'}} </ButtonWith> -->
         </v-col>
       </v-row>
     </v-card>
@@ -51,17 +45,34 @@
 </template>
 
 <script>
+import ButtonWith from "./Buttons/ButtonWithBorder.vue";
 export default {
-methods:{
-  open () {
-    this.$emit('openComp')
-  }
-}
+  props: ["openComp"],
+  data: () => ({
+    title: "Welcome Back",
+    text: "To keep connected with us please",
+    text_next: "login with your personal info",
+    logoOpen: true,
+  }),
+  methods: {
+    changeTitle() {
+      
+      this.title = "Hello, friend!";
+      this.text = "Enter your personal details";
+      this.text_next = "and start journey with us";
+      this.logoOpen = false;
+      
+      
+      this.openComp();
+     
+     
+   
+    },
+  },
+  components: { ButtonWith },
 };
 </script>
 
 <style lang="scss" scoped>
-.v-btn {
-  border: 2px solid white;
-}
+
 </style>

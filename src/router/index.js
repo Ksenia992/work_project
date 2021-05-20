@@ -42,6 +42,12 @@ const routes = [
     meta:{layout:'MainTableInfo'},
     component: () => import('../views/Admins.vue')
   },
+  {
+    path: '/users',
+    name: 'users',
+    meta:{layout:'MainTableInfo'},
+    component: () => import('../views/Users.vue')
+  },
 
 
 ]

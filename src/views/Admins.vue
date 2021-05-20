@@ -29,9 +29,10 @@
                 elevation="2"
                 rounded
                 :block="!$vuetify.breakpoint.smAndUp"
+                 @click="() => (isOpen = !isOpen)"
                 >Add<v-icon right> mdi-plus-circle-outline </v-icon>
-                <!-- TODO: Make this button to be block only for small sizes -->
               </v-btn>
+              <editAdmin :open="isOpen" />
             </v-col>
           </v-row>
 
@@ -122,8 +123,10 @@
 </template>
 
 <script>
+import editAdmin from "@/components/Modals/editAdmin.vue"
 export default {
   data: () => ({
+    isOpen:false,
     dialog: false,
     dialogDelete: false,
     headers: [
@@ -292,6 +295,7 @@ export default {
       this.close();
     },
   },
+  components:{editAdmin}
 };
 </script>
 

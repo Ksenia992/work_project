@@ -62,24 +62,27 @@
       elevate-on-scroll
       scroll-target="#scrolling-techniques-7"
     >
-      <divider />
-      <v-toolbar-title class="font-weight-thin text-h6"
-        >Tenants
-      </v-toolbar-title>
+      <v-row class="d-flex justify-center">
+        <v-col cols="10" class="d-flex justify-center">
+          <v-toolbar-title class="font-weight-thin text-h6"
+            >Tenants
+          </v-toolbar-title>
 
-      <v-spacer></v-spacer>
+          <v-spacer></v-spacer>
 
-      <v-btn icon color="#30B78D">
-        <v-icon>mdi-earth</v-icon>
-      </v-btn>
+          <v-btn icon color="#30B78D">
+            <v-icon>mdi-earth</v-icon>
+          </v-btn>
 
-      <v-btn icon color="#30B78D">
-        <v-icon>mdi-information-outline</v-icon>
-      </v-btn>
+          <v-btn icon color="#30B78D">
+            <v-icon>mdi-information-outline</v-icon>
+          </v-btn>
 
-      <v-btn icon color="#30B78D">
-        <v-icon>mdi-account-circle-outline</v-icon>
-      </v-btn>
+          <v-btn icon color="#30B78D">
+            <v-icon>mdi-account-circle-outline</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
     </v-app-bar>
     <v-content>
       <router-view />
