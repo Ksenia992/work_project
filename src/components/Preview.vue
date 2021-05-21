@@ -35,9 +35,7 @@
           </h1>
           <p class="pt-10 pb-0 mb-0">{{ text }}</p>
           <p class="py-0 mt-0">{{ text_next }}</p>
-          <ButtonWith  :clickHandler="changeTitle" :btn_text="logoOpen ? 'Sign In' : 'Sign Up' " />
-          <!-- <ButtonWith  
-          :clickHandler="changeTitle">{{logoOpen ? 'Sign in' : 'Sign up'}} </ButtonWith> -->
+          <ButtonWith :clickHandler="changeTitle" :btn_text="btn_text" />
         </v-col>
       </v-row>
     </v-card>
@@ -49,24 +47,26 @@ import ButtonWith from "./Buttons/ButtonWithBorder.vue";
 export default {
   props: ["openComp"],
   data: () => ({
-    title: "Welcome Back",
+    isSignIn: true,
+    title: "Welcome Back!",
     text: "To keep connected with us please",
     text_next: "login with your personal info",
+    btn_text: "Sign In",
     logoOpen: true,
   }),
   methods: {
     changeTitle() {
-      
-      this.title = "Hello, friend!";
-      this.text = "Enter your personal details";
-      this.text_next = "and start journey with us";
+      this.title = this.isSignIn ? "Hello, friend!" : "Welcome Back!";
+      this.text = this.isSignIn
+        ? "Enter your personal details"
+        : "To keep connected with us please";
+      this.text_next = this.isSignIn
+        ? "and start journey with us"
+        : "login with your personal info";
+      this.btn_text = this.isSignIn ? "Sign Up" : "Sign In";
       this.logoOpen = false;
-      
-      
+      this.isSignIn = !this.isSignIn;
       this.openComp();
-     
-     
-   
     },
   },
   components: { ButtonWith },
@@ -74,5 +74,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

@@ -1,5 +1,4 @@
 <template>
-
   <v-container fill-height fluid>
     <v-row>
       <v-col cols="12" justify="center" align="center">
@@ -61,7 +60,7 @@
                 </div>
               </template>
             </v-checkbox>
-            <v-btn
+            <!-- <v-btn
               class="pa-5 mt-10 font-weight-light white--text"
               color="#1AAA8D"
               elevation="2"
@@ -69,7 +68,8 @@
               type="submit"
               x-large
               >Sign Up
-            </v-btn>
+            </v-btn> -->
+            <ButtonWithout :btn_text="btn_text"></ButtonWithout>
           </v-form>
         </v-col>
       </v-col>
@@ -78,10 +78,13 @@
 </template>
 
 <script>
+import ButtonWithout from "@/components/Buttons/ButtonWithoutBorder.vue";
 export default {
   data: () => ({
     password: "",
     password_repeat: "",
+    btn_text: "Sign Up",
+
     checkbox: false,
     show1: false,
     show2: true,
@@ -92,6 +95,8 @@ export default {
       emailMatch: () => `The email and password you entered don't match`,
     },
   }),
+
+  components: { ButtonWithout },
 };
 </script>
 

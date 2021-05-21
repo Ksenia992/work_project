@@ -7,8 +7,8 @@
     rounded
     x-large
     @click="open"
-    ><slot />
-    {{btn_text}}
+  >
+    {{ btn_text }}
   </v-btn>
 </template>
 
@@ -16,12 +16,12 @@
 export default {
   props: {
     clickHandler: {
-      type:Function
+      type: Function,
     },
-    btn_text:{
-      type:String,
-      required:true
-    }
+    btn_text: {
+      type: String,
+      required: true,
+    },
   },
   //  ["clickHandler", "btn_text"],
   methods: {

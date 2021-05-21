@@ -69,7 +69,7 @@
               <p
                 class="invalid red--text text-overline"
                 color="red"
-                v-if="$v.email.$dirty && !$v.email.required"
+                v-if="email.length > 0 && $v.email.$dirty && !$v.email.required"
               >
                 Email required
               </p>
@@ -82,7 +82,11 @@
               <p
                 class="invalid red--text text-overline"
                 color="red"
-                v-if="$v.password.$dirty && !$v.password.required"
+                v-if="
+                  password.length > 0 &&
+                  $v.password.$dirty &&
+                  !$v.password.required
+                "
               >
                 Type your password
               </p>
@@ -98,17 +102,10 @@
                 Forgot your password?
               </p>
 
-              <v-btn
-                class="pa-5 mt-10 font-weight-light white--text mb-5"
-                color="#1AAA8D"
-                elevation="2"
-                rounded
-                ref="btn"
-                type="submit"
-                x-large
+              <ButtonWithout
                 :disabled="this.$v.$invalid"
-                >Sign In
-              </v-btn>
+                :btn_text="btn_text"
+              ></ButtonWithout>
             </v-form>
           </v-col>
         </v-row>
@@ -119,11 +116,13 @@
 
 <script>
 import { email, required, minLength } from "vuelidate/lib/validators";
+import ButtonWithout from "@/components/Buttons/ButtonWithoutBorder.vue";
 export default {
- 
   data: () => ({
     email: "",
     password: "",
+
+    btn_text: "Sign In",
     show1: false,
     show2: true,
     show3: false,
@@ -158,6 +157,7 @@ export default {
       console.log(formData);
       this.$router.push("/");
     },
+
     // async submitHandler() {
     //   if (this.$v.$invalid) {
     //     this.$v.$touch();
@@ -178,6 +178,7 @@ export default {
     //   this.$router.push("/");
     // },
   },
+  components: { ButtonWithout },
 };
 </script>
 

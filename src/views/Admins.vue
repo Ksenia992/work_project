@@ -29,10 +29,10 @@
                 elevation="2"
                 rounded
                 :block="!$vuetify.breakpoint.smAndUp"
-                 @click="() => (isOpen = !isOpen)"
+                @click="() => (isOpen = !isOpen)"
                 >Add<v-icon right> mdi-plus-circle-outline </v-icon>
               </v-btn>
-              <editAdmin :open="isOpen" />
+              <editAdmin :open="isOpen" @close="closeModal" />
             </v-col>
           </v-row>
 
@@ -123,10 +123,10 @@
 </template>
 
 <script>
-import editAdmin from "@/components/Modals/editAdmin.vue"
+import editAdmin from "@/components/Modals/editAdmin.vue";
 export default {
   data: () => ({
-    isOpen:false,
+    isOpen: false,
     dialog: false,
     dialogDelete: false,
     headers: [
@@ -285,6 +285,9 @@ export default {
         this.editedIndex = -1;
       });
     },
+    closeModal() {
+      this.isOpen = false;
+    },
 
     save() {
       if (this.editedIndex > -1) {
@@ -295,7 +298,7 @@ export default {
       this.close();
     },
   },
-  components:{editAdmin}
+  components: { editAdmin },
 };
 </script>
 
