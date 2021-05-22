@@ -23,15 +23,8 @@
               <template v-slot:top>
                 <v-toolbar flat>
                   <v-spacer></v-spacer>
-                  <v-btn
-                    color="#1AAA8D"
-                    class="white--text pa-5"
-                    elevation="2"
-                    rounded
-                    @click="() => (isVisible = !isVisible)"
-                    >Add <v-icon right> mdi-plus-circle-outline </v-icon></v-btn
-                  >
-                  <Add :show="isVisible" @close="closeModal" />
+                 <AddBtn @showModal="showModal" />
+                  <AddTable :show="isVisible" @close="closeModal" />
                 </v-toolbar>
               </template>
             </v-data-table>
@@ -43,7 +36,8 @@
 </template>
 
 <script>
-import Add from "../components/Modals/Add_table.vue";
+import AddTable from "../components/Modals/Add_table.vue";
+import AddBtn from '../components/Buttons/AddBtn.vue'
 export default {
   data: () => ({
     isVisible: false,
@@ -108,9 +102,12 @@ export default {
   created() {
     this.initialize();
   },
-  components: { Add },
+ 
 
   methods: {
+    showModal() {
+      this.isVisible = !this.isVisible
+    },
     closeModal() {
       this.isVisible = false;
     },
@@ -138,6 +135,7 @@ export default {
     //   this.isVisible = true;
     // },
   },
+   components: { AddTable,AddBtn },
 };
 </script>
 

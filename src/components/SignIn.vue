@@ -35,128 +35,123 @@
         <p class="font-weight-thin">or use your email account</p>
         <v-row>
           <v-col cols="12" justify="center" align="center">
-            <v-form v-model="valid" @submit.prevent="submitHandler">
-              <v-text-field
-                v-model.trim="email"
-                :class="{
-                  invalid:
-                    ($v.email.$dirty && !$v.email.required) ||
-                    ($v.email.$dirty && !$v.email.email),
-                }"
-                label="Email"
-                prepend-inner-icon="far fa-envelope"
-                @blur="checkValue"
-                required
-              ></v-text-field>
-
-              <v-text-field
-                v-model.trim="password"
-                :class="{
-                  invalid:
-                    ($v.password.$dirty && !$v.password.required) ||
-                    ($v.password.$dirty && !$v.password.minLength),
-                }"
-                label="Password"
-                required
-                prepend-inner-icon="fas fa-lock"
-                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                :rules="[rules.required, rules.min]"
-                :type="show1 ? 'text' : 'password'"
-                name="input-10-1"
-                @click:append="show1 = !show1"
-                @blur="checkValue"
-              ></v-text-field>
-              <p
-                class="invalid red--text text-overline"
-                color="red"
-                v-if="email.length > 0 && $v.email.$dirty && !$v.email.required"
-              >
-                Email required
-              </p>
-              <p
-                class="invalid red--text text-overline"
-                v-else-if="$v.email.$dirty && !$v.email.email"
-              >
-                Incorrect format of email
-              </p>
-              <p
-                class="invalid red--text text-overline"
-                color="red"
-                v-if="
-                  password.length > 0 &&
-                  $v.password.$dirty &&
-                  !$v.password.required
-                "
-              >
-                Type your password
-              </p>
-              <p
-                class="invalid red--text text-overline"
-                color="red"
-                v-else-if="$v.password.$dirty && !$v.password.minLength"
-              >
-                Password should be at least 8 symbols.Now it is
-                {{ password.length }}
-              </p>
-              <p class="font-weight-bold text-decoration-underline pointer">
+          
+       <v-form v-model="valid" @submit.prevent="submitHandler">
+          <v-text-field
+      v-model.trim="email"
+      :error-messages="emailErrors"
+      label="E-mail"
+      required
+       prepend-inner-icon="far fa-envelope"
+      @input="$v.email.$touch()"
+      @blur="$v.email.$touch()"
+    ></v-text-field>
+    <v-text-field
+      v-model.trim="password"
+      :error-messages="passwordErrors"
+       prepend-inner-icon="fas fa-lock"
+                :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="showPass ? 'text' : 'password'"
+                 @click:append="showPass = !showPass"
+      counter
+      minLength="8"
+      label="Password"
+      required
+     
+      @input="$v.password.$touch()"
+      @blur="$v.password.$touch()"
+    ></v-text-field>
+    <p class="font-weight-bold text-decoration-underline pointer">
                 Forgot your password?
               </p>
 
-              <ButtonWithout
-                :disabled="this.$v.$invalid"
+  
+            <ButtonWithout
+                 :disabled="this.$v.$invalid"
+                :type='submit'
                 :btn_text="btn_text"
+                 @click="submitHandler"
               ></ButtonWithout>
-            </v-form>
+              </v-form>
+        </v-col>
+      </v-row>
+ 
+
+            
+      
           </v-col>
         </v-row>
-      </v-col>
-    </v-row>
+
   </v-card>
 </template>
 
 <script>
-import { email, required, minLength } from "vuelidate/lib/validators";
+
+ import { validationMixin } from 'vuelidate'
+  import { required, minLength, email } from 'vuelidate/lib/validators'
 import ButtonWithout from "@/components/Buttons/ButtonWithoutBorder.vue";
+
 export default {
+  mixins: [validationMixin],
+    
+    validations: {
+      password: { required, minLength: minLength(8) },
+      email: { required, email },
+    
+    },
   data: () => ({
+    
+   valid:false,
+     
     email: "",
+   
     password: "",
-
+     showPass: false,
+    
+ 
     btn_text: "Sign In",
-    show1: false,
-    show2: true,
-    show3: false,
-    show4: false,
-    rules: {
-      required: (value) => !!value || "Required.",
-      emailMatch: () => `The email and password you entered don't match`,
-    },
+   
   }),
-  validations: {
-    email: { email, required },
-    password: { required, minLength: minLength(8) },
+  computed:{
+    emailErrors () {
+        const errors = []
+        if (!this.$v.email.$dirty) return errors
+        !this.$v.email.email && errors.push('Incorrect format of e-mail')
+        !this.$v.email.required && errors.push('E-mail is required')
+        return errors
+      },
+      passwordErrors () {
+         const errors = []
+        if (!this.$v.password.$dirty) return errors
+        !this.$v.password.minLength && errors.push('Password must be at least 8 symbols')
+        !this.$v.password.required && errors.push('Password is required.')
+        return errors
+      }
   },
+ 
   methods: {
-    checkValue() {
-      if (this.$v.$invalid) {
-        this.$v.$touch();
-        return;
-      }
-      this.$refs.btn.disabled = false;
-    },
-    submitHandler() {
-      if (this.$v.$invalid) {
-        this.$v.$touch();
-        return;
-      }
-
-      const formData = {
-        email: this.email,
-        password: this.password,
+     submitHandler () {
+        this.$v.$touch()
+        const formData = {
+      email: this.email,
+       password: this.password,
       };
-      console.log(formData);
-      this.$router.push("/");
-    },
+     console.log(formData);
+       this.$router.push("/");
+   },
+      },
+ 
+  
+
+      
+
+    //   const formData = {
+    //     email: this.email,
+    //     password: this.password,
+    //   };
+    //   console.log(formData);
+    //   this.$router.push("/");
+    // },
 
     // async submitHandler() {
     //   if (this.$v.$invalid) {
@@ -177,9 +172,12 @@ export default {
     //   const data = await response.json();
     //   this.$router.push("/");
     // },
-  },
-  components: { ButtonWithout },
-};
+      components: { ButtonWithout,  },
+  }
+  
+
+  
+
 </script>
 
 <style lang="scss" scoped>

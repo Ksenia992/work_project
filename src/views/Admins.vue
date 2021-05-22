@@ -23,15 +23,7 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="4">
-              <v-btn
-                color="#1AAA8D"
-                class="white--text pa-5"
-                elevation="2"
-                rounded
-                :block="!$vuetify.breakpoint.smAndUp"
-                @click="() => (isOpen = !isOpen)"
-                >Add<v-icon right> mdi-plus-circle-outline </v-icon>
-              </v-btn>
+           <AddBtn @showModal="showModal" />
               <editAdmin :open="isOpen" @close="closeModal" />
             </v-col>
           </v-row>
@@ -124,6 +116,7 @@
 
 <script>
 import editAdmin from "@/components/Modals/editAdmin.vue";
+import AddBtn from "@/components/Buttons/AddBtn.vue"
 export default {
   data: () => ({
     isOpen: false,
@@ -178,6 +171,9 @@ export default {
   },
 
   methods: {
+    showModal () {
+      this.isOpen = !this.isOpen
+    },
     initialize() {
       this.desserts = [
         {
@@ -298,7 +294,7 @@ export default {
       this.close();
     },
   },
-  components: { editAdmin },
+  components: { editAdmin, AddBtn },
 };
 </script>
 

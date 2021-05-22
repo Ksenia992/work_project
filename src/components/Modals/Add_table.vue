@@ -1,220 +1,161 @@
 <template>
-  <v-dialog v-model="show" max-width="620px">
-    <v-row class="d-flex justify-center pos">
-      <v-col cols="12">
-        <v-card>
-          <v-col class="d-flex justify-end">
-            <v-btn icon @click="close">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </v-col>
-          <v-card-title>
-            <span class="text-h4"
+  <v-dialog
+    :fullscreen="!$vuetify.breakpoint.smAndUp"
+    v-model="show"
+    max-width="620px"
+  >
+    <v-card flat class="mx-auto pa-3" color="#F1FAF7" width="100%" c>
+      <v-row>
+        <v-col class="d-flex justify-end">
+          <v-btn icon @click="close">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-card-title class="pt-0">
+         <span class="text-h4"
               ><v-icon left color="#1AAA8D"> mdi-plus-circle-outline </v-icon
               >{{ formTitle }}
             </span>
-          </v-card-title>
+      </v-card-title>
+  
+<v-row>
+        <v-col cols="12" class="px-10">
+          <v-row
+            v-for="(item, idx) in fields"
+            :key="idx"
+            xs="12"
+            class="pa-0 ma-0 align-baseline"
+            
+          >
+            <v-col cols="12" sm="4" class="pa-0 ma-0">
+              <span :class="{ required: item.required }">{{ item.title }}</span>
+               <p class="font-weight-bold my-10 text-xs-center">{{item.mainTitle}}</p>
+            </v-col>
+          
+           <v-col cols="12" sm="8" class="pa-0 ma-0"
+              ><v-text-field
+                
+                outlined
+                dense
+                >{{ item.field }}
+                 
+              </v-text-field>
+              
+            
+             
+            </v-col>
+          </v-row>
+        </v-col>
 
-          <v-card-text>
-            <v-container>
-              <v-row>
-                <v-col cols="4">
-                  <v-subheader>Tenant name:*</v-subheader>
-                </v-col>
-                <v-col cols="8">
-                  <v-text-field
-                    outlined
-                    v-model="editedItem.name"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="4">
-                  <v-subheader>Type:*</v-subheader>
-                </v-col>
-                <v-col cols="8">
-                  <v-text-field
-                    outlined
-                    v-model="editedItem.type"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="4">
-                  <v-subheader>Support e-mail:*</v-subheader>
-                </v-col>
-                <v-col cols="8">
-                  <v-text-field
-                    outlined
-                    label="callconnect@mail.com"
-                    v-model="editedItem.support"
-                  ></v-text-field>
-                </v-col>
-
-                <v-card-title>
-                  <span class="text-h5">Contact information</span>
-                </v-card-title>
-
-                <v-card-text>
-                  <v-container>
-                    <v-row>
-                      <v-col cols="4">
-                        <v-subheader>Contact name:</v-subheader>
-                      </v-col>
-                      <v-col cols="8">
-                        <v-text-field
-                          outlined
-                          v-model="editedItem.contact_name"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="4">
-                        <v-subheader>Phone number:</v-subheader>
-                      </v-col>
-                      <v-col cols="8">
-                        <v-text-field
-                          outlined
-                          v-model="editedItem.phone"
-                        ></v-text-field>
-                      </v-col>
-
-                      <v-col cols="4">
-                        <v-subheader>Email:</v-subheader>
-                      </v-col>
-                      <v-col cols="8">
-                        <v-text-field
-                          height="10px"
-                          outlined
-                          v-model="editedItem.email"
-                        ></v-text-field>
-                      </v-col>
-                    </v-row>
-                  </v-container>
-                </v-card-text>
-              </v-row>
-            </v-container>
-          </v-card-text>
-
-          <v-card-title>
-            <span class="text-h5">Address information</span>
-          </v-card-title>
-
-          <v-card-text>
-            <v-container>
-              <v-row>
-                <v-col cols="4">
-                  <v-subheader>Street:</v-subheader>
-                </v-col>
-                <v-col cols="8">
-                  <v-text-field
-                    outlined
-                    v-model="editedItem.street"
-                  ></v-text-field>
-                </v-col>
-
-                <v-col cols="4">
-                  <v-subheader>Postal code:</v-subheader>
-                </v-col>
-                <v-col cols="8">
-                  <v-text-field
-                    outlined
-                    v-model="editedItem.postal"
-                  ></v-text-field>
-                </v-col>
-
-                <v-col cols="4">
-                  <v-subheader>City:</v-subheader>
-                </v-col>
-                <v-col cols="8">
-                  <v-text-field
-                    outlined
-                    v-model="editedItem.city"
-                  ></v-text-field>
-                </v-col>
-
-                <v-col cols="4">
-                  <v-subheader>Country:</v-subheader>
-                </v-col>
-                <v-col cols="8">
-                  <v-text-field
-                    outlined
-                    v-model="editedItem.country"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-              color="#fff"
-              class="grey--text"
-              rounded
-              medium
-              outlined
-              @click="close"
-            >
-              Cancel
-            </v-btn>
-            <v-btn
-              color="#1AAA8D"
-              class="white--text"
-              rounded
-              medium
-              @click="save"
-            >
-              Save
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
+         <v-col class="d-flex justify-end mb-10">
+          <CancelBtn @close="close" class="mr-6" />
+          <SaveBtn class="mr-10" />
+        </v-col>
+      </v-row>
+    </v-card>
   </v-dialog>
+          
+          
+          
+          
+          
+          
+          
+
 </template>
 
 <script>
+import CancelBtn from "@/components/Buttons/CancelBtn.vue";
+import SaveBtn from "@/components/Buttons/SaveBtn.vue";
 export default {
   props: ["show"],
   data: () => ({
-    dialog: false,
-    dialogDelete: false,
-    headers: [
+
+   fields: [
       {
-        text: "№",
-        align: "start",
-        sortable: false,
-        value: "name",
-        filterable: false,
-        divider: true,
+       
+        title: "Tenant name:",
+        
+        required:true,
+        field: "",
+        
       },
-      { text: "ID", value: "type" },
-      { text: "Name", value: "support" },
-      { text: "Type", value: "email" },
+      {
+        title: "Type:",
+       
+        field: "",
+        required: true,
+        
+      },
+      {
+        title: "Support e-mail:",
+        
+        field: "",
+        required: true,
+        label:"callconnect@mail.com",
+        mainTitle:'Contact information'
+      },
+      {
+        title: "Contact name:",
+       
+        field: "",
+        
+        
+   
+        
+      },
+
+      {
+        title: "Phone number:",
+       
+        field: "",
+      
+      },
+      {
+        title: "Email:",
+     
+        field: "",
+        mainTitle:'Address information'
+     
+      },
+      {
+        title: "Street:",
+      
+        field: "",
+         
+        
+      },
+        {
+        title: "Postal code:",
+      
+        field: "",
+        
+      },
+        {
+        title: "City:",
+      
+        field: "",
+        
+      },
+        {
+        title: "Country:",
+      
+        field: "",
+        
+      },
     ],
-    desserts: [],
-    editedIndex: -1,
-    editedItem: {
-      name: "",
-      type: "",
-      support: "",
-      contact_name: "",
-      phone: "",
-      email: "",
-      street: "",
-      postal: "",
-      city: "",
-      country: "",
-    },
-    defaultItem: {
-      name: "",
-      type: "",
-      support: "",
-      contact_name: "",
-      phone: "",
-      email: "",
-      street: "",
-      postal: "",
-      city: "",
-      country: "",
-    },
   }),
+  methods: {
+    close() {
+      this.$emit("close");
+      this.open = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+    },
+  },
 
   computed: {
     formTitle() {
@@ -262,8 +203,13 @@ export default {
       this.close();
     },
   },
+   components: { CancelBtn, SaveBtn },
 };
 </script>
 
 <style lang="scss" >
+.required::after {
+  content: " *";
+  color: #1aaa8d;
+}
 </style>
