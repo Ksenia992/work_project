@@ -9,14 +9,15 @@
 <script>
 import MainLayout from "@/Layouts/MainLayout.vue";
 import MainTableInfoLayout from "@/Layouts/MainTableInfoLayout.vue";
+import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 
 export default {
   computed: {
     layout() {
-      return (this.$route.meta.layout || "Login") + "-layout";
+      return (this.$route.meta.layout || "Default") + "-layout";
     },
   },
-  components: { MainLayout, MainTableInfoLayout },
+  components: { MainLayout, MainTableInfoLayout, DefaultLayout },
 };
 </script>
 

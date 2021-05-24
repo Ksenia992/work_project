@@ -15,7 +15,6 @@
 
             <v-col cols="12" sm="8" class="d-flex flex-column">
               <v-text-field
-                v-model="search"
                 prepend-icon="mdi-magnify"
                 label="Search"
                 single-line
@@ -23,13 +22,13 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="4">
-           <AddBtn @showModal="showModal" />
-              <editAdmin :open="isOpen" @close="closeModal" />
+              <AddBtn @showModal="showModal" />
+              <newAdmin :open="isOpen" @close="closeModal" />
             </v-col>
           </v-row>
 
           <v-dialog v-model="dialog" max-width="500px">
-            <template v-slot:activator="{ on, attrs }"> </template>
+            <!-- <template v-slot:activator="{ on, attrs }"> </template> -->
 
             <v-card>
               <v-card-title>
@@ -116,7 +115,8 @@
 
 <script>
 import editAdmin from "@/components/Modals/editAdmin.vue";
-import AddBtn from "@/components/Buttons/AddBtn.vue"
+import newAdmin from "@/components/Modals/newAdmin.vue";
+import AddBtn from "@/components/Buttons/AddBtn.vue";
 export default {
   data: () => ({
     isOpen: false,
@@ -171,8 +171,8 @@ export default {
   },
 
   methods: {
-    showModal () {
-      this.isOpen = !this.isOpen
+    showModal() {
+      this.isOpen = !this.isOpen;
     },
     initialize() {
       this.desserts = [
@@ -294,7 +294,7 @@ export default {
       this.close();
     },
   },
-  components: { editAdmin, AddBtn },
+  components: { editAdmin, newAdmin, AddBtn },
 };
 </script>
 

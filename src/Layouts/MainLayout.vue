@@ -56,12 +56,7 @@
         </v-col>
       </v-row>
     </v-navigation-drawer>
-    <v-app-bar
-      relative
-      color="transparent"
-      elevate-on-scroll
-      scroll-target="#scrolling-techniques-7"
-    >
+    <v-app-bar relative color="transparent" elevate-on-scroll>
       <v-row class="d-flex justify-center">
         <v-col cols="10" class="d-flex justify-center">
           <v-toolbar-title class="font-weight-thin text-h6"
@@ -84,9 +79,9 @@
         </v-col>
       </v-row>
     </v-app-bar>
-    <v-content>
+    <v-main>
       <router-view />
-    </v-content>
+    </v-main>
   </v-card>
 </template>
 

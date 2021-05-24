@@ -7,7 +7,6 @@
         </v-col>
         <v-col cols="12" sm="8" class="d-flex flex-column">
           <v-text-field
-            v-model="search"
             prepend-icon="mdi-magnify"
             label="Search"
             single-line

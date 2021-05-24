@@ -135,21 +135,6 @@ export default {
 </script>
 
 <style lang="scss">
-// fieldset {
-//   height: 40px;
-// }
-// .v-text-field--outlined .v-text-field__slot,
-// .v-text-field--single-line .v-text-field__slot {
-//   align-items: flex-start;
-// }
-// .v-input
-//   theme--light
-//   v-text-field
-//   v-text-field--is-booted
-//   v-text-field--enclosed
-//   v-text-field--outlined {
-//   height: 50px;
-// }
 .required::after {
   content: " *";
   color: #1aaa8d;

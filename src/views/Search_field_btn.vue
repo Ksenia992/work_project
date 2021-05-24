@@ -2,7 +2,6 @@
   <v-row>
     <v-col cols="6" class="d-flex pl-8">
       <v-text-field
-        v-model="search"
         prepend-icon="mdi-magnify"
         label="Search"
         single-line
