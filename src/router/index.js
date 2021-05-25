@@ -48,12 +48,12 @@ const routes = [
     meta:{layout:'MainTableInfo'},
     component: () => import('../views/Users.vue')
   },
-  {
-    path: '/check',
-    name: 'check',
-    meta:{layout:'MainTableInfo'},
-    component: () => import('../components/sign.vue')
-  },
+  // {
+  //   path: '/check',
+  //   name: 'check',
+  //   meta:{layout:'MainTableInfo'},
+  //   component: () => import('../components/sign.vue')
+  // },
 
 
 ]

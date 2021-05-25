@@ -13,56 +13,38 @@
         </v-col>
       </v-row>
       <v-card-title class="pt-0">
-         <span class="text-h4"
-              ><v-icon left color="#1AAA8D"> mdi-plus-circle-outline </v-icon
-              >{{ formTitle }}
-            </span>
+        <span class="text-h4"
+          ><v-icon left color="#1AAA8D"> mdi-plus-circle-outline </v-icon
+          >{{ formTitle }}
+        </span>
       </v-card-title>
-  
-<v-row>
+      <v-row>
         <v-col cols="12" class="px-10">
           <v-row
             v-for="(item, idx) in fields"
             :key="idx"
             xs="12"
             class="pa-0 ma-0 align-baseline"
-            
           >
             <v-col cols="12" sm="4" class="pa-0 ma-0">
               <span :class="{ required: item.required }">{{ item.title }}</span>
-               <p class="font-weight-bold my-10 text-xs-center">{{item.mainTitle}}</p>
+              <p class="font-weight-bold my-10 text-xs-center">
+                {{ item.mainTitle }}
+              </p>
             </v-col>
-          
-           <v-col cols="12" sm="8" class="pa-0 ma-0"
-              ><v-text-field
-                
-                outlined
-                dense
-                >{{ item.field }}
-                 
-              </v-text-field>
-              
-            
-             
+
+            <v-col cols="12" sm="8" class="pa-0 ma-0"
+              ><v-text-field outlined dense>{{ item.field }} </v-text-field>
             </v-col>
           </v-row>
         </v-col>
-
-         <v-col class="d-flex justify-end mb-10">
+        <v-col class="d-flex justify-end mb-10">
           <CancelBtn @close="close" class="mr-6" />
           <SaveBtn class="mr-10" />
         </v-col>
       </v-row>
     </v-card>
   </v-dialog>
-          
-          
-          
-          
-          
-          
-          
-
 </template>
 
 <script>
@@ -71,78 +53,63 @@ import SaveBtn from "@/components/Buttons/SaveBtn.vue";
 export default {
   props: ["show"],
   data: () => ({
-
-   fields: [
+    fields: [
       {
-       
         title: "Tenant name:",
-        
-        required:true,
+
+        required: true,
         field: "",
-        
       },
       {
         title: "Type:",
-       
+
         field: "",
         required: true,
-        
       },
       {
         title: "Support e-mail:",
-        
+
         field: "",
         required: true,
-        label:"callconnect@mail.com",
-        mainTitle:'Contact information'
+        label: "callconnect@mail.com",
+        mainTitle: "Contact information",
       },
       {
         title: "Contact name:",
-       
+
         field: "",
-        
-        
-   
-        
       },
 
       {
         title: "Phone number:",
-       
+
         field: "",
-      
       },
       {
         title: "Email:",
-     
+
         field: "",
-        mainTitle:'Address information'
-     
+        mainTitle: "Address information",
       },
       {
         title: "Street:",
-      
+
         field: "",
-         
-        
       },
-        {
+      {
         title: "Postal code:",
-      
+
         field: "",
-        
       },
-        {
+      {
         title: "City:",
-      
+
         field: "",
-        
       },
-        {
+      {
         title: "Country:",
-      
+
         field: "",
-        
       },
     ],
   }),
@@ -203,7 +170,7 @@ export default {
       this.close();
     },
   },
-   components: { CancelBtn, SaveBtn },
+  components: { CancelBtn, SaveBtn },
 };
 </script>
 

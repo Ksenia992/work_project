@@ -114,6 +114,8 @@ export default {
       !this.$v.password.required && errors.push("Password is required.");
       return errors;
     },
+
+    ...mapState("auth", ["isLogged", "loading"]),
   },
 
   methods: {
@@ -123,7 +125,7 @@ export default {
         email: this.email,
         password: this.password,
       };
-      this.$store.dispatch("SIGN_IN", formData);
+      this.$store.dispatch("auth/SIGN_IN", formData);
       // this.$router.push("/");
     },
 
@@ -153,6 +155,7 @@ export default {
     //   this.$router.push("/");
     // },
   },
+  components: { ButtonWithout },
 
   // async submitHandler() {
   //   if (this.$v.$invalid) {
@@ -173,7 +176,6 @@ export default {
   //   const data = await response.json();
   //   this.$router.push("/");
   // },
-  components: { ButtonWithout },
 };
 </script>
 
