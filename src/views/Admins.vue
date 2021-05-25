@@ -22,8 +22,11 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="4">
-              <AddBtn @showModal="showModal" />
-              <newAdmin :open="isOpen" @close="closeModal" />
+              <AddBtn @showModal="openTestModal" />
+              <AddBtn @showModal="openSecondModal" />
+              <newAdmin ref="testRef" />
+              <test ref="test"></test>
+              <!-- <deleteAdmin :open="isOpen" /> -->
             </v-col>
           </v-row>
 
@@ -99,7 +102,7 @@
             </v-card>
           </v-dialog>
         </template>
-        <template v-slot:item.actions="{ item }">
+        <template>
           <v-icon small class="mr-2" @click="editItem(item)">
             mdi-pencil
           </v-icon>
@@ -115,8 +118,15 @@
 
 <script>
 import editAdmin from "@/components/Modals/editAdmin.vue";
-import newAdmin from "@/components/Modals/newAdmin.vue";
+// import newAdmin from "@/components/Modals/newAdmin.vue";
+import newAdmin from "@/components/Modals/test.vue";
+import test from "@/components/Modals/test2.vue";
+import deleteAdmin from "@/components/Modals/deleteAdmin";
 import AddBtn from "@/components/Buttons/AddBtn.vue";
+import withLogicModal from "@/components/Modals/withLogicModal";
+
+// const newAdminWithLogicModal = withLogicModal(newAdmin);
+
 export default {
   data: () => ({
     isOpen: false,
@@ -157,6 +167,10 @@ export default {
     },
   },
 
+  mounted() {
+    console.log(this.$refs.testRef);
+  },
+
   watch: {
     dialog(val) {
       val || this.close();
@@ -171,8 +185,11 @@ export default {
   },
 
   methods: {
-    showModal() {
-      this.isOpen = !this.isOpen;
+    openTestModal() {
+      this.$refs.testRef.open();
+    },
+    openSecondModal() {
+      this.$refs.test.open();
     },
     initialize() {
       this.desserts = [
@@ -294,7 +311,14 @@ export default {
       this.close();
     },
   },
-  components: { editAdmin, newAdmin, AddBtn },
+  components: {
+    editAdmin,
+    // newAdmin: newAdminWithLogicModal,
+    newAdmin,
+    AddBtn,
+    deleteAdmin,
+    test,
+  },
 };
 </script>
 

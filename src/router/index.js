@@ -52,7 +52,7 @@ const routes = [
   //   path: '/check',
   //   name: 'check',
   //   meta:{layout:'MainTableInfo'},
-  //   component: () => import('../components/sign.vue')
+  //   component: () => import('../components/Modals/deleteAdmin.vue')
   // },
 
 

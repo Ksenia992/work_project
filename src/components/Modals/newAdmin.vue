@@ -118,14 +118,6 @@ export default {
     ],
   }),
   methods: {
-    close() {
-      this.$emit("close");
-      this.open = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
     changePassInp(item) {
       console.log(item);
       item.showPass = !item.showPass;

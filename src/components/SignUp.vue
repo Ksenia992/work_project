@@ -38,15 +38,15 @@
             <v-form @submit.prevent="submit">
               <div class="form-group">
                 <v-text-field
-                  v-model.trim="name"
+                  v-model.trim="username"
                   :error-messages="nameErrors"
                   label="Name"
                   :counter="20"
                   minLength="3"
                   maxLength="20"
                   prepend-inner-icon="far fa-user"
-                  @input="$v.name.$touch()"
-                  @blur="$v.name.$touch()"
+                  @input="$v.username.$touch()"
+                  @blur="$v.username.$touch()"
                 ></v-text-field>
                 <v-text-field
                   v-model.trim="email"
@@ -70,29 +70,6 @@
                   @blur="$v.password.$touch()"
                   autocomplete="off"
                 ></v-text-field>
-                <!-- <div
-                  v-if="this.submitted && $v.user.password.$error"
-                  class="invalid-feedback left"
-                >
-                  <span v-if="!$v.user.password.required"
-                    >Password is required</span
-                  >
-                  <span v-if="user.password && !$v.user.password.valid"
-                    >Password contains atleast One Uppercase, One Lowercase, One
-                    Number and One Special Chacter</span
-                  >
-                  <span
-                    v-if="
-                      user.password &&
-                      $v.user.password.valid &&
-                      !$v.user.password.minLength
-                    "
-                    >Password must be at least 8 characters</span
-                  >
-                  <span v-if="user.password && !$v.user.password.maxLength"
-                    >Password must be maximum 32 characters</span
-                  >
-                </div> -->
               </div>
               <div class="form-group">
                 <v-text-field
@@ -109,22 +86,6 @@
                   @blur="$v.password_repeat.$touch()"
                   autocomplete="off"
                 ></v-text-field>
-
-                <!-- <div
-                  v-if="this.submitted && $v.user.confirmPassword.$error"
-                  class="invalid-feedback left"
-                >
-                  <span v-if="!$v.user.confirmPassword.required"
-                    >Confirm Password is required</span
-                  >
-                  <span
-                    v-if="
-                      user.confirmPassword &&
-                      !$v.user.confirmPassword.sameAsPassword
-                    "
-                    >Password and Confirm Password should match</span
-                  >
-                </div> -->
               </div>
 
               <v-checkbox
@@ -135,9 +96,6 @@
                 @change="$v.checkbox.$touch()"
                 @blur="$v.checkbox.$touch()"
               ></v-checkbox>
-              <!-- <span v-if="!$v.user.checkbox.required"
-                >Checkbox is required</span
-              > -->
 
               <ButtonWithout
                 :type="submit"
@@ -180,7 +138,7 @@ export default {
       password: "",
       password_repeat: "",
       checkbox: false,
-      name: "",
+      username: "",
       email: "",
 
       submitted: false,
@@ -194,6 +152,9 @@ export default {
         const containsLowercase = /[a-z]/.test(value);
         const containsNumber = /[0-9]/.test(value);
         const containsSpecial = /[#?!@$%^&*-]/.test(value);
+        // const check = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|]).{8,32}$".test(
+        //   value
+        // );
         return (
           containsUppercase &&
           containsLowercase &&
@@ -206,7 +167,7 @@ export default {
     },
     password_repeat: { required, sameAsPassword: sameAs("password") },
     checkbox: { required },
-    name: { required, maxLength: maxLength(20), minLength: minLength(3) },
+    username: { required, maxLength: maxLength(20), minLength: minLength(3) },
     email: { required, email },
     checkbox: {
       checked(val) {
@@ -233,7 +194,7 @@ export default {
 
       !this.$v.password.valid &&
         errors.push(
-          "Password contains at least One Uppercase, One Lowercase, One  number and One Special Chacter"
+          "One Uppercase, One Lowercase, One  number and One Special symbol"
         );
       return errors;
     },
@@ -251,11 +212,11 @@ export default {
     },
     nameErrors() {
       const errors = [];
-      if (!this.$v.name.$dirty) return errors;
-      !this.$v.name.maxLength &&
+      if (!this.$v.username.$dirty) return errors;
+      !this.$v.username.maxLength &&
         errors.push("Name must be at most 20 characters long");
-      !this.$v.name.required && errors.push("Name is required");
-      !this.$v.name.minLength &&
+      !this.$v.username.required && errors.push("Name is required");
+      !this.$v.username.minLength &&
         errors.push("Name must be at least 3 characters");
       return errors;
     },
@@ -271,7 +232,7 @@ export default {
     submit() {
       this.$v.$touch();
       const formData = {
-        name: this.name,
+        username: this.username,
         email: this.email,
         password: this.password,
         password_repeat: this.password_repeat,

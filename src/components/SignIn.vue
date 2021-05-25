@@ -37,13 +37,12 @@
           <v-col cols="12" justify="center" align="center">
             <v-form @submit.prevent="submit">
               <v-text-field
-                v-model.trim="email"
-                :error-messages="emailErrors"
-                label="E-mail"
+                v-model.trim="username"
+                label="Username"
                 required
-                prepend-inner-icon="far fa-envelope"
-                @input="$v.email.$touch()"
-                @blur="$v.email.$touch()"
+                prepend-inner-icon="far fa-user"
+                @input="$v.username.$touch()"
+                @blur="$v.username.$touch()"
               ></v-text-field>
               <v-text-field
                 v-model.trim="password"
@@ -88,10 +87,10 @@ export default {
 
   validations: {
     password: { required, minLength: minLength(8) },
-    email: { required, email },
+    username: { required },
   },
   data: () => ({
-    email: "",
+    username: "",
 
     password: "",
     showPass: false,
@@ -99,13 +98,13 @@ export default {
     btn_text: "Sign In",
   }),
   computed: {
-    emailErrors() {
-      const errors = [];
-      if (!this.$v.email.$dirty) return errors;
-      !this.$v.email.email && errors.push("Incorrect format of e-mail");
-      !this.$v.email.required && errors.push("E-mail is required");
-      return errors;
-    },
+    // emailErrors() {
+    //   const errors = [];
+    //   if (!this.$v.email.$dirty) return errors;
+    //   !this.$v.email.email && errors.push("Incorrect format of e-mail");
+    //   !this.$v.email.required && errors.push("E-mail is required");
+    //   return errors;
+    // },
     passwordErrors() {
       const errors = [];
       if (!this.$v.password.$dirty) return errors;
@@ -122,7 +121,7 @@ export default {
     submit() {
       this.$v.$touch();
       const formData = {
-        email: this.email,
+        username: this.username,
         password: this.password,
       };
       this.$store.dispatch("auth/SIGN_IN", formData);
