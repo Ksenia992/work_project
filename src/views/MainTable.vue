@@ -14,6 +14,7 @@
         <v-row>
           <v-col cols="12" xs="12">
             <v-data-table
+              v-if="!isTenantsLoading"
               :headers="headers"
               :items="desserts"
               sort-by="calories"
@@ -28,6 +29,16 @@
                 </v-toolbar>
               </template>
             </v-data-table>
+            <v-card v-else>
+              <v-row>
+                <v-col cols="12" md="4">
+                  <v-skeleton-loader
+                    v-bind="attrs"
+                    type="card-avatar, article, actions"
+                  ></v-skeleton-loader>
+                </v-col>
+              </v-row>
+            </v-card>
           </v-col>
         </v-row>
       </v-card>
@@ -38,8 +49,14 @@
 <script>
 import AddTable from "../components/Modals/Add_table.vue";
 import AddBtn from "../components/Buttons/AddBtn.vue";
+import { mapState } from "vuex";
 export default {
   data: () => ({
+    attrs: {
+      class: "mb-6",
+      boilerplate: true,
+      elevation: 2,
+    },
     isVisible: false,
     dialog: false,
     dialogDelete: false,
@@ -85,9 +102,10 @@ export default {
   }),
 
   computed: {
-    formTitle() {
-      return (this.editedIndex = "Add tenants");
-    },
+    ...mapState("tenants", ["isTenantsLoading"]),
+  },
+  mounted() {
+    this.$store.dispatch("tenants/GET_TENANTS");
   },
 
   watch: {
@@ -99,9 +117,9 @@ export default {
     },
   },
 
-  created() {
-    this.initialize();
-  },
+  // created() {
+  //   this.initialize();
+  // },
 
   methods: {
     openAdd() {

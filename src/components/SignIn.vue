@@ -125,7 +125,7 @@ export default {
         password: this.password,
       };
       this.$store.dispatch("auth/SIGN_IN", formData);
-      // this.$router.push("/");
+      this.$router.push("/");
     },
 
     // submitHandler() {

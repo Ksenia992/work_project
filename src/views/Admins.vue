@@ -165,10 +165,6 @@ export default {
     },
   },
 
-  mounted() {
-    console.log(this.$refs.newAdm);
-  },
-
   watch: {
     dialog(val) {
       val || this.close();

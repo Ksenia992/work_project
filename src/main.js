@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
+window.axios = require('axios');
 
 import App from './App.vue'
 import './registerServiceWorker'
@@ -11,6 +12,7 @@ Vue.config.productionTip = false
 
 
 Vue.use(Vuelidate)
+
 
 
 new Vue({
