@@ -1,3 +1,5 @@
+import axios from "@/utils/axios"
+// import storage from "@/utils/"
 const state = {
    
   };
@@ -8,25 +10,25 @@ const state = {
 
   };
 
-
-  
+ 
   const actions = {
     async SIGN_IN({ commit, dispatch }, payload) {
-
+      
  
-
+     
       axios({
         method: 'post',
-        url: 'https://api-shark.herokuapp.com/login',
+        url: '/login',
       
         data: payload,
         headers: {
           "Content-type": "application/json; charset=UTF-8"
         }
       })
-      .then(function(response) {
-       
-        console.log(response.data);
+      .then(function(key,response) {
+        console.log(response)
+        localStorage.setItem('tokennn', JSON.stringify(response))
+        // console.log(response.data);
       })
       .catch(function(error) {
         console.log(error);
@@ -48,7 +50,7 @@ const state = {
 
       axios({
         method: 'post',
-        url: 'https://api-shark.herokuapp.com/signup',
+        url: `/signup`,
       
         data: payload,
         headers: {
@@ -56,8 +58,8 @@ const state = {
         }
       })
       .then(function(response) {
+        console.log(response.data)
         
-        console.log(response.data);
       })
       .catch(function(error) {
         console.log(error);

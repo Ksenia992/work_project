@@ -1,3 +1,5 @@
+import axios from "@/utils/axios"
+
 const state = {
   tenants: [],
   isTenantsLoading: false,
@@ -14,16 +16,9 @@ const mutations = {
 const actions = {
   async GET_TENANTS({ commit, dispatch }, payload) {
     commit("LOADING", true);
+    console.dir(axios);
 
-    axios({
-      method: "get",
-      url: "https://api-shark.herokuapp.com/tenants",
-
-      data: payload,
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
+    axios.get('/tenants')
       .then(function(response) {
           console.log('Success')
         console.log(response.data);
