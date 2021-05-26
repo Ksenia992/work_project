@@ -10,6 +10,12 @@ const state = {
 
   };
 
+
+
+
+
+
+  
  
   const actions = {
     async SIGN_IN({ commit, dispatch }, payload) {
@@ -25,10 +31,10 @@ const state = {
           "Content-type": "application/json; charset=UTF-8"
         }
       })
-      .then(function(key,response) {
-        console.log(response)
-        localStorage.setItem('tokennn', JSON.stringify(response))
-        // console.log(response.data);
+      .then( (response) => {
+        console.log(response.data)
+        localStorage.setItem('tokeNnn', JSON.stringify(response.data))
+       
       })
       .catch(function(error) {
         console.log(error);
@@ -57,7 +63,7 @@ const state = {
           "Content-type": "application/json; charset=UTF-8"
         }
       })
-      .then(function(response) {
+      .then( (response) => {
         console.log(response.data)
         
       })
