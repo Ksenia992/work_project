@@ -37,23 +37,20 @@
             <v-divider></v-divider>
             <v-list-item
               link
-              v-for="(step, idx) in steps"
+              v-for="(item, idx) in items"
               :key="idx"
-              :class="{
-                active: idx === activeIndex,
-                done: idx < activeIndex,
-              }"
-              @click="setActive(idx), (drawer = false)"
+            
+              @click="(drawer = false)"
               class="d-flex"
             >
-              <router-link :to="{ path: step.path }">
+              <router-link :to="{ path: item.path }">
                 <v-list-item-icon>
-                  <v-icon color="white">{{ step.icon }}</v-icon>
+                  <v-icon color="white">{{ item.icon }}</v-icon>
                 </v-list-item-icon>
 
                 <v-list-item-content>
                   <v-list-item-title class="white--text">{{
-                    step.title
+                    item.text
                   }}</v-list-item-title>
                 </v-list-item-content>
               </router-link>
@@ -66,13 +63,12 @@
     <v-app-bar relative color="transparent" elevate-on-scroll>
       <v-col cols="10" class="d-flex justify-center">
         <v-toolbar-title class="font-weight-thin text-h6"
-          >Tenants
+         
 
-          <v-icon>mdi-arrow-right</v-icon>
-          CallConnect
+        
 
-          <v-icon>mdi-arrow-right</v-icon>
-          {{ activeStep.title }}
+    
+          <v-breadcrumbs :items="items" divider=">"></v-breadcrumbs>
         </v-toolbar-title>
       </v-col>
 
@@ -101,54 +97,50 @@ export default {
   data: () => ({
     drawer: false,
     group: null,
-    activeIndex: 0,
-    isActive: true,
-    steps: [
-      { title: "Groups", icon: "mdi-account-group-outline", path: "/groups" },
-      { title: "Phone numbers", icon: "mdi-phone", path: "" },
-      { title: "Admins", icon: "mdi-account-circle", path: "/admins" },
-      { title: "Users", icon: "mdi-account-group", path: "" },
-      { title: "Search", icon: "mdi-magnify", path: "" },
+
+    items: [
+      // {
+      //   title: "Tenants",
+      //   disabled: false,
+      //   href: "breadcrumbs_dashboard",
+      // },
+
+      {
+        text: "Groups",
+        disabled: true,
+        icon: "mdi-account-group-outline",
+        path: "/groups",
+        href: "/groups",
+      },
+      {
+        text: "Phone numbers",
+        disabled: true,
+        icon: "mdi-phone",
+        path: "",
+        href: "breadcrumbs_link_2",
+      },
+      {
+        text: "Admins",
+        disabled: false,
+        icon: "mdi-account-circle",
+        path: "/admins",
+        href: "/admins",
+      },
+      {
+        text: "Users",
+        disabled: true,
+        icon: "mdi-account-group",
+        path: "",
+      },
+      {
+        text: "Search",
+
+        disabled: true,
+        icon: "mdi-magnify",
+        path: "",
+      },
     ],
   }),
-  methods: {
-    prev() {
-      if (this.activeIndex !== 0) {
-        this.activeIndex--;
-      }
-      // console.log(this.activeIndex)
-    },
-    reset() {
-      this.activeIndex = 0;
-      this.isActive = true;
-    },
-
-    nextOfFinish() {
-      // console.log(this.activeIndex)
-      // console.log(this.steps.length - 1)
-      if (this.activeIndex !== this.steps.length - 1) {
-        this.activeIndex++;
-      } else {
-        this.isActive = false;
-      }
-    },
-    setActive(idx) {
-      this.activeIndex = idx;
-
-      // console.log(this.activeIndex)
-    },
-  },
-  computed: {
-    activeStep() {
-      return this.steps[this.activeIndex];
-    },
-    prevDisabled() {
-      return this.activeIndex === 0;
-    },
-    isLastStep() {
-      return this.activeIndex === this.steps.length - 1;
-    },
-  },
 };
 </script>
 <style lang="scss">

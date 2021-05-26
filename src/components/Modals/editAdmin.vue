@@ -1,63 +1,28 @@
 <template>
-  <v-dialog
-    :fullscreen="!$vuetify.breakpoint.smAndUp"
-    v-model="open"
-    max-width="620px"
-  >
-    <v-card flat class="mx-auto pa-3" color="#F1FAF7" width="100%" c>
-      <v-row>
-        <v-col class="d-flex justify-end">
-          <v-btn icon @click="close">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-col>
-      </v-row>
-      <v-card-title class="pt-0">
-        <v-icon large left color="#1AAA8D"> mdi-lead-pencil</v-icon>
-        <span class="title">Edit admin</span>
-      </v-card-title>
-
-      <v-row>
-        <v-col cols="12" class="px-10">
-          <v-row
-            v-for="(item, idx) in fields"
-            :key="idx"
-            xs="12"
-            class="pa-0 ma-0"
-          >
-            <v-col cols="12" sm="4" class="pa-0 ma-0">
-              <span :class="{ required: item.required }">{{ item.title }}</span>
-            </v-col>
-            <v-col cols="12" sm="8" class="pa-0 ma-0"
-              ><v-text-field
-                :append-icon="item.appendIcon"
-                :type="item.type"
-                @click:append="changePassInp(item)"
-                v-model.trim="item.value"
-                outlined
-                dense
-                >{{ item.field }}
-              </v-text-field>
-            </v-col>
-          </v-row>
-        </v-col>
-        <v-col class="d-flex justify-end mb-10">
-          <CancelBtn @close="close" class="mr-6" />
-          <SaveBtn class="mr-10" />
-        </v-col>
-      </v-row>
-    </v-card>
-  </v-dialog>
+  <ModalGlobal ref="global">
+    <v-row v-for="(item, idx) in fields" :key="idx" xs="12" class="pa-0 ma-0">
+      <v-col cols="12" sm="4" class="pa-0 ma-0">
+        <span :class="{ required: item.required }">{{ item.title }}</span>
+      </v-col>
+      <v-col cols="12" sm="8" class="pa-0 ma-0"
+        ><v-text-field
+          :append-icon="item.appendIcon"
+          :type="item.type"
+          @click:append="changePassInp(item)"
+          v-model.trim="item.value"
+          outlined
+          dense
+          >{{ item.field }}
+        </v-text-field>
+      </v-col>
+    </v-row>
+  </ModalGlobal>
 </template>
 
 <script>
-import CancelBtn from "@/components/Buttons/CancelBtn.vue";
-import SaveBtn from "@/components/Buttons/SaveBtn.vue";
-
+import ModalGlobal from "./modalGlobal.vue";
 export default {
-  props: ["open"],
   data: () => ({
-    password: "",
     fields: [
       {
         title: "Admin ID:",
@@ -115,13 +80,8 @@ export default {
     ],
   }),
   methods: {
-    close() {
-      this.$emit("close");
-      this.open = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
+    open() {
+      this.$refs.global.open({ title: "Edit admin" });
     },
     changePassInp(item) {
       console.log(item);
@@ -130,13 +90,9 @@ export default {
       item.type = item.showPass ? "text" : "password";
     },
   },
-  components: { CancelBtn, SaveBtn },
+  components: { ModalGlobal },
 };
 </script>
 
 <style lang="scss">
-.required::after {
-  content: " *";
-  color: #1aaa8d;
-}
 </style>

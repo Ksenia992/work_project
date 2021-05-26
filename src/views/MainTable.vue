@@ -23,8 +23,8 @@
               <template v-slot:top>
                 <v-toolbar flat>
                   <v-spacer></v-spacer>
-                 <AddBtn @showModal="showModal" />
-                  <AddTable :show="isVisible" @close="closeModal" />
+                  <AddBtn @showModal="openAdd" />
+                  <AddTable ref="addTenants" />
                 </v-toolbar>
               </template>
             </v-data-table>
@@ -37,7 +37,7 @@
 
 <script>
 import AddTable from "../components/Modals/Add_table.vue";
-import AddBtn from '../components/Buttons/AddBtn.vue'
+import AddBtn from "../components/Buttons/AddBtn.vue";
 export default {
   data: () => ({
     isVisible: false,
@@ -102,11 +102,10 @@ export default {
   created() {
     this.initialize();
   },
- 
 
   methods: {
-    showModal() {
-      this.isVisible = !this.isVisible
+    openAdd() {
+      this.$refs.addTenants.open();
     },
     closeModal() {
       this.isVisible = false;
@@ -135,7 +134,7 @@ export default {
     //   this.isVisible = true;
     // },
   },
-   components: { AddTable,AddBtn },
+  components: { AddTable, AddBtn },
 };
 </script>
 

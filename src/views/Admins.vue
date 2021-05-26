@@ -22,10 +22,12 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="4">
-              <AddBtn @showModal="openTestModal" />
-              <AddBtn @showModal="openSecondModal" />
-              <newAdmin ref="testRef" />
-              <test ref="test"></test>
+              <AddBtn @showModal="openFirstModal" />
+
+              <newAdmin ref="newAdm" />
+              <editAdmin ref="editAdm" />
+              <deleteAdmin ref="deleteAdm" />
+              <!-- <test ref="test"></test> -->
               <!-- <deleteAdmin :open="isOpen" /> -->
             </v-col>
           </v-row>
@@ -102,14 +104,11 @@
             </v-card>
           </v-dialog>
         </template>
-        <template>
-          <v-icon small class="mr-2" @click="editItem(item)">
+        <template v-slot:item.actions="{ item }">
+          <v-icon small class="mr-2" @click="openSecondModal">
             mdi-pencil
           </v-icon>
-          <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
-        </template>
-        <template v-slot:no-data>
-          <v-btn color="primary" @click="initialize"> Reset </v-btn>
+          <v-icon small @click="openThirdModal"> mdi-delete </v-icon>
         </template>
       </v-data-table>
     </v-col>
@@ -118,20 +117,18 @@
 
 <script>
 import editAdmin from "@/components/Modals/editAdmin.vue";
-// import newAdmin from "@/components/Modals/newAdmin.vue";
-import newAdmin from "@/components/Modals/test.vue";
-import test from "@/components/Modals/test2.vue";
+
+import newAdmin from "@/components/Modals/newAdmin.vue";
+
 import deleteAdmin from "@/components/Modals/deleteAdmin";
 import AddBtn from "@/components/Buttons/AddBtn.vue";
-import withLogicModal from "@/components/Modals/withLogicModal";
-
-// const newAdminWithLogicModal = withLogicModal(newAdmin);
 
 export default {
   data: () => ({
     isOpen: false,
     dialog: false,
     dialogDelete: false,
+
     headers: [
       {
         text: "ID",
@@ -142,6 +139,7 @@ export default {
       { text: "First name", value: "calories" },
       { text: "Last name", value: "fat" },
       { text: "Language", value: "carbs" },
+      { text: "", value: "actions" },
     ],
     desserts: [],
     editedIndex: -1,
@@ -168,7 +166,7 @@ export default {
   },
 
   mounted() {
-    console.log(this.$refs.testRef);
+    console.log(this.$refs.newAdm);
   },
 
   watch: {
@@ -185,11 +183,14 @@ export default {
   },
 
   methods: {
-    openTestModal() {
-      this.$refs.testRef.open();
+    openFirstModal() {
+      this.$refs.newAdm.open();
     },
     openSecondModal() {
-      this.$refs.test.open();
+      this.$refs.editAdm.open();
+    },
+    openThirdModal() {
+      this.$refs.deleteAdm.open();
     },
     initialize() {
       this.desserts = [
@@ -199,6 +200,8 @@ export default {
           fat: 6.0,
           carbs: 24,
           protein: 4.0,
+          icon: "mdi - pencil",
+          icon_two: "mdi-delete",
         },
         {
           name: "Ice cream sandwich",
@@ -313,11 +316,10 @@ export default {
   },
   components: {
     editAdmin,
-    // newAdmin: newAdminWithLogicModal,
+
     newAdmin,
     AddBtn,
     deleteAdmin,
-    test,
   },
 };
 </script>
