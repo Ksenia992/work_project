@@ -31,7 +31,7 @@
             </v-data-table>
             <v-card v-else>
               <v-row>
-                <v-col cols="12" md="4">
+                <v-col cols="12" md="12">
                   <v-skeleton-loader
                     v-bind="attrs"
                     type="card-avatar, article, actions"
@@ -42,6 +42,7 @@
           </v-col>
         </v-row>
       </v-card>
+      <v-btn @click="logOut" color="primary" class="ma-16">logout</v-btn>
     </v-col>
   </v-row>
 </template>
@@ -111,9 +112,6 @@ export default {
   mounted() {
     this.$store.dispatch("tenants/GET_TENANTS");
   },
-  updated() {
-    console.log("upd", this.tenants);
-  },
 
   watch: {
     dialog(val) {
@@ -134,6 +132,9 @@ export default {
     },
     closeModal() {
       this.isVisible = false;
+    },
+    logOut() {
+      this.$store.dispatch("auth/LOG_OUT");
     },
     // initialize() {
     //   this.desserts = [

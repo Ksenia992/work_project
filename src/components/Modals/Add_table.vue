@@ -7,14 +7,18 @@
       class="pa-0 ma-0 align-baseline"
     >
       <v-col cols="12" sm="4" class="pa-0 ma-0">
-        <span :class="{ required: item.required }">{{ item.title }}</span>
+        <span :class="{ required: item.required }">
+          {{ item.title }}
+        </span>
         <p class="font-weight-bold my-10 text-xs-center">
           {{ item.mainTitle }}
         </p>
       </v-col>
 
-      <v-col cols="12" sm="8" class="pa-0 ma-0"
-        ><v-text-field outlined dense>{{ item.field }} </v-text-field>
+      <v-col cols="12" sm="8" class="pa-0 ma-0">
+        <v-text-field outlined dense>
+          {{ item.field }}
+        </v-text-field>
       </v-col>
     </v-row>
   </ModalGlobal>

@@ -113,10 +113,6 @@
 
 
 // :disabled="this.isDisabled"
-
-
-
-
 <script>
 import ButtonWithout from "@/components/Buttons/ButtonWithoutBorder.vue";
 import {
@@ -132,15 +128,12 @@ export default {
     return {
       showPass: false,
       showPass2: false,
-
       btn_text: "Sign Up",
-
       password: "",
       password_repeat: "",
       checkbox: false,
       username: "",
       email: "",
-
       submitted: false,
     };
   },

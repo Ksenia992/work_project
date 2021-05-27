@@ -91,10 +91,8 @@ export default {
   },
   data: () => ({
     username: "",
-
     password: "",
     showPass: false,
-
     btn_text: "Sign In",
   }),
   computed: {

@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-v-btn {
+.v-btn {
   border: 1px solid #949494 !important;
 }
 </style>

@@ -6,7 +6,9 @@
     :block="!$vuetify.breakpoint.smAndUp"
     rounded
     @click="show"
-    >Add <v-icon right> mdi-plus-circle-outline </v-icon></v-btn
+  >
+    Add
+    <v-icon right> mdi-plus-circle-outline </v-icon></v-btn
   >
 </template>
 
@@ -20,5 +22,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

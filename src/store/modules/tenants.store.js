@@ -13,28 +13,37 @@ const mutations = {
     state.isTenantsLoading = payload;
   },
   SET_TENANTS: (state, payload) => {
-    state.tenants = payload
-  }
-  
+    state.tenants = payload;
+  },
 };
 
 const actions = {
   async GET_TENANTS({ commit, dispatch }, payload) {
     commit("LOADING", true);
 
-    axios
-      .get("/tenants")
-      .then(({ data }) => {
-        console.log("Success");
-        // console.log(data);
-        if(data && data.tenants && Array.isArray(data.tenants)) {
-          commit("SET_TENANTS", data.tenants ?? [])
-        } 
-      })
-      .catch((error) => {
-        console.log("Error");
-        console.log(error);
-      });
+    try {
+      const { data } = await axios.get("/tenants");
+      if (data && data.tenants && Array.isArray(data.tenants)) {
+        commit("SET_TENANTS", data.tenants ?? []);
+      }
+    } catch (error) {
+      console.log("Error");
+      console.log(error);
+    }
+
+    // axios
+    // .get("/tenants")
+    // .then(({ data }) => {
+    //   console.log("Success");
+    //   // console.log(data);
+    //   if(data && data.tenants && Array.isArray(data.tenants)) {
+    //     commit("SET_TENANTS", data.tenants ?? [])
+    //   }
+    // })
+    // .catch((error) => {
+    //   console.log("Error");
+    //   console.log(error);
+    // });
 
     commit("LOADING", false);
   },
