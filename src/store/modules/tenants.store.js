@@ -1,4 +1,5 @@
-import axios from "@/utils/axios"
+import axios from "@/utils/axios";
+import storage from "@/utils/storage";
 
 const state = {
   tenants: [],
@@ -11,20 +12,27 @@ const mutations = {
   LOADING: (state, payload) => {
     state.isTenantsLoading = payload;
   },
+  SET_TENANTS: (state, payload) => {
+    state.tenants = payload
+  }
+  
 };
 
 const actions = {
   async GET_TENANTS({ commit, dispatch }, payload) {
     commit("LOADING", true);
-    console.dir(axios);
 
-    axios.get('/tenants')
-      .then(function(response) {
-          console.log('Success')
-        console.log(response.data);
+    axios
+      .get("/tenants")
+      .then(({ data }) => {
+        console.log("Success");
+        // console.log(data);
+        if(data && data.tenants && Array.isArray(data.tenants)) {
+          commit("SET_TENANTS", data.tenants ?? [])
+        } 
       })
-      .catch(function(error) {
-          console.log('Error')
+      .catch((error) => {
+        console.log("Error");
         console.log(error);
       });
 

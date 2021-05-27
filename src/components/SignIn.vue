@@ -64,7 +64,7 @@
 
               <ButtonWithout
                 :disabled="this.$v.$invalid"
-                :type="submit"
+                type="submit"
                 :btn_text="btn_text"
                 @click="submit"
               ></ButtonWithout>

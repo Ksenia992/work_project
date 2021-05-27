@@ -14,7 +14,7 @@ Vue.config.productionTip = false
 
 
 Vue.use(Vuelidate)
-Vue.use(axios)
+// Vue.use(axios)
 
 
 new Vue({

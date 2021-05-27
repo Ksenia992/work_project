@@ -14,10 +14,10 @@
         <v-row>
           <v-col cols="12" xs="12">
             <v-data-table
-              v-if="!isTenantsLoading"
+              v-if="!isTenantsLoading && tenants"
               :headers="headers"
-              :items="desserts"
-              sort-by="calories"
+              :items="tenants"
+              :items-per-page="5"
               class="elevation-1"
               disable-sort
             >
@@ -50,6 +50,7 @@
 import AddTable from "../components/Modals/Add_table.vue";
 import AddBtn from "../components/Buttons/AddBtn.vue";
 import { mapState } from "vuex";
+
 export default {
   data: () => ({
     attrs: {
@@ -70,10 +71,9 @@ export default {
         divider: true,
       },
       { text: "ID", value: "type" },
-      { text: "Name", value: "support" },
+      { text: "Name", value: "name" },
       { text: "Type", value: "email" },
     ],
-    desserts: [],
     editedIndex: -1,
     editedItem: {
       name: "",
@@ -102,10 +102,17 @@ export default {
   }),
 
   computed: {
-    ...mapState("tenants", ["isTenantsLoading"]),
+    ...mapState("tenants", ["isTenantsLoading", "tenants"]),
+    tenants2() {
+      if (!this.$store.state.tenants) return null;
+      return this.$store.state.tenants.tenants;
+    },
   },
   mounted() {
     this.$store.dispatch("tenants/GET_TENANTS");
+  },
+  updated() {
+    console.log("upd", this.tenants);
   },
 
   watch: {
@@ -128,17 +135,17 @@ export default {
     closeModal() {
       this.isVisible = false;
     },
-    initialize() {
-      this.desserts = [
-        {
-          name: "Frozen Yogurt",
-          type: 159,
-          support: 6.0,
-          email: 24,
-          street: 4.0,
-        },
-      ];
-    },
+    // initialize() {
+    //   this.desserts = [
+    //     {
+    //       name: "Frozen Yogurt",
+    //       type: 159,
+    //       support: 6.0,
+    //       email: 24,
+    //       street: 4.0,
+    //     },
+    //   ];
+    // },
 
     // save() {
     //   if (this.editedIndex > -1) {
