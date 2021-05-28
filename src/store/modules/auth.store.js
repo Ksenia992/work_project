@@ -2,13 +2,17 @@ import axios from "@/utils/axios";
 import storage from "@/utils/storage";
 
 const state = {
-  user:{
-  token: null,
+  user: {
+    token: null,
   isLogged: false
   }
 };
 
-const getters = {};
+const getters = {
+  // auth(state) {
+  //   return state.user
+  // }
+};
 
 const mutations = {
   TOKEN: (state, payload) => {
@@ -22,7 +26,8 @@ const mutations = {
 
 const actions = {
   async SIGN_IN({ commit, dispatch }, payload) {
-   
+    // commit('TOKEN', payload);
+    commit('IS_LOGGED', true);
    try {
      const response = await axios.post("/login", payload)
      if(response?.data?.accessToken) {

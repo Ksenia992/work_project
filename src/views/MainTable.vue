@@ -1,5 +1,6 @@
 <template>
   <v-row class="justify-center">
+    <router-view />
     <v-col cols="10">
       <v-card>
         <v-card-title>
@@ -111,6 +112,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("tenants/GET_TENANTS");
+    console.log(this.$store);
   },
 
   watch: {
