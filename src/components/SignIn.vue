@@ -63,6 +63,7 @@
               </p>
 
               <ButtonWithout
+                :loading="isPageLoading"
                 :disabled="this.$v.$invalid"
                 type="submit"
                 :btn_text="btn_text"
@@ -75,6 +76,8 @@
     </v-row>
   </v-card>
 </template>
+
+
 
 <script>
 import { validationMixin } from "vuelidate";
@@ -96,13 +99,6 @@ export default {
     btn_text: "Sign In",
   }),
   computed: {
-    // emailErrors() {
-    //   const errors = [];
-    //   if (!this.$v.email.$dirty) return errors;
-    //   !this.$v.email.email && errors.push("Incorrect format of e-mail");
-    //   !this.$v.email.required && errors.push("E-mail is required");
-    //   return errors;
-    // },
     passwordErrors() {
       const errors = [];
       if (!this.$v.password.$dirty) return errors;
@@ -112,18 +108,21 @@ export default {
       return errors;
     },
 
-    ...mapState("auth", ["isLogged", "loading"]),
+    ...mapState("auth", ["isLogged", "isPageLoading"]),
   },
 
   methods: {
-    submit() {
+    async submit() {
       this.$v.$touch();
       const formData = {
         username: this.username,
         password: this.password,
       };
-      this.$store.dispatch("auth/SIGN_IN", formData);
-      // this.$router.push("/");
+      await this.$store.dispatch("auth/SIGN_IN", formData);
+      console.log(this.isLogged);
+      if (this.isLogged) {
+        this.$router.push("/");
+      }
     },
 
     // submitHandler() {

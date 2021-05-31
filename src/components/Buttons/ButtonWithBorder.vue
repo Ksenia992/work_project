@@ -1,6 +1,6 @@
 <template>
   <v-btn
-    class="py-5 px-16 mt-10 font-weight-light"
+    class="py-4 px-16 mt-10 font-weight-light"
     outlined
     color="white"
     elevation="2"

@@ -8,6 +8,7 @@
     type="submit"
     x-large
     :disabled="disabled"
+    :loading="loading"
     >{{ btn_text }}
   </v-btn>
 </template>
@@ -23,6 +24,7 @@ export default {
       required: true,
     },
     disabled: {},
+    loading: {},
   },
 };
 </script>

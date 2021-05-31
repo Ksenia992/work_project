@@ -105,6 +105,7 @@ export default {
 
   computed: {
     ...mapState("tenants", ["isTenantsLoading", "tenants"]),
+    ...mapState("auth", ["isLogged"]),
     tenants2() {
       if (!this.$store.state.tenants) return null;
       return this.$store.state.tenants.tenants;
@@ -135,8 +136,12 @@ export default {
     closeModal() {
       this.isVisible = false;
     },
-    logOut() {
-      this.$store.dispatch("auth/LOG_OUT");
+    async logOut() {
+      await this.$store.dispatch("auth/LOG_OUT");
+      console.log(this.isLogged);
+      if (!this.isLogged) {
+        this.$router.push("/login");
+      }
     },
     // initialize() {
     //   this.desserts = [

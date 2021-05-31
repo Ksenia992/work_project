@@ -1,10 +1,5 @@
 <template>
-  <v-img
-    lazy-src="@/assets/Background.png"
-    height="100vh"
-    max-width="100%"
-    src="@/assets/Background.png"
-  >
+  <v-img lazy-src="@/assets/Background.png" height="875px" max-width="100%">
     <v-card
       class="d-flex align-center justify-center flex-column"
       flat
@@ -73,5 +68,16 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+// v-img {
+//   overflow: hidden !important;
+// }
 </style>
+
+
+
+
+
+
+
+

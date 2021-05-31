@@ -9,6 +9,7 @@
 
 <script>
 import ModalGlobal from "./modalGlobal.vue";
+
 export default {
   data: () => ({
     admin_name: "cory_tenant",

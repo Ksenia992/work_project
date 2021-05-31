@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pa-0 ma-0" fluid>
+  <v-container class="pa-0 ma-0 overflow-hidden" fluid fill-height>
     <transition name="anim">
       <v-row class="py-0 my-0">
         <v-col
@@ -27,10 +27,8 @@ import SignIn from "@/components/SignIn.vue";
 export default {
   data: () => ({
     isOpen: false,
- 
   }),
-  
- 
+
   components: { Preview, SignUp, SignIn },
   methods: {
     setIsOpen() {

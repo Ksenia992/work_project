@@ -1,11 +1,13 @@
 import axios from "@/utils/axios";
 import storage from "@/utils/storage";
 
+
 const state = {
-  user: {
+    isPageLoading:false,
     token: null,
-  isLogged: false
-  }
+  isLogged: false,
+  
+
 };
 
 const getters = {
@@ -16,65 +18,56 @@ const getters = {
 
 const mutations = {
   TOKEN: (state, payload) => {
-    state.user.token = payload;
+    state.token = payload;
   },
   IS_LOGGED: (state, payload) => {
-    state.user.isLogged = payload;
+    state.isLogged = payload;
+  },
+  LOADING: (state, payload) => {
+    state.isPageLoading = payload;
   },
 };
 
 
 const actions = {
   async SIGN_IN({ commit, dispatch }, payload) {
-    // commit('TOKEN', payload);
-    commit('IS_LOGGED', true);
+    commit("LOADING", true);
+ 
    try {
      const response = await axios.post("/login", payload)
-     if(response?.data?.accessToken) {
+     if (response?.data?.accessToken) {
       localStorage.set("token", response.data.accessToken);
+      commit('IS_LOGGED', true);
+      
+      // this.$router.push("/")
+
      }
    } catch (error) {
     console.log("Error");
     console.log(error);
   }
+  commit("LOADING", false);
+
+
    
-    // axios
-    //   .post("/login", payload)
-    //   .then((response) => {
-    //     // console.log(response.data)
-    //     // console.log(payload)
-    //     // console.log(response.headers)
-    //     console.log(response.data.accessToken)
-
-    //     localStorage.set("token", response.data.accessToken);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-
-    // const response =  await fetch("https://api-shark.herokuapp.com/login", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(payload),
-    //     });
-    //     const data = await response.json();
-    //     console.log(data);
+   
   },
 
 
   
  async SIGN_UP({ commit, dispatch }, payload) {
+  commit("LOADING", true);
     
    try {
      const response = await axios.post("/signup", payload)
+     commit('IS_LOGGED', true);
     
    } 
   catch (error) {
     console.log('Error')
     console.log(error)
   }
+  commit("LOADING", false);
   
 
 
@@ -89,12 +82,12 @@ const actions = {
     //     console.log(data);
   },
   async LOG_OUT({commit, dispatch}, payload) {
-   
+  
       commit('TOKEN', null);
       // commit('LOGOUT', null);
-      commit('IS_LOGGED', false);
+   
       localStorage.removeItem('token');
-  
+      commit('IS_LOGGED', false);
   }
 };
 

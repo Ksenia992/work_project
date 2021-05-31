@@ -25,13 +25,15 @@
         <h1 class="teal--text display-3 text-sm-h6 text-lg-h2 font-weight-bold">
           Create account
         </h1>
+        <v-col class="d-flex justify-center">
+          <v-btn icon class="pa-8" fab>
+            <v-icon>fab fa-facebook-f</v-icon>
+          </v-btn>
+          <v-btn icon class="pa-8" fab>
+            <v-icon>fab fa-google-plus-g </v-icon>
+          </v-btn>
+        </v-col>
 
-        <v-btn icon class="pa-10">
-          <v-icon>fab fa-facebook-f</v-icon>
-        </v-btn>
-        <v-btn icon>
-          <v-icon>fab fa-google-plus-g</v-icon>
-        </v-btn>
         <p class="font-weight-thin">or use your email for registration</p>
         <v-row>
           <v-col cols="12" justify="center" align="center">
@@ -98,6 +100,7 @@
               ></v-checkbox>
 
               <ButtonWithout
+                :loading="isPageLoading"
                 :type="submit"
                 :disabled="this.$v.$invalid"
                 @click="submit"
@@ -115,6 +118,7 @@
 // :disabled="this.isDisabled"
 <script>
 import ButtonWithout from "@/components/Buttons/ButtonWithoutBorder.vue";
+import { mapState } from "vuex";
 import {
   required,
   minLength,
@@ -173,9 +177,7 @@ export default {
   //     return this.$v.$touch();
   //   },
   computed: {
-    // isDisabled() {
-    //   return this.$v.$invalid;
-    // },
+    ...mapState("auth", ["isPageLoading"]),
     passwordErrors() {
       const errors = [];
       if (!this.$v.password.$dirty) return errors;
@@ -238,7 +240,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .invalid-feedback {
   color: red;
 }
