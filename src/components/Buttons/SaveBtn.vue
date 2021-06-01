@@ -6,12 +6,15 @@
     rounded
     ref="btn"
     middle
+    @click="saveHandler()"
     >Save
   </v-btn>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["saveHandler"],
+};
 </script>
 
 <style lang="scss" scoped>

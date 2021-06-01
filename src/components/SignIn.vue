@@ -26,10 +26,10 @@
           Sign in to Rulex
         </h1>
 
-        <v-btn icon class="pa-10">
+        <v-btn icon class="pa-10" fab>
           <v-icon>fab fa-facebook-f</v-icon>
         </v-btn>
-        <v-btn icon>
+        <v-btn icon fab>
           <v-icon>fab fa-google-plus-g</v-icon>
         </v-btn>
         <p class="font-weight-thin">or use your email account</p>

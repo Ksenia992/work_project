@@ -31,42 +31,26 @@ const actions = {
       console.log(error);
     }
 
-    // axios
-    // .get("/tenants")
-    // .then(({ data }) => {
-    //   console.log("Success");
-    //   // console.log(data);
-    //   if(data && data.tenants && Array.isArray(data.tenants)) {
-    //     commit("SET_TENANTS", data.tenants ?? [])
-    //   }
-    // })
-    // .catch((error) => {
-    //   console.log("Error");
-    //   console.log(error);
-    // });
+
 
     commit("LOADING", false);
   },
-  //   async Sdsdsdsdsdsds({ commit, dispatch }, payload) {
+  async ADD_TENANTS({ commit, dispatch }, payload) {
+    commit("LOADING", true);
 
-  //     axios({
-  //       method: 'post',
-  //       url: 'https://api-shark.herokuapp.com/tenants',
+    try {
+      const response = await axios.post("/tenants",payload);
+    
+    } catch (error) {
+      console.log("Error");
+      console.log(error);
+    }
 
-  //       data: payload,
-  //       headers: {
-  //         "Content-type": "application/json; charset=UTF-8"
-  //       }
-  //     })
-  //     .then(function(response) {
 
-  //       console.log(response.data);
-  //     })
-  //     .catch(function(error) {
-  //       console.log(error);
-  //     });
 
-  // },
+    commit("LOADING", false);
+  },
+ 
 };
 
 export default {

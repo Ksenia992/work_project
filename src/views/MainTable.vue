@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import AddTable from "../components/Modals/Add_table.vue";
+import AddTable from "../components/Modals/Add_tenants.vue";
 import AddBtn from "../components/Buttons/AddBtn.vue";
 import { mapState } from "vuex";
 

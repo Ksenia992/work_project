@@ -17,6 +17,9 @@ export default {
       return (this.$route.meta.layout || "Default") + "-layout";
     },
   },
+  created() {
+    this.$store.dispatch("auth/CHECK_TOKEN");
+  },
   components: { MainLayout, MainTableInfoLayout, DefaultLayout },
 };
 </script>
@@ -28,7 +31,7 @@ export default {
 .v-application a {
   text-decoration: none;
 }
-/* v-text-field,
+v-text-field,
 v-text-field:before,
 v-text-field:after {
   -webkit-user-select: initial;
@@ -45,7 +48,7 @@ input:after {
   -moz-user-select: initial;
   -ms-user-select: initial;
   user-select: initial;
-} */
+}
 </style>
 
 

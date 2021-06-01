@@ -47,10 +47,13 @@ const actions = {
     console.log(error);
   }
   commit("LOADING", false);
+  },
 
-
-   
-   
+  CHECK_TOKEN({ commit, dispatch }, payload) {
+    const token = localStorage.getItem('token')
+    if (token) {
+      commit('IS_LOGGED', true);
+    }
   },
 
 

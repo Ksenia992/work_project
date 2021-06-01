@@ -23,17 +23,33 @@
 import Preview from "@/components/Preview.vue";
 import SignUp from "@/components/SignUp.vue";
 import SignIn from "@/components/SignIn.vue";
+import { mapState } from "vuex";
 
 export default {
   data: () => ({
     isOpen: false,
   }),
+  // watch: {
+  //    isLogged: function (val) {
+  //     this.isLogged = val
+  // },
 
   components: { Preview, SignUp, SignIn },
   methods: {
     setIsOpen() {
       this.isOpen = !this.isOpen;
     },
+  },
+  computed: {
+    ...mapState("auth", ["isLogged"]),
+    isLoggedIn: function () {
+      return this.$store.isLogged;
+    },
+  },
+  created() {
+    if (this.isLogged) {
+      this.$router.replace("/");
+    }
   },
 };
 </script>

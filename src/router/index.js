@@ -29,12 +29,12 @@ const routes = [
 },
 
     component: () => import('../views/MainTable.vue'),
-    children:[{
-      path: '/search',
-      name: 'main.search',
-      meta:{layout:'Main'},
-      component: () => import('../views/Search.vue')
-    }],
+    // children:[{
+    //   path: '/search',
+    //   name: 'main.search',
+    //   meta:{layout:'Main'},
+    //   component: () => import('../views/Search.vue')
+    // }],
     // beforeEnter: (to, from, next) => {
     //   if (store.state.user.isLogged) {
     //     next({ name: 'admins' });
@@ -58,7 +58,7 @@ const routes = [
     path: '/CallConnect',
     name: 'call',
     meta:{layout:'MainTableInfo'},
-    component: () => import('@/components/Modals/Add_table.vue')
+    component: () => import('@/components/Modals/Add_tenants.vue')
   },
    {
     path: '/groups',
