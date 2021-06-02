@@ -37,9 +37,11 @@
   </v-img>
 </template>
 
-<script>
+<script lang='ts'>
 import ButtonWith from "./Buttons/ButtonWithBorder.vue";
-export default {
+import Vue from "vue";
+
+export default Vue.extend({
   props: ["openComp"],
   data: () => ({
     isSignIn: true,
@@ -65,7 +67,7 @@ export default {
     },
   },
   components: { ButtonWith },
-};
+});
 </script>
 
 <style lang="scss">

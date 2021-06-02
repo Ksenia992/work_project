@@ -19,13 +19,14 @@
   </v-container>
 </template>
 
-<script>
+<script lang='ts'>
+import Vue from "vue";
 import Preview from "@/components/Preview.vue";
 import SignUp from "@/components/SignUp.vue";
 import SignIn from "@/components/SignIn.vue";
 import { mapState } from "vuex";
 
-export default {
+export default Vue.extend({
   data: () => ({
     isOpen: false,
   }),
@@ -57,7 +58,7 @@ export default {
   created() {
     this.goHome(this.isLogged);
   },
-};
+});
 </script>
 
 <style scoped>

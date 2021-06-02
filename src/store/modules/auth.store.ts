@@ -1,5 +1,5 @@
 import axios from "@/utils/axios";
-import storage from "@/utils/storage";
+
 
 
 const state = {
@@ -36,7 +36,7 @@ const actions = {
    try {
      const response = await axios.post("/login", payload)
      if (response?.data?.accessToken) {
-      localStorage.set("token", response.data.accessToken);
+      localStorage.setItem("token", response.data.accessToken);
       commit('IS_LOGGED', true);
       
       // this.$router.push("/")
