@@ -5,15 +5,17 @@
     elevation="2"
     rounded
     ref="btn"
+    type="submit"
     middle
-    @click="saveHandler()"
+    @click="submit"
+    :disabled="disabled"
     >Save
   </v-btn>
 </template>
 
 <script>
 export default {
-  props: ["saveHandler"],
+  props: ["submit", "disabled"],
 };
 </script>
 

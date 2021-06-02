@@ -39,17 +39,23 @@ export default {
     setIsOpen() {
       this.isOpen = !this.isOpen;
     },
+    goHome(val) {
+      if (val) this.$router.replace("/");
+    },
   },
   computed: {
     ...mapState("auth", ["isLogged"]),
-    isLoggedIn: function () {
-      return this.$store.isLogged;
+    // isLoggedIn: function () {
+    //   return this.$store.isLogged;
+    // },
+  },
+  watch: {
+    isLogged(newVal, oldVal) {
+      this.goHome(newVal);
     },
   },
   created() {
-    if (this.isLogged) {
-      this.$router.replace("/");
-    }
+    this.goHome(this.isLogged);
   },
 };
 </script>

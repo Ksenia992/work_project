@@ -23,7 +23,12 @@
         </v-col>
         <v-col class="d-flex justify-end mb-10">
           <CancelBtn @close="close" class="mr-6" />
-          <SaveBtn class="mr-10" :saveHandler="saveHandler" />
+          <SaveBtn
+            class="mr-10"
+            :submit="submit"
+            :disabled="!isFormValid"
+            type="submit"
+          />
         </v-col>
       </v-row>
     </v-card>
@@ -39,7 +44,7 @@ export default {
     isOpen: false,
     title: "",
   }),
-  props: ["saveHandler"],
+  props: ["submit", "isFormValid"],
   methods: {
     close() {
       this.isOpen = false;
