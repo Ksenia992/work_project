@@ -5,20 +5,31 @@ const state = {
   tenants: [],
   isTenantsLoading: false,
 };
+type TenantsState = {
+  isTenantsLoading: boolean;
+  tenants:string[]
+}
+
+type TenantMethods = {
+  commit: (arg: string,arg2:boolean) => void
+  dispatch:any
+
+}
+
 
 const getters = {};
 
 const mutations = {
-  LOADING: (state, payload) => {
+  LOADING: (state:TenantsState, payload:any) => {
     state.isTenantsLoading = payload;
   },
-  SET_TENANTS: (state, payload) => {
+  SET_TENANTS: (state:TenantsState, payload:any) => {
     state.tenants = payload;
   },
 };
 
 const actions = {
-  async GET_TENANTS({ commit, dispatch }, payload) {
+  async GET_TENANTS({ commit, dispatch }:TenantMethods, payload:any) {
     commit("LOADING", true);
 
     try {
@@ -35,7 +46,7 @@ const actions = {
 
     commit("LOADING", false);
   },
-  async ADD_TENANTS({ commit, dispatch }, payload) {
+  async ADD_TENANTS({ commit, dispatch }:TenantMethods, payload:any) {
     commit("LOADING", true);
 
     try {

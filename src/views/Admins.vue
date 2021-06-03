@@ -3,7 +3,7 @@
     <v-col cols="10" class="offset-md-2">
       <v-data-table
         :headers="headers"
-        :items="desserts"
+        :items="admins"
         disable-sort
         class="elevation-1"
       >
@@ -115,15 +115,17 @@
   </v-row>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
 import editAdmin from "@/components/Modals/editAdmin.vue";
+import { Admin } from "@/types/types";
 
 import newAdmin from "@/components/Modals/newAdmin.vue";
 
-import deleteAdmin from "@/components/Modals/deleteAdmin";
+import deleteAdmin from "@/components/Modals/deleteAdmin.vue";
 import AddBtn from "@/components/Buttons/AddBtn.vue";
 
-export default {
+export default Vue.extend({
   data: () => ({
     isOpen: false,
     dialog: false,
@@ -134,14 +136,14 @@ export default {
         text: "ID",
         align: "start",
         sortable: false,
-        value: "name",
+        value: "id",
       },
-      { text: "First name", value: "calories" },
-      { text: "Last name", value: "fat" },
-      { text: "Language", value: "carbs" },
+      { text: "First name", value: "firstName" },
+      { text: "Last name", value: "lastName" },
+      { text: "Language", value: "language" },
       { text: "", value: "actions" },
     ],
-    desserts: [],
+    admins: [],
     editedIndex: -1,
     editedItem: {
       name: "",
@@ -189,96 +191,84 @@ export default {
       this.$refs.deleteAdm.open();
     },
     initialize() {
-      this.desserts = [
+      this.admins = [
         {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          icon: "mdi - pencil",
-          icon_two: "mdi-delete",
+          id: "cory_tenant",
+          firstName: "Cory",
+          lastName: "Johnston",
+          language: "English",
         },
         {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
+          id: "cory_tenant",
+          firstName: "Cory",
+          lastName: "Johnston",
+          language: "English",
         },
         {
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
+          id: "cory_tenant",
+          firstName: "Cory",
+          lastName: "Johnston",
+          language: "English",
         },
         {
-          name: "Cupcake",
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
+          id: "cory_tenant",
+          firstName: "Cory",
+          lastName: "Johnston",
+          language: "English",
         },
         {
-          name: "Gingerbread",
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
+          id: "cory_tenant",
+          firstName: "Cory",
+          lastName: "Johnston",
+          language: "English",
         },
         {
-          name: "Jelly bean",
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
+          id: "cory_tenant",
+          firstName: "Cory",
+          lastName: "Johnston",
+          language: "English",
         },
         {
-          name: "Lollipop",
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
+          id: "cory_tenant",
+          firstName: "Cory",
+          lastName: "Johnston",
+          language: "English",
         },
         {
-          name: "Honeycomb",
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
+          id: "cory_tenant",
+          firstName: "Cory",
+          lastName: "Johnston",
+          language: "English",
         },
         {
-          name: "Donut",
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
+          id: "cory_tenant",
+          firstName: "Cory",
+          lastName: "Johnston",
+          language: "English",
         },
         {
-          name: "KitKat",
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
+          id: "cory_tenant",
+          firstName: "Cory",
+          lastName: "Johnston",
+          language: "English",
         },
       ];
     },
 
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.admins.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.admins.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
+      this.admins.splice(this.editedIndex, 1);
       this.closeDelete();
     },
 
@@ -303,9 +293,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
+        Object.assign(this.admins[this.editedIndex], this.editedItem);
       } else {
-        this.desserts.push(this.editedItem);
+        this.admins.push(this.editedItem);
       }
       this.close();
     },
@@ -317,7 +307,7 @@ export default {
     AddBtn,
     deleteAdmin,
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

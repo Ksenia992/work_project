@@ -48,12 +48,13 @@
   </v-row>
 </template>
 
-<script>
-import AddTable from "../components/Modals/Add_tenants.vue";
-import AddBtn from "../components/Buttons/AddBtn.vue";
+<script lang='ts'>
+import Vue from "vue";
+import AddTable from "@/components/Modals/Add_tenants.vue";
+import AddBtn from "@/components/Buttons/AddBtn.vue";
 import { mapState } from "vuex";
 
-export default {
+export default Vue.extend({
   data: () => ({
     attrs: {
       class: "mb-6",
@@ -168,7 +169,7 @@ export default {
     // },
   },
   components: { AddTable, AddBtn },
-};
+});
 </script>
 
 

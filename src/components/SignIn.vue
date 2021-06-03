@@ -79,13 +79,14 @@
 
 
 
-<script>
+<script lang="ts">
+import Vue from "vue";
 import { validationMixin } from "vuelidate";
 import { required, minLength, email } from "vuelidate/lib/validators";
 import ButtonWithout from "@/components/Buttons/ButtonWithoutBorder.vue";
 import { mapState } from "vuex";
 
-export default {
+export default Vue.extend({
   mixins: [validationMixin],
 
   validations: {
@@ -172,7 +173,7 @@ export default {
   //   const data = await response.json();
   //   this.$router.push("/");
   // },
-};
+});
 </script>
 
 <style lang="scss" scoped>

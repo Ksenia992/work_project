@@ -6,7 +6,7 @@
   </v-app>
 </template>
 
-<script>
+<script >
 import MainLayout from "@/Layouts/MainLayout.vue";
 import MainTableInfoLayout from "@/Layouts/MainTableInfoLayout.vue";
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";

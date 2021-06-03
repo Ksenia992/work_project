@@ -5,10 +5,20 @@ import axios from "@/utils/axios";
 const state = {
     isPageLoading:false,
     token: null,
-  isLogged: false,
-  
-
+    isLogged: false,
 };
+
+type AuthState = {
+  isPageLoading: boolean;
+  token: string | null;
+  isLogged: boolean
+}
+
+type AuthMethods = {
+  commit: (arg: string,arg2:boolean|null) => void
+  dispatch:any
+
+}
 
 const getters = {
   // auth(state) {
@@ -17,20 +27,20 @@ const getters = {
 };
 
 const mutations = {
-  TOKEN: (state, payload) => {
+  TOKEN: (state: AuthState, payload:any) => {
     state.token = payload;
   },
-  IS_LOGGED: (state, payload) => {
+  IS_LOGGED: (state: AuthState, payload:any) => {
     state.isLogged = payload;
   },
-  LOADING: (state, payload) => {
+  LOADING: (state: AuthState, payload:any) => {
     state.isPageLoading = payload;
   },
 };
 
 
 const actions = {
-  async SIGN_IN({ commit, dispatch }, payload) {
+  async SIGN_IN({ commit, dispatch }: AuthMethods, payload: any) {
     commit("LOADING", true);
  
    try {
@@ -49,7 +59,7 @@ const actions = {
   commit("LOADING", false);
   },
 
-  CHECK_TOKEN({ commit, dispatch }, payload) {
+  CHECK_TOKEN({ commit, dispatch }:AuthMethods, payload:any) {
     const token = localStorage.getItem('token')
     if (token) {
       commit('IS_LOGGED', true);
@@ -58,7 +68,7 @@ const actions = {
 
 
   
- async SIGN_UP({ commit, dispatch }, payload) {
+ async SIGN_UP({ commit, dispatch }:AuthMethods, payload:any) {
   commit("LOADING", true);
     
    try {
@@ -84,7 +94,7 @@ const actions = {
     //     const data = await response.json();
     //     console.log(data);
   },
-  async LOG_OUT({commit, dispatch}, payload) {
+  async LOG_OUT({commit, dispatch}:AuthMethods, payload:any) {
   
       commit('TOKEN', null);
       // commit('LOGOUT', null);

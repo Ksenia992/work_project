@@ -40,7 +40,7 @@ export default Vue.extend({
     setIsOpen() {
       this.isOpen = !this.isOpen;
     },
-    goHome(val) {
+    goHome(val: boolean) {
       if (val) this.$router.replace("/");
     },
   },
