@@ -12,24 +12,31 @@
   </v-btn>
 </template>
 
-<script>
-export default {
-  props: {
-    clickHandler: {
-      type: Function,
-    },
-    btn_text: {
-      type: String,
-      required: true,
-    },
-  },
+<script lang='ts'>
+import Vue from "vue";
+import Component from "vue-class-component";
+import { Prop } from "vue-property-decorator";
+
+@Component({})
+export default class ButtonWithBorder extends Vue {
+  @Prop() clickHandler!: () => void;
+  @Prop() btn_text!: string;
+
+  // props: {
+  //   clickHandler: {
+  //     type: Function,
+  //   },
+  //   btn_text: {
+  //     type: String,
+  //     required: true,
+  //   },
+  // },
   //  ["clickHandler", "btn_text"],
-  methods: {
-    open() {
-      this.clickHandler();
-    },
-  },
-};
+
+  open() {
+    this.clickHandler();
+  }
+}
 </script>
 
 <style lang="scss" scoped>

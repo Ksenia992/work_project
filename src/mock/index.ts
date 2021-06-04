@@ -119,3 +119,57 @@ export type EditAdminField = {
 
 
 
+
+// =====================================
+
+export const LayoutFields =  [
+     
+  {
+    text: "Groups",
+    disabled: true,
+    icon: "mdi-account-group-outline",
+    path: "/groups",
+    href: "/groups",
+  },
+  {
+    text: "Phone numbers",
+    disabled: true,
+    icon: "mdi-phone",
+    path: "",
+    href: "breadcrumbs_link_2",
+  },
+  {
+    text: "Admins",
+    disabled: false,
+    icon: "mdi-account-circle",
+    path: "/admins",
+    href: "/admins",
+  },
+  {
+    text: "Users",
+    disabled: true,
+    icon: "mdi-account-group",
+    path: "",
+  },
+  {
+    text: "Search",
+
+    disabled: true,
+    icon: "mdi-magnify",
+    path: "",
+  },
+];
+
+export type LayoutField = {
+  text: string
+  icon: string
+  disabled:boolean
+  path:string
+  href?:string
+
+}
+
+
+
+
+

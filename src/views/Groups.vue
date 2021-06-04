@@ -51,7 +51,7 @@
   </v-row>
 </template>
 
-<script>
+<script lang='ts'>
 export default {};
 </script>
 

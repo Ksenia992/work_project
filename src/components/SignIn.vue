@@ -88,6 +88,11 @@ import { mapState } from "vuex";
 import Component from "vue-class-component";
 
 @Component({
+  mixins: [validationMixin],
+  validations: {
+    password: { required, minLength: minLength(8) },
+    username: { required },
+  },
   components: { ButtonWithout },
   computed: {
     ...mapState("auth", ["isLogged", "isPageLoading"]),
@@ -102,13 +107,7 @@ import Component from "vue-class-component";
   },
 })
 export default class SignIn extends Vue {
-  mixins: any = [validationMixin];
   isLogged!: boolean;
-
-  validations: any = {
-    password: { required, minLength: minLength(8) },
-    username: { required },
-  };
 
   username: string = "";
   password: string = "";

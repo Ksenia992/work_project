@@ -12,14 +12,16 @@
   </v-btn>
 </template>
 
-<script>
-export default {
-  methods: {
-    cancel() {
-      this.$emit("close");
-    },
-  },
-};
+<script lang='ts'>
+import Vue from "vue";
+import Component from "vue-class-component";
+
+@Component({})
+export default class CancelBtn extends Vue {
+  cancel() {
+    this.$emit("close");
+  }
+}
 </script>
 
 <style lang="scss" scoped>

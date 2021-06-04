@@ -96,17 +96,19 @@
   </v-card>
 </template>
 
-<script>
+<script lang='ts'>
 import MainTable from "../views/MainTable.vue";
 import Search from "../views/Search.vue";
+import Vue from "vue";
+import Component from "vue-class-component";
 
-export default {
-  data: () => ({
-    drawer: false,
-    group: null,
-  }),
+@Component({
   components: { MainTable, Search },
-};
+})
+export default class MainLayout extends Vue {
+  drawer: boolean = false;
+  group: any = null;
+}
 </script>
 <style lang="scss">
 .v-btn {

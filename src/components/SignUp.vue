@@ -115,8 +115,8 @@
 </template>
 
 
-// :disabled="this.isDisabled"
-<script>
+
+<script lang='ts'>
 import ButtonWithout from "@/components/Buttons/ButtonWithoutBorder.vue";
 import { mapState } from "vuex";
 import {
@@ -126,21 +126,11 @@ import {
   email,
   sameAs,
 } from "vuelidate/lib/validators";
+import Component from "vue-class-component";
+import Vue from "vue";
 
-export default {
-  data() {
-    return {
-      showPass: false,
-      showPass2: false,
-      btn_text: "Sign Up",
-      password: "",
-      password_repeat: "",
-      checkbox: false,
-      username: "",
-      email: "",
-      submitted: false,
-    };
-  },
+@Component({
+  components: { ButtonWithout },
   validations: {
     password: {
       required,
@@ -149,9 +139,7 @@ export default {
         const containsLowercase = /[a-z]/.test(value);
         const containsNumber = /[0-9]/.test(value);
         const containsSpecial = /[#?!@$%^&*-]/.test(value);
-        // const check = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|]).{8,32}$".test(
-        //   value
-        // );
+
         return (
           containsUppercase &&
           containsLowercase &&
@@ -163,7 +151,7 @@ export default {
       maxLength: maxLength(32),
     },
     password_repeat: { required, sameAsPassword: sameAs("password") },
-    checkbox: { required },
+    // checkbox: { required },
     username: { required, maxLength: maxLength(20), minLength: minLength(3) },
     email: { required, email },
     checkbox: {
@@ -172,14 +160,10 @@ export default {
       },
     },
   },
-  //   created() {
-  //     this.submitted = true;
-  //     return this.$v.$touch();
-  //   },
   computed: {
     ...mapState("auth", ["isPageLoading"]),
     passwordErrors() {
-      const errors = [];
+      const errors: string[] = [];
       if (!this.$v.password.$dirty) return errors;
       !this.$v.password.maxLength &&
         errors.push("Password must be at most 32 characters long");
@@ -200,13 +184,13 @@ export default {
       return errors;
     },
     checkboxErrors() {
-      const errors = [];
+      const errors: string[] = [];
       if (!this.$v.checkbox.$dirty) return errors;
       !this.$v.checkbox.checked && errors.push("You must agree to continue!");
       return errors;
     },
     nameErrors() {
-      const errors = [];
+      const errors: string[] = [];
       if (!this.$v.username.$dirty) return errors;
       !this.$v.username.maxLength &&
         errors.push("Name must be at most 20 characters long");
@@ -216,28 +200,36 @@ export default {
       return errors;
     },
     emailErrors() {
-      const errors = [];
+      const errors: string[] = [];
       if (!this.$v.email.$dirty) return errors;
       !this.$v.email.email && errors.push("Must be valid e-mail");
       !this.$v.email.required && errors.push("E-mail is required");
       return errors;
     },
   },
-  methods: {
-    submit() {
-      this.$v.$touch();
-      const formData = {
-        username: this.username,
-        email: this.email,
-        password: this.password,
-        password_repeat: this.password_repeat,
-      };
-      this.$store.dispatch("auth/SIGN_UP", formData);
-      // this.$router.push("/");
-    },
-  },
-  components: { ButtonWithout },
-};
+})
+export default class SignUp extends Vue {
+  showPass: boolean = false;
+  showPass2: boolean = false;
+  btn_text: string = "Sign Up";
+  password: string = "";
+  password_repeat: string = "";
+  checkbox: boolean = false;
+  username: string = "";
+  email: string = "";
+  submitted: boolean = false;
+
+  submit() {
+    this.$v.$touch();
+    const formData = {
+      username: this.username,
+      email: this.email,
+      password: this.password,
+      password_repeat: this.password_repeat,
+    };
+    this.$store.dispatch("auth/SIGN_UP", formData);
+  }
+}
 </script>
 
 <style lang="scss">

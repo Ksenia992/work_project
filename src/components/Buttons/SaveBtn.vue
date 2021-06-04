@@ -13,10 +13,18 @@
   </v-btn>
 </template>
 
-<script>
-export default {
-  props: ["submit", "disabled"],
-};
+<script lang='ts'>
+import Vue from "vue";
+import Component from "vue-class-component";
+import { Prop } from "vue-property-decorator";
+
+@Component({})
+export default class SaveBtn extends Vue {
+  @Prop() submit!: () => void;
+  @Prop() disabled!: boolean;
+
+  // props: ["submit", "disabled"],
+}
 </script>
 
 <style lang="scss" scoped>

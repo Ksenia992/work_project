@@ -94,56 +94,18 @@
   </v-card>
 </template>
 
-<script>
-export default {
-  data: () => ({
-    drawer: false,
-    group: null,
+<script lang='ts'>
+import Vue from "vue";
+import Component from "vue-class-component";
+import { LayoutFields, LayoutField } from "@/mock/index";
 
-    items: [
-      // {
-      //   title: "Tenants",
-      //   disabled: false,
-      //   href: "breadcrumbs_dashboard",
-      // },
+@Component({})
+export default class MainTableLayout extends Vue {
+  drawer: boolean = false;
+  group: any = null;
 
-      {
-        text: "Groups",
-        disabled: true,
-        icon: "mdi-account-group-outline",
-        path: "/groups",
-        href: "/groups",
-      },
-      {
-        text: "Phone numbers",
-        disabled: true,
-        icon: "mdi-phone",
-        path: "",
-        href: "breadcrumbs_link_2",
-      },
-      {
-        text: "Admins",
-        disabled: false,
-        icon: "mdi-account-circle",
-        path: "/admins",
-        href: "/admins",
-      },
-      {
-        text: "Users",
-        disabled: true,
-        icon: "mdi-account-group",
-        path: "",
-      },
-      {
-        text: "Search",
-
-        disabled: true,
-        icon: "mdi-magnify",
-        path: "",
-      },
-    ],
-  }),
-};
+  items: LayoutField[] = LayoutFields;
+}
 </script>
 <style lang="scss">
 .v-btn {

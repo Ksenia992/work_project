@@ -12,14 +12,16 @@
   >
 </template>
 
-<script>
-export default {
-  methods: {
-    show() {
-      this.$emit("showModal");
-    },
-  },
-};
+<script lang='ts'>
+import Vue from "vue";
+import Component from "vue-class-component";
+
+@Component({})
+export default class AddBtn extends Vue {
+  show() {
+    this.$emit("showModal");
+  }
+}
 </script>
 
 <style lang="scss" scoped></style>

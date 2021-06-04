@@ -1,4 +1,4 @@
-function middlewarePipeline (context, middleware, index) {
+function middlewarePipeline (context:any, middleware:any, index:any) {
     const nextMiddleware = middleware[index]
 
     if(!nextMiddleware){

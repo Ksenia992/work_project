@@ -21,44 +21,44 @@
 
 <script lang='ts'>
 import Vue from "vue";
+import Component from "vue-class-component";
 import Preview from "@/components/Preview.vue";
 import SignUp from "@/components/SignUp.vue";
 import SignIn from "@/components/SignIn.vue";
 import { mapState } from "vuex";
+import { Watch } from "vue-property-decorator";
 
-export default Vue.extend({
-  data: () => ({
-    isOpen: false,
-  }),
-  // watch: {
-  //    isLogged: function (val) {
-  //     this.isLogged = val
-  // },
-
+@Component({
   components: { Preview, SignUp, SignIn },
-  methods: {
-    setIsOpen() {
-      this.isOpen = !this.isOpen;
-    },
-    goHome(val: boolean) {
-      if (val) this.$router.replace("/");
-    },
-  },
   computed: {
     ...mapState("auth", ["isLogged"]),
-    // isLoggedIn: function () {
-    //   return this.$store.isLogged;
-    // },
   },
-  watch: {
-    isLogged(newVal, oldVal) {
-      this.goHome(newVal);
-    },
-  },
+})
+export default class Login extends Vue {
+  isOpen: boolean = false;
+  isLogged!: boolean;
+
+  setIsOpen() {
+    this.isOpen = !this.isOpen;
+  }
+  goHome(val: boolean) {
+    if (val) this.$router.replace("/");
+  }
+
+  @Watch("isLogged")
+  watchIsLogged(newVal: boolean, oldVal: boolean) {
+    this.goHome(newVal);
+  }
+
+  // watch: {
+  //   isLogged(newVal, oldVal) {
+  //     this.goHome(newVal);
+  //   },
+  // },
   created() {
     this.goHome(this.isLogged);
-  },
-});
+  }
+}
 </script>
 
 <style scoped>

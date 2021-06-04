@@ -13,20 +13,30 @@
   </v-btn>
 </template>
 
-<script>
-export default {
-  props: {
-    open: {
-      type: Function,
-    },
-    btn_text: {
-      type: String,
-      required: true,
-    },
-    disabled: {},
-    loading: {},
-  },
-};
+<script lang='ts'>
+import Vue from "vue";
+import Component from "vue-class-component";
+import { Prop } from "vue-property-decorator";
+
+@Component({})
+export default class ButtonWithoutBorder extends Vue {
+  @Prop() open!: () => void;
+  @Prop() btn_text!: string;
+  @Prop() disabled!: boolean;
+  @Prop() loading!: boolean;
+
+  // props: {
+  //   open: {
+  //     type: Function,
+  //   },
+  //   btn_text: {
+  //     type: String,
+  //     required: true,
+  //   },
+  //   disabled: {},
+  //   loading: {},
+  // };
+}
 </script>
 
 <style lang="scss" scoped>
