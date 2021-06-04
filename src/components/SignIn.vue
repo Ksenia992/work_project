@@ -85,95 +85,49 @@ import { validationMixin } from "vuelidate";
 import { required, minLength, email } from "vuelidate/lib/validators";
 import ButtonWithout from "@/components/Buttons/ButtonWithoutBorder.vue";
 import { mapState } from "vuex";
+import Component from "vue-class-component";
 
-export default Vue.extend({
-  mixins: [validationMixin],
-
-  validations: {
-    password: { required, minLength: minLength(8) },
-    username: { required },
-  },
-  data: () => ({
-    username: "",
-    password: "",
-    showPass: false,
-    btn_text: "Sign In",
-  }),
+@Component({
+  components: { ButtonWithout },
   computed: {
+    ...mapState("auth", ["isLogged", "isPageLoading"]),
     passwordErrors() {
-      const errors = [];
+      const errors: string[] = [];
       if (!this.$v.password.$dirty) return errors;
       !this.$v.password.minLength &&
         errors.push("Password must be at least 8 symbols");
       !this.$v.password.required && errors.push("Password is required.");
       return errors;
     },
-
-    ...mapState("auth", ["isLogged", "isPageLoading"]),
   },
+})
+export default class SignIn extends Vue {
+  mixins: any = [validationMixin];
+  isLogged!: boolean;
 
-  methods: {
-    async submit() {
-      this.$v.$touch();
-      const formData = {
-        username: this.username,
-        password: this.password,
-      };
-      await this.$store.dispatch("auth/SIGN_IN", formData);
-      console.log(this.isLogged);
-      if (this.isLogged) {
-        this.$router.push("/");
-      }
-    },
+  validations: any = {
+    password: { required, minLength: minLength(8) },
+    username: { required },
+  };
 
-    // submitHandler() {
-    //   this.$v.$touch();
-    //   const formData = {
-    //     email: this.email,
-    //     password: this.password,
-    //   };
-    //   console.log(formData);
-    //   this.$router.push("/");
-    // },
-    // async submitHandler() {
-    //   this.$v.$touch();
-    //   const formData = {
-    //     email: this.email,
-    //     password: this.password,
-    //   };
-    //   const response = await fetch("https://api-shark.herokuapp.com/login", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(formData),
-    //   });
-    //   const data = await response.json();
-    //   this.$router.push("/");
-    // },
-  },
-  components: { ButtonWithout },
+  username: string = "";
+  password: string = "";
+  showPass: boolean = false;
+  btn_text: string = "Sign In";
 
-  // async submitHandler() {
-  //   if (this.$v.$invalid) {
-  //     this.$v.$touch();
-  //     return;
-  //   }
-  //   const formData = {
-  //     email: this.email,
-  //     password: this.password,
-  //   };
-  //   const response = await fetch("https://api-shark.herokuapp.com/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(formData),
-  //   });
-  //   const data = await response.json();
-  //   this.$router.push("/");
-  // },
-});
+  async submit() {
+    this.$v.$touch();
+    const formData = {
+      username: this.username,
+      password: this.password,
+    };
+    await this.$store.dispatch("auth/SIGN_IN", formData);
+    console.log(this.isLogged);
+    if (this.isLogged) {
+      this.$router.push("/");
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

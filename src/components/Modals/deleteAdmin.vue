@@ -7,20 +7,21 @@
   </ModalGlobal>
 </template>
 
-<script>
+<script lang="ts">
 import ModalGlobal from "./modalGlobal.vue";
+import Vue from "vue";
+import Component from "vue-class-component";
 
-export default {
-  data: () => ({
-    admin_name: "cory_tenant",
-  }),
-  methods: {
-    open() {
-      this.$refs.global.open({ title: "" });
-    },
-  },
+@Component({
   components: { ModalGlobal },
-};
+})
+export default class deleteAdmin extends Vue {
+  admin_name: string = "cory_tenant";
+
+  open() {
+    this.$refs.global.open({ title: "" });
+  }
+}
 </script>
 
 <style lang="scss" scoped>

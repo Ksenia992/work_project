@@ -19,79 +19,27 @@
   </ModalGlobal>
 </template>
 
-<script>
+<script lang="ts">
 import ModalGlobal from "./modalGlobal.vue";
-export default {
-  data: () => ({
-    fields: [
-      {
-        title: "Admin ID:",
-        icon: "mdi-account-group-outline",
-        type: "text",
-        field: "",
-        value: "",
-      },
-      {
-        title: "First name:",
-        icon: "mdi-phone",
-        field: "",
-        required: true,
-        type: "text",
-      },
-      {
-        title: "Last name:",
-        icon: "mdi-account-circle",
-        field: "",
-        required: true,
-        value: "",
-        type: "text",
-      },
-      {
-        title: "Language:",
-        icon: "mdi-account-group",
-        field: "",
-        type: "text",
-        required: true,
-      },
-
-      {
-        title: "Email:",
-        icon: "mdi-magnify",
-        field: "",
-        required: true,
-        type: "text",
-      },
-      {
-        title: "New password:",
-        icon: "mdi-magnify",
-        type: "password",
-        field: "",
-        showPass: false,
-        appendIcon: "mdi-eye-off",
-      },
-      {
-        title: "Confirm password:",
-        icon: "mdi-magnify",
-        field: "",
-        type: "password",
-        showPass: false,
-        appendIcon: "mdi-eye-off",
-      },
-    ],
-  }),
-  methods: {
-    open() {
-      this.$refs.global.open({ title: "Edit admin" });
-    },
-    changePassInp(item) {
-      console.log(item);
-      item.showPass = !item.showPass;
-      item.appendIcon = item.showPass ? "mdi-eye" : "mdi-eye-off";
-      item.type = item.showPass ? "text" : "password";
-    },
-  },
+import Vue from "vue";
+import Component from "vue-class-component";
+import { editAdminFields, EditAdminField } from "@/mock/index";
+@Component({
   components: { ModalGlobal },
-};
+})
+export default class editAdmin extends Vue {
+  fields: EditAdminField[] = editAdminFields;
+
+  // open() {
+  //   this.$refs.global.open({ title: "Edit admin" });
+  // }
+  changePassInp(item: any) {
+    console.log(item);
+    item.showPass = !item.showPass;
+    item.appendIcon = item.showPass ? "mdi-eye" : "mdi-eye-off";
+    item.type = item.showPass ? "text" : "password";
+  }
+}
 </script>
 
 <style lang="scss">

@@ -19,82 +19,29 @@
   </ModalGlobal>
 </template>
 
-<script>
+<script lang='ts'>
 import ModalGlobal from "./modalGlobal.vue";
-export default {
-  data: () => ({
-    fields: [
-      {
-        title: "Admin ID:",
-        icon: "mdi-account-group-outline",
-        type: "text",
-        required: true,
-        field: "",
-        value: "",
-      },
-      {
-        title: "First name:",
-        icon: "mdi-phone",
-        field: "",
-        required: true,
-        type: "text",
-      },
-      {
-        title: "Last name:",
-        icon: "mdi-account-circle",
-        field: "",
-        required: true,
-        value: "",
-        type: "text",
-      },
-      {
-        title: "Language:",
-        icon: "mdi-account-group",
-        field: "",
-        type: "text",
-        required: true,
-      },
+import Vue from "vue";
+import Component from "vue-class-component";
+import { editAdminFields, EditAdminField } from "@/mock/index";
 
-      {
-        title: "Email:",
-        icon: "mdi-magnify",
-        field: "",
-        required: true,
-        type: "text",
-      },
-      {
-        title: "Password:",
-        icon: "mdi-magnify",
-        type: "password",
-        required: true,
-        field: "",
-        showPass: false,
-        appendIcon: "mdi-eye-off",
-      },
-      {
-        title: "Confirm password:",
-        icon: "mdi-magnify",
-        field: "",
-        type: "password",
-        required: true,
-        showPass: false,
-        appendIcon: "mdi-eye-off",
-      },
-    ],
-  }),
-  methods: {
-    open() {
-      this.$refs.global.open({ title: "New admin" });
-    },
-    changePassInp(item) {
-      console.log(item);
-      item.showPass = !item.showPass;
-      item.appendIcon = item.showPass ? "mdi-eye" : "mdi-eye-off";
-      item.type = item.showPass ? "text" : "password";
-    },
-  },
+@Component({
   components: { ModalGlobal },
-};
+})
+export default class newAdmin extends Vue {
+  fields: EditAdminField[] = editAdminFields;
+
+  open() {
+    this.$refs.global.open({ title: "New admin" });
+  }
+
+  changePassInp(item: any) {
+    console.log(item);
+    item.showPass = !item.showPass;
+    item.appendIcon = item.showPass ? "mdi-eye" : "mdi-eye-off";
+    item.type = item.showPass ? "text" : "password";
+  }
+}
 </script>
 
 <style lang="scss">

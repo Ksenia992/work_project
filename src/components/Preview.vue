@@ -40,34 +40,36 @@
 <script lang='ts'>
 import ButtonWith from "./Buttons/ButtonWithBorder.vue";
 import Vue from "vue";
+import { Prop } from "vue-property-decorator";
+import Component from "vue-class-component";
 
-export default Vue.extend({
-  props: ["openComp"],
-  data: () => ({
-    isSignIn: true,
-    title: "Welcome Back!",
-    text: "To keep connected with us please",
-    text_next: "login with your personal info",
-    btn_text: "Sign In",
-    logoOpen: true,
-  }),
-  methods: {
-    changeTitle() {
-      this.title = this.isSignIn ? "Hello, friend!" : "Welcome Back!";
-      this.text = this.isSignIn
-        ? "Enter your personal details"
-        : "To keep connected with us please";
-      this.text_next = this.isSignIn
-        ? "and start journey with us"
-        : "login with your personal info";
-      this.btn_text = this.isSignIn ? "Sign Up" : "Sign In";
-      this.logoOpen = false;
-      this.isSignIn = !this.isSignIn;
-      this.openComp();
-    },
-  },
+@Component({
   components: { ButtonWith },
-});
+})
+export default class Preview extends Vue {
+  @Prop() openComp!: () => void;
+
+  isSignIn: boolean = true;
+  title: string = "Welcome Back!";
+  text: string = "To keep connected with us please";
+  text_next: string = "login with your personal info";
+  btn_text: string = "Sign In";
+  logoOpen: boolean = true;
+
+  changeTitle() {
+    this.title = this.isSignIn ? "Hello, friend!" : "Welcome Back!";
+    this.text = this.isSignIn
+      ? "Enter your personal details"
+      : "To keep connected with us please";
+    this.text_next = this.isSignIn
+      ? "and start journey with us"
+      : "login with your personal info";
+    this.btn_text = this.isSignIn ? "Sign Up" : "Sign In";
+    this.logoOpen = false;
+    this.isSignIn = !this.isSignIn;
+    this.openComp();
+  }
+}
 </script>
 
 <style lang="scss">
