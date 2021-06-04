@@ -107,71 +107,73 @@
   </ModalGlobal>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
 import ModalGlobal from "./modalGlobal.vue";
 import { mapState } from "vuex";
-export default {
-  data: () => ({
-    rules: {
-      required: (value) => !!value || "This field is required",
-      types: [(val) => (val || "").length > 0 || "This field is required"],
-      name: [(val) => (val || "").length > 0 || "This field is required"],
-      email: (value) => {
-        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return pattern.test(value) || "Invalid e-mail.";
-      },
-    },
-    types: ["Enterprise", "ServiceProvider"],
-    name: "",
-    type: "",
-    email: "",
-    contactName: "",
-    phoneNumber: "",
-    contactEmail: "",
-    street: "",
-    city: "",
-    zip: "",
-    country: "",
-    isFormValid: false,
-  }),
-  methods: {
-    open() {
-      this.$refs.global.open({ title: "Add tenants" });
-    },
-    async submit() {
-      const formData = {
-        name: this.name,
-        type: this.type,
-        email: this.email,
-        address: {
-          street: this.street,
-          city: this.city,
-          zipCode: this.zip,
-          country: this.country,
-        },
-        contactInfo: {
-          name: this.contactName,
-          phoneNumber: this.phoneNumber,
-          email: this.contactEmail,
-        },
-      };
 
-      console.log(formData);
-      await this.$store.dispatch("tenants/ADD_TENANTS", formData);
-      console.log(formData);
-
-      // if (this.isLogged) {
-      //   this.$router.push("/");
-      // }
-    },
-  },
-
+@Component({
+  components: { ModalGlobal },
   computed: {
     ...mapState("tenants", ["isTenantsLoading", "tenants"]),
   },
+})
+export default class Add_tenants extends Vue {
+  rules: any = {
+    required: (value: string) => !!value || "This field is required",
+    types: [
+      (val: string) => (val || "").length > 0 || "This field is required",
+    ],
+    name: [(val: string) => (val || "").length > 0 || "This field is required"],
+    email: (value: string) => {
+      const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+(?:com|net)))$/;
+      return pattern.test(value) || "Invalid e-mail.";
+    },
+  };
+  types: string[] = ["Enterprise", "ServiceProvider"];
+  name: string = "";
+  type: string = "";
+  email: string = "";
+  contactName: string = "";
+  phoneNumber: string = "";
+  contactEmail: string = "";
+  street: string = "";
+  city: string = "";
+  zip: string = "";
+  country: string = "";
+  isFormValid: boolean = false;
 
-  components: { ModalGlobal },
-};
+  open() {
+    this.$refs.global.open({ title: "Add tenants" });
+  }
+  async submit() {
+    const formData = {
+      name: this.name,
+      type: this.type,
+      email: this.email,
+      address: {
+        street: this.street,
+        city: this.city,
+        zipCode: this.zip,
+        country: this.country,
+      },
+      contactInfo: {
+        name: this.contactName,
+        phoneNumber: this.phoneNumber,
+        email: this.contactEmail,
+      },
+    };
+
+    console.log(formData);
+    await this.$store.dispatch("tenants/ADD_TENANTS", formData);
+    console.log(formData);
+
+    // if (this.isLogged) {
+    //   this.$router.push("/");
+    // }
+  }
+}
 </script>
 
 <style lang="scss" >

@@ -46,6 +46,25 @@ const actions = {
 
     commit("LOADING", false);
   },
+
+  async GET_TENANTS_PERPAGE({ commit, dispatch }:TenantMethods, payload:any) {
+    commit("LOADING", true);
+
+    try {
+      const { data } = await axios.get("/tenants?", { params: { page: newVal } });
+      if (data && data.tenants && Array.isArray(data.tenants)) {
+        commit("SET_TENANTS", data.tenants ?? []);
+      }
+    } catch (error) {
+      console.log("Error");
+      console.log(error);
+    }
+
+    commit("LOADING", false);
+
+  },
+
+
   async ADD_TENANTS({ commit, dispatch }:TenantMethods, payload:any) {
     commit("LOADING", true);
 

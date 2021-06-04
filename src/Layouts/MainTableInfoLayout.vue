@@ -1,13 +1,15 @@
 <template>
   <v-card class="overflow-hidden" height="100%">
-    <v-app-bar color="#1AAA8D">
+    <v-app-bar color="#1AAA8D" elevate-on-scroll
+      scroll-target="#scrolling-techniques-7">
       <v-app-bar-nav-icon
         color="white"
         @click="drawer = true"
       ></v-app-bar-nav-icon>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" absolute temporary>
+    <v-navigation-drawer v-model="drawer" absolute temporary elevate-on-scroll
+      scroll-target="#scrolling-techniques-7">
       <v-row>
         <v-col
           cols="12"
@@ -60,7 +62,7 @@
       </v-row>
     </v-navigation-drawer>
 
-    <v-app-bar relative color="transparent" elevate-on-scroll>
+    <v-app-bar relative color="transparent" elevate-on-scroll  scroll-target="#scrolling-techniques-7">
       <v-col cols="10" class="d-flex justify-center">
         <v-toolbar-title class="font-weight-thin text-h6"
          

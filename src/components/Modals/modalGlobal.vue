@@ -35,27 +35,31 @@
   </v-dialog>
 </template>
 
-<script>
+<script lang='ts'>
+import Vue from "vue";
+import Component from "vue-class-component";
+import { Prop } from "vue-property-decorator";
 import CancelBtn from "@/components/Buttons/CancelBtn.vue";
 import SaveBtn from "@/components/Buttons/SaveBtn.vue";
 
-export default {
-  data: () => ({
-    isOpen: false,
-    title: "",
-  }),
-  props: ["submit", "isFormValid"],
-  methods: {
-    close() {
-      this.isOpen = false;
-    },
-    open({ title }) {
-      this.title = title;
-      this.isOpen = !this.isOpen;
-    },
-  },
+@Component({
   components: { CancelBtn, SaveBtn },
-};
+})
+export default class ModalGlobal extends Vue {
+  isOpen: boolean = false;
+  title: string = "";
+
+  @Prop() isFormValid!: boolean;
+  @Prop() submit!: () => void;
+
+  close(): void {
+    this.isOpen = false;
+  }
+  open({ title }: { title: string }) {
+    this.title = title;
+    this.isOpen = !this.isOpen;
+  }
+}
 </script>
 
 <style lang="scss">
