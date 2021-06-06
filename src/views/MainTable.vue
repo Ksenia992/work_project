@@ -1,232 +1,66 @@
 <template>
-  <v-card>
-    <v-card-title>
-      <v-text-field
-        v-model="search"
-        prepend-icon="mdi-magnify"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
-    </v-card-title>
+  <v-row class="justify-center">
+    <router-view />
+    <v-col cols="10">
+      <v-card>
+        <v-card-title>
+          <v-text-field
+            prepend-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-card-title>
 
-    <v-data-table
-      :headers="headers"
-      :items="desserts"
-      sort-by="calories"
-      class="elevation-1"
-      disable-sort
-    >
-      <template v-slot:top>
-        <v-toolbar flat>
-          <v-spacer></v-spacer>
-          <v-dialog v-model="dialog" max-width="620px">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                color="#1AAA8D"
-                class="white--text pa-5"
-                elevation="2"
-                v-bind="attrs"
-                v-on="on"
-                rounded
-                >Add <v-icon right> mdi-plus-circle-outline </v-icon></v-btn
-              >
-            </template>
-            <v-card>
-              <v-card-title>
-                <span class="text-h4"
-                  ><v-icon left> mdi-plus-circle-outline </v-icon
-                  >{{ formTitle }}
-                </span>
-                <v-col>
-                  <v-btn icon @click="close">
-                    <v-icon>mdi-close</v-icon>
-                  </v-btn>
+        <v-row>
+          <v-col cols="12" xs="12">
+            <v-data-table
+              v-if="!isTenantsLoading && tenants"
+              :headers="headers"
+              :items="tenants"
+              :items-per-page="5"
+              class="elevation-1"
+              disable-sort
+            >
+              <template v-slot:top>
+                <v-toolbar flat>
+                  <v-spacer></v-spacer>
+                  <AddBtn @showModal="openAdd" />
+                  <AddTable ref="addTenants" />
+                </v-toolbar>
+              </template>
+            </v-data-table>
+            <v-card v-else>
+              <v-row>
+                <v-col cols="12" md="12">
+                  <v-skeleton-loader
+                    v-bind="attrs"
+                    type="card-avatar, article, actions"
+                  ></v-skeleton-loader>
                 </v-col>
-              </v-card-title>
-
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col cols="4">
-                      <v-subheader>Tenant name:*</v-subheader>
-                    </v-col>
-                    <v-col cols="8">
-                      <v-text-field
-                        outlined
-                        v-model="editedItem.name"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="4">
-                      <v-subheader>Type:*</v-subheader>
-                    </v-col>
-                    <v-col cols="8">
-                      <v-text-field
-                        outlined
-                        v-model="editedItem.type"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="4">
-                      <v-subheader>Support e-mail:*</v-subheader>
-                    </v-col>
-                    <v-col cols="8">
-                      <v-text-field
-                        outlined
-                        label="callconnect@mail.com"
-                        v-model="editedItem.support"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-card-title>
-                      <span class="text-h5">Contact information</span>
-                    </v-card-title>
-
-                    <v-card-text>
-                      <v-container>
-                        <v-row>
-                          <v-col cols="4">
-                            <v-subheader>Contact name:</v-subheader>
-                          </v-col>
-                          <v-col cols="8">
-                            <v-text-field
-                              outlined
-                              v-model="editedItem.contact_name"
-                            ></v-text-field>
-                          </v-col>
-
-                          <v-col cols="4">
-                            <v-subheader>Phone number:</v-subheader>
-                          </v-col>
-                          <v-col cols="8">
-                            <v-text-field
-                              outlined
-                              v-model="editedItem.phone"
-                            ></v-text-field>
-                          </v-col>
-
-                          <v-col cols="4">
-                            <v-subheader>Email:</v-subheader>
-                          </v-col>
-                          <v-col cols="8">
-                            <v-text-field
-                              outlined
-                              v-model="editedItem.email"
-                            ></v-text-field>
-                          </v-col>
-                        </v-row>
-                      </v-container>
-                    </v-card-text>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-
-              <v-card-title>
-                <span class="text-h5">Address information</span>
-              </v-card-title>
-
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col cols="4">
-                      <v-subheader>Street:</v-subheader>
-                    </v-col>
-                    <v-col cols="8">
-                      <v-text-field
-                        outlined
-                        v-model="editedItem.street"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="4">
-                      <v-subheader>Postal code:</v-subheader>
-                    </v-col>
-                    <v-col cols="8">
-                      <v-text-field
-                        outlined
-                        v-model="editedItem.postal"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="4">
-                      <v-subheader>City:</v-subheader>
-                    </v-col>
-                    <v-col cols="8">
-                      <v-text-field
-                        outlined
-                        v-model="editedItem.city"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="4">
-                      <v-subheader>Country:</v-subheader>
-                    </v-col>
-                    <v-col cols="8">
-                      <v-text-field
-                        outlined
-                        v-model="editedItem.country"
-                      ></v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                  color="#fff"
-                  class="grey--text"
-                  rounded
-                  medium
-                  outlined
-                  @click="close"
-                >
-                  Cancel
-                </v-btn>
-                <v-btn
-                  color="#1AAA8D"
-                  class="white--text"
-                  rounded
-                  medium
-                  @click="save"
-                >
-                  Save
-                </v-btn>
-              </v-card-actions>
+              </v-row>
             </v-card>
-          </v-dialog>
-          <v-dialog v-model="dialogDelete" max-width="500px">
-            <v-card>
-              <v-card-title class="headline"
-                >Are you sure you want to delete this item?</v-card-title
-              >
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete"
-                  >Cancel</v-btn
-                >
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                  >OK</v-btn
-                >
-                <v-spacer></v-spacer>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-        </v-toolbar>
-      </template>
-      <template>
-        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-        <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
-      </template>
-      <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize"> Reset </v-btn>
-      </template>
-    </v-data-table>
-  </v-card>
+          </v-col>
+        </v-row>
+      </v-card>
+      <v-btn @click="logOut" color="primary" class="ma-16">logout</v-btn>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
+import AddTable from "../components/Modals/Add_tenants.vue";
+import AddBtn from "../components/Buttons/AddBtn.vue";
+import { mapState } from "vuex";
+
 export default {
   data: () => ({
+    attrs: {
+      class: "mb-6",
+      boilerplate: true,
+      elevation: 2,
+    },
+    isVisible: false,
     dialog: false,
     dialogDelete: false,
     headers: [
@@ -239,10 +73,9 @@ export default {
         divider: true,
       },
       { text: "ID", value: "type" },
-      { text: "Name", value: "support" },
+      { text: "Name", value: "name" },
       { text: "Type", value: "email" },
     ],
-    desserts: [],
     editedIndex: -1,
     editedItem: {
       name: "",
@@ -271,9 +104,16 @@ export default {
   }),
 
   computed: {
-    formTitle() {
-      return (this.editedIndex = "Add tenants");
+    ...mapState("tenants", ["isTenantsLoading", "tenants"]),
+    ...mapState("auth", ["isLogged"]),
+    tenants2() {
+      if (!this.$store.state.tenants) return null;
+      return this.$store.state.tenants.tenants;
     },
+  },
+  mounted() {
+    this.$store.dispatch("tenants/GET_TENANTS");
+    console.log(this.$store);
   },
 
   watch: {
@@ -285,128 +125,49 @@ export default {
     },
   },
 
-  created() {
-    this.initialize();
-  },
+  // created() {
+  //   this.initialize();
+  // },
 
   methods: {
-    initialize() {
-      this.desserts = [
-        {
-          name: "Frozen Yogurt",
-          type: 159,
-          support: 6.0,
-          email: 24,
-          street: 4.0,
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-        },
-        {
-          name: "Cupcake",
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-        },
-        {
-          name: "Gingerbread",
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-        },
-        {
-          name: "Donut",
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-        },
-      ];
+    openAdd() {
+      this.$refs.addTenants.open();
     },
-
-    editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
+    closeModal() {
+      this.isVisible = false;
     },
-
-    deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialogDelete = true;
-    },
-
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
-      this.closeDelete();
-    },
-
-    close() {
-      this.dialog = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    closeDelete() {
-      this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
-      } else {
-        this.desserts.push(this.editedItem);
+    async logOut() {
+      await this.$store.dispatch("auth/LOG_OUT");
+      console.log(this.isLogged);
+      if (!this.isLogged) {
+        this.$router.push("/login");
       }
-      this.close();
     },
+    // initialize() {
+    //   this.desserts = [
+    //     {
+    //       name: "Frozen Yogurt",
+    //       type: 159,
+    //       support: 6.0,
+    //       email: 24,
+    //       street: 4.0,
+    //     },
+    //   ];
+    // },
+
+    // save() {
+    //   if (this.editedIndex > -1) {
+    //     Object.assign(this.desserts[this.editedIndex], this.editedItem);
+    //   } else {
+    //     this.desserts.push(this.editedItem);
+    //   }
+    //   this.close();
+    // },
+    // showModal() {
+    //   this.isVisible = true;
+    // },
   },
+  components: { AddTable, AddBtn },
 };
 </script>
 
