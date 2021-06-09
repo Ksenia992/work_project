@@ -20,7 +20,8 @@ const routes = [
     component: () => import('../views/Login.vue')
   },
   {
-    path: '/',
+    path: '/tenants',
+
     name: 'Main',
     meta:{layout:'Main',  middleware: [
       auth
@@ -29,6 +30,27 @@ const routes = [
 },
 
     component: () => import('../views/MainTable.vue'),
+    
+  },
+
+
+
+  {
+    path:"/tenants/:id",
+    name:"tenant_id",
+    meta:{layout:'MainTableInfo'},
+    component: () => import('../views/idTenant.vue')
+  },
+
+  // children:[{
+  //     path: '/search',
+  //     name: 'tenant.id',
+  //     meta:{layout:'Main'},
+  //     component: () => import('../components/Modals/idTenant.vue')
+  //   }],
+
+
+
     // children:[{
     //   path: '/search',
     //   name: 'main.search',
@@ -43,16 +65,9 @@ const routes = [
     //   }
     // },
 
-    
-  },
 
 
-  // {
-  //   path: '/search',
-  //   name: 'Search',
-  //   meta:{layout:'Main'},
-  //   component: () => import('../views/Search.vue')
-  // },
+
  
   {
     path: '/CallConnect',

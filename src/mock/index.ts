@@ -167,7 +167,32 @@ export type LayoutField = {
   path:string
   href?:string
 
+  
 }
+
+
+
+
+
+export type Tenants = {
+  name: string
+    type: string,
+    email: string,
+    contactInfo: {
+      name: string,
+      phoneNumber: string,
+      email: string,
+    },
+    address: {
+      street: string,
+      city: string,
+      zipCode: string,
+      country: string,
+    },
+  
+
+}
+
 
 
 

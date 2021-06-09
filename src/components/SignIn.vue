@@ -123,7 +123,7 @@ export default class SignIn extends Vue {
     await this.$store.dispatch("auth/SIGN_IN", formData);
     console.log(this.isLogged);
     if (this.isLogged) {
-      this.$router.push("/");
+      this.$router.push("/tenants");
     }
   }
 }

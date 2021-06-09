@@ -42,7 +42,7 @@ export default class Login extends Vue {
     this.isOpen = !this.isOpen;
   }
   goHome(val: boolean) {
-    if (val) this.$router.replace("/");
+    if (val) this.$router.replace("/tenants");
   }
 
   @Watch("isLogged")

@@ -161,7 +161,7 @@ export default class Admins extends Vue {
     protein: 0,
   };
 
-  get formTitle() {
+  get formTitle(): string {
     return this.editedIndex === -1 ? "New Item" : "Edit Item";
   }
 

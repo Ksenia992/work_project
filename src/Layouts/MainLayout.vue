@@ -9,13 +9,7 @@
       <!-- <v-toolbar-title>Title</v-toolbar-title> -->
     </v-app-bar>
 
-    <v-navigation-drawer
-      v-model="drawer"
-      absolute
-      temporary
-      elevate-on-scroll
-      scroll-target="#scrolling-techniques-7"
-    >
+    <v-navigation-drawer v-model="drawer" absolute temporary elevate-on-scroll>
       <v-row>
         <v-col
           cols="12"
@@ -26,12 +20,20 @@
           <v-col cols="8" class="d-flex align-center">
             <v-img src="@/assets/Logo.png" />
             <span
-              class="white--text text-h4 pa-3 font-weight-bold text-body-2 for xs"
+              class="
+                white--text
+                text-h4
+                pa-3
+                font-weight-bold
+                text-body-2
+                for
+                xs
+              "
               >Rylex</span
             >
           </v-col>
           <v-list dense nav>
-            <router-link to="/">
+            <router-link to="/tenants">
               <v-list-item link>
                 <v-list-item-icon>
                   <v-icon color="white">mdi-home</v-icon>

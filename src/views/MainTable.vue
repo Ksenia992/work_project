@@ -24,12 +24,14 @@
               disable-sort
               :search="search"
               :page="page"
+              @click:row="openById"
             >
               <template v-slot:top>
                 <v-toolbar flat>
                   <v-spacer></v-spacer>
                   <AddBtn @showModal="openAdd" />
                   <AddTable ref="addTenants" />
+                  <!-- <IdTenant ref="idTenant" /> -->
                 </v-toolbar>
               </template>
             </v-data-table>
@@ -37,7 +39,6 @@
               <v-row>
                 <v-col cols="12" md="12">
                   <v-skeleton-loader
-                    v-bind="attrs"
                     type="card-avatar, article, actions"
                   ></v-skeleton-loader>
                 </v-col>
@@ -55,6 +56,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import AddTable from "@/components/Modals/Add_tenants.vue";
+import IdTenant from "@/views/idTenant.vue";
 import AddBtn from "@/components/Buttons/AddBtn.vue";
 import { mapState } from "vuex";
 import { Watch } from "vue-property-decorator";
@@ -62,7 +64,7 @@ import { Watch } from "vue-property-decorator";
 import { tenantsTableHeaders, TenantsTableHeader } from "@/mock/index";
 
 @Component({
-  components: { AddTable, AddBtn },
+  components: { AddTable, AddBtn, IdTenant },
   computed: {
     ...mapState("tenants", ["isTenantsLoading", "tenants"]),
     ...mapState("auth", ["isLogged"]),
@@ -71,11 +73,7 @@ import { tenantsTableHeaders, TenantsTableHeader } from "@/mock/index";
 export default class MainTable extends Vue {
   search: string = "";
   page: number = 1;
-  // attrs: {
-  //   class: "mb-6",
-  //   boilerplate: true,
-  //   elevation: 2,
-  // },
+
   isVisible: boolean = false;
   dialog: boolean = false;
   dialogDelete: boolean = false;
@@ -83,30 +81,6 @@ export default class MainTable extends Vue {
   isTenantsLoading!: boolean;
   headers: TenantsTableHeader[] = tenantsTableHeaders;
   editedIndex: number = -1;
-  // editedItem: object = {
-  //   name: "",
-  //   type: "",
-  //   support: "",
-  //   contact_name: "",
-  //   phone: "",
-  //   email: "",
-  //   street: "",
-  //   postal: "",
-  //   city: "",
-  //   country: "",
-  // };
-  // defaultItem: object = {
-  //   name: "",
-  //   type: "",
-  //   support: "",
-  //   contact_name: "",
-  //   phone: "",
-  //   email: "",
-  //   street: "",
-  //   postal: "",
-  //   city: "",
-  //   country: "",
-  // };
 
   get tenants2(): any[] | null {
     if (!this.$store.state.tenants) return null;
@@ -154,6 +128,20 @@ export default class MainTable extends Vue {
   openAdd() {
     this.$refs.addTenants.open();
   }
+
+  // async openById({ _id }: any) {
+  //   console.log(_id);
+  //   await this.$store.dispatch("tenants/GET_TENANT_BYID", {
+  //     tenantId: _id,
+  //   });
+
+  //   this.$refs.idTenant.open();
+  // }
+
+  openById({ _id }: any) {
+    this.$router.push(`/tenants/${_id}`);
+  }
+
   closeModal() {
     this.isVisible = false;
   }
@@ -164,29 +152,6 @@ export default class MainTable extends Vue {
       this.$router.push("/login");
     }
   }
-  // initialize() {
-  //   this.desserts = [
-  //     {
-  //       name: "Frozen Yogurt",
-  //       type: 159,
-  //       support: 6.0,
-  //       email: 24,
-  //       street: 4.0,
-  //     },
-  //   ];
-  // },
-
-  // save() {
-  //   if (this.editedIndex > -1) {
-  //     Object.assign(this.desserts[this.editedIndex], this.editedItem);
-  //   } else {
-  //     this.desserts.push(this.editedItem);
-  //   }
-  //   this.close();
-  // },
-  // showModal() {
-  //   this.isVisible = true;
-  // },
 }
 </script>
 

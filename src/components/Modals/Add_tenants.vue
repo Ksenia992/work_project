@@ -31,6 +31,7 @@
         </v-col>
         <v-col cols="12" sm="4" class="pa-0 ma-0">
           <span class="required">Support e-mail: </span>
+
           <p class="font-weight-bold my-10 text-xs-center">
             Contact information
           </p>
@@ -51,18 +52,28 @@
           <span>Contact name: </span>
         </v-col>
         <v-col cols="12" sm="8" class="pa-0 ma-0">
-          <v-text-field outlined dense v-model.trim="contactName">
+          <v-text-field
+            outlined
+            dense
+            v-model.trim="contactName"
+            :rules="[rules.required]"
+          >
           </v-text-field>
         </v-col>
         <v-col cols="12" sm="4" class="pa-0 ma-0">
-          <span>Phone number: </span>
+          <span class="required">Phone number: </span>
         </v-col>
         <v-col cols="12" sm="8" class="pa-0 ma-0">
-          <v-text-field outlined dense v-model.trim="phoneNumber">
+          <v-text-field
+            outlined
+            dense
+            v-model.trim="phoneNumber"
+            :rules="[rules.required]"
+          >
           </v-text-field>
         </v-col>
         <v-col cols="12" sm="4" class="pa-0 ma-0">
-          <span>Email: </span>
+          <span class="required">Email: </span>
           <p class="font-weight-bold my-10 text-xs-center">
             Address information
           </p>
@@ -79,28 +90,52 @@
         </v-col>
 
         <v-col cols="12" sm="4" class="pa-0 ma-0">
-          <span>Street: </span>
+          <span class="required">Street: </span>
         </v-col>
         <v-col cols="12" sm="8" class="pa-0 ma-0">
-          <v-text-field outlined dense v-model.trim="street"> </v-text-field>
+          <v-text-field
+            outlined
+            dense
+            v-model.trim="street"
+            :rules="[rules.required]"
+          >
+          </v-text-field>
         </v-col>
         <v-col cols="12" sm="4" class="pa-0 ma-0">
-          <span>Postal code: </span>
+          <span class="required">Postal code: </span>
         </v-col>
         <v-col cols="12" sm="8" class="pa-0 ma-0">
-          <v-text-field outlined dense v-model.trim="zip"> </v-text-field>
+          <v-text-field
+            outlined
+            dense
+            v-model.trim="zip"
+            :rules="[rules.required]"
+          >
+          </v-text-field>
         </v-col>
         <v-col cols="12" sm="4" class="pa-0 ma-0">
-          <span>City: </span>
+          <span class="required">City: </span>
         </v-col>
         <v-col cols="12" sm="8" class="pa-0 ma-0">
-          <v-text-field outlined dense v-model.trim="city"> </v-text-field>
+          <v-text-field
+            outlined
+            dense
+            v-model.trim="city"
+            :rules="[rules.required]"
+          >
+          </v-text-field>
         </v-col>
         <v-col cols="12" sm="4" class="pa-0 ma-0">
-          <span>Country: </span>
+          <span class="required">Country: </span>
         </v-col>
         <v-col cols="12" sm="8" class="pa-0 ma-0">
-          <v-text-field outlined dense v-model.trim="country"> </v-text-field>
+          <v-text-field
+            outlined
+            dense
+            v-model.trim="country"
+            :rules="[rules.required]"
+          >
+          </v-text-field>
         </v-col>
       </v-row>
     </v-form>
@@ -127,10 +162,12 @@ export default class Add_tenants extends Vue {
     ],
     name: [(val: string) => (val || "").length > 0 || "This field is required"],
     email: (value: string) => {
-      const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+(?:com|net)))$/;
+      const pattern =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+(?:com|net)))$/;
       return pattern.test(value) || "Invalid e-mail.";
     },
   };
+
   types: string[] = ["Enterprise", "ServiceProvider"];
   name: string = "";
   type: string = "";
@@ -165,13 +202,9 @@ export default class Add_tenants extends Vue {
       },
     };
 
-    console.log(formData);
     await this.$store.dispatch("tenants/ADD_TENANTS", formData);
-    console.log(formData);
 
-    // if (this.isLogged) {
-    //   this.$router.push("/");
-    // }
+    console.log(formData);
   }
 }
 </script>

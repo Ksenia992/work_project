@@ -30,9 +30,9 @@ import { editAdminFields, EditAdminField } from "@/mock/index";
 export default class editAdmin extends Vue {
   fields: EditAdminField[] = editAdminFields;
 
-  // open() {
-  //   this.$refs.global.open({ title: "Edit admin" });
-  // }
+  open() {
+    this.$refs.global.open({ title: "Edit admin" });
+  }
   changePassInp(item: any) {
     console.log(item);
     item.showPass = !item.showPass;

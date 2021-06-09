@@ -4,7 +4,7 @@
     v-model="isOpen"
     max-width="620px"
   >
-    <v-card flat class="mx-auto pa-3" color="#F1FAF7" width="100%" c>
+    <v-card flat class="mx-auto pa-3" color="#F1FAF7" width="100%">
       <v-row>
         <v-col class="d-flex justify-end">
           <v-btn icon @click="close">
