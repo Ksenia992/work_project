@@ -15,8 +15,27 @@ type TenantsState = {
 };
 
 type TenantMethods = {
-  commit: (arg: string,arg2:boolean) => void
-  dispatch:any
+  commit: (arg: string,arg2:any) => void
+  dispatch:(arg:string, arg2:any) => void
+
+}
+
+type AddTenants = {
+  
+    name: string
+    type: string
+    email: string
+    address: {
+      street: string
+      city: string
+      zipCode: string
+      country: string
+    },
+    contactInfo: {
+      name: string
+      phoneNumber: string
+      email: string
+    },
 
 }
 
@@ -24,7 +43,7 @@ type TenantMethods = {
 const getters = {};
 
 const mutations = {
-  LOADING: (state:TenantsState, payload:any) => {
+  LOADING: (state:TenantsState, payload:boolean) => {
     state.isTenantsLoading = payload;
   },
   SET_TENANTS: (state:TenantsState, payload:any) => {
@@ -78,7 +97,7 @@ const actions = {
   },
 
 
-  async ADD_TENANTS({ commit, dispatch }:TenantMethods, payload:any) {
+  async ADD_TENANTS({ commit, dispatch }:TenantMethods, payload:AddTenants) {
     commit("LOADING", true);
     commit ('ADD_TENANT', payload)
 
@@ -155,7 +174,7 @@ const actions = {
 
 
 
-  async CLEAR_TENANT ({ commit }) {   
+  async CLEAR_TENANT ({ commit }:TenantMethods) {   
     commit('SET_ACTIVE_TENANT', null)
   }
 };

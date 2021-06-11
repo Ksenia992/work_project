@@ -121,6 +121,7 @@ export default class SignIn extends Vue {
       password: this.password,
     };
     await this.$store.dispatch("auth/SIGN_IN", formData);
+
     console.log(this.isLogged);
     if (this.isLogged) {
       this.$router.push("/tenants");
