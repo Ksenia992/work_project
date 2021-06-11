@@ -132,8 +132,32 @@ const actions = {
 
     } 
     commit("LOADING", false);
-  }
+  },
+
+  async DELETE_TENANT  ({ commit, dispatch }:TenantMethods,{tenantId}:any) {
+    commit("LOADING", true);
+    try {
+      const { data } = await axios.delete(`/tenants/${tenantId}`);
+    
   
+    
+    } catch (error) {
+      console.log("Error");
+      console.log(error);
+      commit("SET_ERROR", true);
+ 
+
+    }  
+    commit("LOADING", false);
+
+
+  },
+
+
+
+  async CLEAR_TENANT ({ commit }) {   
+    commit('SET_ACTIVE_TENANT', null)
+  }
 };
 
 export default {

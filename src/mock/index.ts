@@ -126,14 +126,14 @@ export const LayoutFields =  [
      
   {
     text: "Groups",
-    disabled: true,
+    disabled: false,
     icon: "mdi-account-group-outline",
     path: "/groups",
     href: "/groups",
   },
   {
     text: "Phone numbers",
-    disabled: true,
+    disabled: false,
     icon: "mdi-phone",
     path: "",
     href: "breadcrumbs_link_2",
@@ -147,16 +147,19 @@ export const LayoutFields =  [
   },
   {
     text: "Users",
-    disabled: true,
+    disabled: false,
     icon: "mdi-account-group",
-    path: "",
+    path: "/users",
+    href: "/users",
   },
   {
     text: "Search",
 
     disabled: true,
     icon: "mdi-magnify",
-    path: "",
+
+    path: "/search",
+    href: "/search",
   },
 ];
 
@@ -192,8 +195,6 @@ export type Tenants = {
   
 
 }
-
-
 
 
 

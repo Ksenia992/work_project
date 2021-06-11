@@ -49,7 +49,7 @@
         </v-col>
 
         <v-col cols="12" sm="4" class="pa-0 ma-0">
-          <span>Contact name: </span>
+          <span class="required">Contact name: </span>
         </v-col>
         <v-col cols="12" sm="8" class="pa-0 ma-0">
           <v-text-field

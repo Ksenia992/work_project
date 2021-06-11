@@ -1,14 +1,12 @@
 <template>
   <v-btn
-    class="py-4 px-6"
-    outlined
-    color="#949494"
+    class="py-4 px-6 mx-6 white--text"
+    color="#1AAA8D"
     elevation="2"
     rounded
     middle
-    @click="closeModal"
-  >
-    Cancel
+    @click="deleteTen"
+    >Delete
   </v-btn>
 </template>
 
@@ -16,19 +14,15 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
-
 @Component({})
-export default class CancelBtn extends Vue {
+export default class DeleteBtn extends Vue {
   @Prop() click!: () => void;
 
-  closeModal() {
+  deleteTen() {
     this.click();
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.v-btn {
-  border: 1px solid #949494 !important;
-}
 </style>

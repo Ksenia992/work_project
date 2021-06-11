@@ -13,16 +13,22 @@
   >
     <v-row>
       <v-col class="d-flex justify-end">
+        <v-btn icon v-if="!isEdited" @click="openDelete">
+          <v-icon color="teal"> mdi-delete </v-icon>
+        </v-btn>
         <v-btn v-if="!isEdited" icon @click="edit">
           <v-icon color="teal">mdi-pencil</v-icon>
         </v-btn>
+
         <v-btn v-else icon @click="edit">
           <v-icon color="teal">mdi-arrow-left-bold</v-icon>
         </v-btn>
       </v-col>
     </v-row>
     <slot v-if="isEdited"><EditTenant /></slot>
-
+    <slot v-if="isDelOpen">
+      <DeleteTenant :close="openDelete" :delete="deleteTen" />
+    </slot>
     <v-card-title class="pt-0" v-if="!isEdited">
       <span>{{ title }}</span>
     </v-card-title>
@@ -181,10 +187,11 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import { mapState } from "vuex";
 import EditTenant from "@/components/Modals/EditTenant.vue";
+import DeleteTenant from "@/components/Modals/deleteTenant.vue";
 
 // import { IdTenantFields, IdTenantField } from "@/mock/index";
 @Component({
-  components: { EditTenant },
+  components: { EditTenant, DeleteTenant },
   computed: {
     ...mapState("tenants", [
       "isTenantsLoading",
@@ -210,6 +217,8 @@ export default class idTenant extends Vue {
   isOpen: boolean = false;
   title: string = "Details";
   isEdited: boolean = false;
+  isDelOpen: boolean = false;
+  errorInTenant!: boolean;
 
   open(): void {
     this.isOpen = !this.isOpen;
@@ -224,6 +233,18 @@ export default class idTenant extends Vue {
   }
   edit(): void {
     this.isEdited = !this.isEdited;
+  }
+  openDelete(): void {
+    this.isDelOpen = !this.isDelOpen;
+  }
+  async deleteTen() {
+    await this.$store.dispatch("tenants/DELETE_TENANT", {
+      tenantId: this.$route.params.id,
+    });
+    await this.$store.dispatch("tenants/CLEAR_TENANT");
+    if (!this.errorInTenant) {
+      this.$router.replace("/tenants");
+    }
   }
 }
 </script>

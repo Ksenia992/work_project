@@ -14,7 +14,7 @@
         </v-card-title>
 
         <v-row>
-          <v-col cols="12" xs="12">
+          <v-col cols="12" xs="12" class="pb-0">
             <v-data-table
               v-if="!isTenantsLoading && tenants"
               :headers="headers"
@@ -31,7 +31,6 @@
                   <v-spacer></v-spacer>
                   <AddBtn @showModal="openAdd" />
                   <AddTable ref="addTenants" />
-                  <!-- <IdTenant ref="idTenant" /> -->
                 </v-toolbar>
               </template>
             </v-data-table>
@@ -168,6 +167,7 @@ tbody tr td {
 
 .v-data-table__wrapper table tbody tr:hover {
   background: #f1faf7 !important;
+  cursor: pointer !important;
 }
 </style>
 

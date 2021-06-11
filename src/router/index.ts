@@ -23,7 +23,7 @@ const routes = [
     path: '/tenants',
 
     name: 'Main',
-    meta:{layout:'Main',  middleware: [
+    meta:{layout:'MainTableInfo',  middleware: [
       auth
   ]
 
@@ -66,7 +66,14 @@ const routes = [
     // },
 
 
-
+{
+  
+      path: '/search',
+      name: 'main.search',
+      meta:{layout:'MainTableInfo', breadCrumb: 'search' },
+      component: () => import('../views/Search.vue')
+  
+},
 
  
   {
@@ -78,20 +85,20 @@ const routes = [
    {
     path: '/groups',
     name: 'groups',
-    meta:{layout:'MainTableInfo'},
+    meta:{layout:'MainTableInfo', breadCrumb: 'Groups' },
     component: () => import('../views/Groups.vue')
   },
   
   {
     path: '/admins',
     name: 'admins',
-    meta:{layout:'MainTableInfo'},
+    meta:{layout:'MainTableInfo', breadCrumb: 'Admins' },
     component: () => import('../views/Admins.vue')
   },
   {
     path: '/users',
     name: 'users',
-    meta:{layout:'MainTableInfo'},
+    meta:{layout:'MainTableInfo', breadCrumb: 'Users' },
     component: () => import('../views/Users.vue')
   },
   
@@ -130,5 +137,12 @@ router.beforeEach((to, from, next) => {
       next: middlewarePipeline(context, middleware, 1)
   })
 })
+
+
+
+
+
+
+
 
 export default router

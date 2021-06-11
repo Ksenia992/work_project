@@ -27,6 +27,7 @@ export default {
 <style>
 * {
   user-select: none;
+  list-style-type: none;
 }
 .v-application a {
   text-decoration: none;
