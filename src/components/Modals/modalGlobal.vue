@@ -25,7 +25,7 @@
           <CancelBtn :click="close" class="mr-6" />
           <SaveBtn
             class="mr-10"
-            :submit="submit"
+            :submit="submitHandler"
             :disabled="!isFormValid"
             type="submit"
           />
@@ -51,6 +51,11 @@ export default class ModalGlobal extends Vue {
 
   @Prop() isFormValid!: boolean;
   @Prop() submit!: () => void;
+
+  submitHandler() {
+    this.submit();
+    this.close();
+  }
 
   close(): void {
     this.isOpen = false;

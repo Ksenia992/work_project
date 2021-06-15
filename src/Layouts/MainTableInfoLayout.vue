@@ -1,6 +1,7 @@
 <template>
   <v-card class="overflow-hidden" height="100%">
     <v-app-bar
+      v-if="$vuetify.breakpoint.xsOnly"
       color="#1AAA8D"
       elevate-on-scroll
       scroll-target="#scrolling-techniques-7"
@@ -72,6 +73,8 @@
                 </v-list-item-content>
               </router-link>
             </v-list-item>
+
+            <v-btn @click="logOut" color="primary" class="ma-16">logout</v-btn>
           </v-list>
         </v-col>
       </v-row>
@@ -82,6 +85,7 @@
       color="transparent"
       elevate-on-scroll
       scroll-target="#scrolling-techniques-7"
+      class="mb-3"
     >
       <v-col cols="10" class="d-flex justify-center">
         <v-toolbar-title class="font-weight-thin text-h6">
@@ -99,6 +103,9 @@
             <v-breadcrumbs-item to="/tenants" class="mx-3 text-h6"
               >Tenants ></v-breadcrumbs-item
             >
+            <v-breadcrumbs-item class="mx-3 text-h6 teal--text font-italic">{{
+              tenantName
+            }}</v-breadcrumbs-item>
           </v-col>
         </v-toolbar-title>
       </v-col>
@@ -114,10 +121,20 @@
             <v-icon>mdi-information-outline</v-icon>
           </v-btn>
 
-          <v-btn icon color="#30B78D">
+          <v-btn icon color="#30B78D" @click="btnLogOut">
             <v-icon>mdi-account-circle-outline</v-icon>
           </v-btn>
         </v-col>
+
+        <v-btn
+          class="mb-3"
+          small
+          rounded
+          v-if="outLog"
+          @click="logOut"
+          color="primary"
+          >Logout</v-btn
+        >
       </v-row>
     </v-app-bar>
     <v-main>
@@ -129,14 +146,48 @@
 <script lang='ts'>
 import Vue from "vue";
 import Component from "vue-class-component";
-import { LayoutFields, LayoutField } from "@/mock/index";
+import { Watch } from "vue-property-decorator";
 
-@Component({})
+import { mapState } from "vuex";
+
+@Component({
+  computed: {
+    ...mapState("auth", ["isLogged"]),
+    ...mapState("tenants", ["tenantById"]),
+  },
+})
 export default class MainTableLayout extends Vue {
   drawer: boolean = false;
   group: any = null;
+  isLogged!: boolean;
+  tenantById: any;
+  tenantName: string = "";
+  tenantId: string = "";
+  outLog: boolean = false;
 
-  // items: LayoutField[] = LayoutFields;
+  @Watch("tenantById.name")
+  watchName(val: string) {
+    this.tenantName = val;
+  }
+
+  // @Watch("tenantById.id")
+  // watchId(val: string) {
+  //   console.log(val);
+  //   this.tenantId = val;
+  // }
+
+  btnLogOut() {
+    this.outLog = !this.outLog;
+  }
+
+  async logOut() {
+    await this.$store.dispatch("auth/LOG_OUT");
+    console.log(this.isLogged);
+    if (!this.isLogged) {
+      this.$router.push("/login");
+    }
+  }
+
   items: any = [
     {
       text: "Tenants",

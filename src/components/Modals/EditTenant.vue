@@ -239,7 +239,7 @@ import { Tenants } from "@/mock/index";
 })
 export default class EditTenant extends Vue {
   types: string[] = ["Enterprise", "ServiceProvider"];
-
+  tenantById: any;
   tenEd: Tenants = {
     name: "",
     type: "",

@@ -6,6 +6,7 @@ const state = {
     isPageLoading:false,
     token: null,
     isLogged: false,
+    
 };
 
 type AuthState = {
@@ -51,6 +52,7 @@ const mutations = {
   LOADING: (state: AuthState, payload:boolean) => {
     state.isPageLoading = payload;
   },
+   
 };
 
 

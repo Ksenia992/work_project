@@ -5,13 +5,17 @@ const state = {
   tenants: [],
   isTenantsLoading: false,
   tenantById:null,
-  errorInTenant:false
+  errorInTenant:false,
+  tenantsNames:[],
+  serverItems:null
 };
 type TenantsState = {
   isTenantsLoading: boolean;
   tenants:string[]
   tenantById:any,
-  errorInTenant:boolean
+  errorInTenant:boolean,
+  tenantsNames:string[],
+  serverItems:any
 };
 
 type TenantMethods = {
@@ -57,7 +61,11 @@ const mutations = {
 },
 ADD_TENANT:(state:TenantsState, payload:any) => {
   state.tenants.push(payload)
-  }
+  },
+  SERVER_ITEMS:(state:TenantsState, payload:any) => {
+    state.serverItems = payload
+    },
+  
 }
 
 const actions = {
@@ -73,19 +81,25 @@ const actions = {
       console.log("Error");
       console.log(error);
     }
-
-
-
     commit("LOADING", false);
   },
 
-  async GET_TENANTS_PERPAGE({ commit, dispatch }:TenantMethods, payload:any) {
+  async GET_TENANTS_BYQUERY({ commit, dispatch }:TenantMethods, {perPage, page}:any) {
     commit("LOADING", true);
 
     try {
-      const { data } = await axios.get("/tenants?", { params: { page: newVal } });
+      const { data } = await axios.get("/tenants", { params: { perPage: perPage, page: page } });
+      // const response=await axios.get("/tenants", { params: { perPage: perPage, page: page } });
+
+      console.log(data.pagination.totalPages)
+      console.log(data.pagination.perPage)
+
+
+      const serverItems = data.pagination.totalPages * data.pagination.perPage
+      
       if (data && data.tenants && Array.isArray(data.tenants)) {
         commit("SET_TENANTS", data.tenants ?? []);
+        commit ('SERVER_ITEMS', serverItems)
       }
     } catch (error) {
       console.log("Error");
@@ -95,6 +109,34 @@ const actions = {
     commit("LOADING", false);
 
   },
+
+
+
+
+
+  // async GET_TENANTS_BYPAGE({ commit, dispatch }:TenantMethods, {page}:any) {
+  //   commit("LOADING", true);
+
+  //   try {
+  //     const { data } = await axios.get("/tenants", { params: { page: page } });
+  //     if (data && data.tenants && Array.isArray(data.tenants)) {
+  //       commit("SET_TENANTS", data.tenants ?? []);
+  //     }
+  //   } catch (error) {
+  //     console.log("Error");
+  //     console.log(error);
+  //   }
+
+  //   commit("LOADING", false);
+
+  // },
+
+
+
+
+
+
+
 
 
   async ADD_TENANTS({ commit, dispatch }:TenantMethods, payload:AddTenants) {
@@ -120,8 +162,13 @@ const actions = {
     commit("LOADING", true);
     try {
       const { data } = await axios.get(`/tenants/${tenantId}`);
+   
+      console.log(data.name)
+ 
       if (data ) {
         commit("SET_ACTIVE_TENANT", data);
+
+       
       }
       console.log(data)
      console.log(state.tenantById)

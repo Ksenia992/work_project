@@ -32,6 +32,12 @@ const routes = [
     component: () => import('../views/MainTable.vue'),
     
   },
+  
+
+  {
+    path: '*',
+    redirect: '/tenants',
+  },
 
 
 
@@ -41,6 +47,13 @@ const routes = [
     meta:{layout:'MainTableInfo'},
     component: () => import('../views/idTenant.vue')
   },
+
+  // {
+  //   path:'/tenants?:perPage',
+  //   name:"perpage",
+  //   meta:{layout:'MainTableInfo'},
+  //   component: () => import('../views/Search.vue')
+  // },
 
   // children:[{
   //     path: '/search',
@@ -70,7 +83,7 @@ const routes = [
   
       path: '/search',
       name: 'main.search',
-      meta:{layout:'MainTableInfo', breadCrumb: 'search' },
+      meta:{layout:'Main', breadCrumb: 'search' },
       component: () => import('../views/Search.vue')
   
 },

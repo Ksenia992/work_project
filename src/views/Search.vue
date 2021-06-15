@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="12" class="d-flex">
+    <v-col cols="8" class="ma-8">
       <v-app-bar color="transparent" flat>
         <!-- <divider />
      <v-divider dark></v-divider> -->
@@ -15,33 +15,6 @@
           </v-tabs>
         </template>
       </v-app-bar>
-    </v-col>
-
-    <v-col cols="8" class="ml-6">
-      <p>Filter:</p>
-      <v-col class="d-flex">
-        <v-list>
-          <v-list-group
-            v-for="item in items"
-            :key="item.title"
-            v-model="item.active"
-            no-action
-          >
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title v-text="item.title"></v-list-item-title>
-              </v-list-item-content>
-            </template>
-
-            <v-list-item v-for="child in item.items" :key="child.title">
-              <v-list-item-content>
-                <v-list-item-title v-text="child.title"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-group>
-        </v-list>
-        <Search_field />
-      </v-col>
     </v-col>
   </v-row>
 </template>

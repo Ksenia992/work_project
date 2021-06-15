@@ -219,6 +219,12 @@ export default class idTenant extends Vue {
   isEdited: boolean = false;
   isDelOpen: boolean = false;
   errorInTenant!: boolean;
+  tenantById: any;
+
+  // get tenName() {
+  //   if (!this.tenantById) return "";
+  //   return this.tenantById.name;
+  // }
 
   open(): void {
     this.isOpen = !this.isOpen;
@@ -226,6 +232,7 @@ export default class idTenant extends Vue {
   close(): void {
     this.isOpen = false;
   }
+
   mounted(): void {
     this.$store.dispatch("tenants/GET_TENANT_BYID", {
       tenantId: this.$route.params.id,
