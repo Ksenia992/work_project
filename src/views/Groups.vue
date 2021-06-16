@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="10" class="offset-md-2">
+    <v-col cols="12" md="8" class="mt-6">
       <v-row class="mb-5 pl-5">
         <v-col cols="12" class="d-flex flex-column">
           <h1>My groups</h1>
@@ -13,7 +13,7 @@
             hide-details
           ></v-text-field>
         </v-col>
-        <v-col cols="12" sm="4">
+        <v-col cols="12" sm="4" class="d-flex justify-end">
           <v-btn
             color="#1AAA8D"
             class="white--text pa-5"
@@ -23,7 +23,7 @@
             >Add<v-icon right> mdi-plus-circle-outline </v-icon>
           </v-btn>
         </v-col>
-        <v-col cols="9" class="px-0">
+        <v-col cols="12" class="px-0">
           <v-card
             v-for="n in 3"
             :key="n"
@@ -52,7 +52,10 @@
 </template>
 
 <script lang='ts'>
-export default {};
+import Vue from "vue";
+import Component from "vue-class-component";
+@Component({})
+export default class Groups extends Vue {}
 </script>
 
 <style lang="scss" scoped>

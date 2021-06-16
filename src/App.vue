@@ -10,6 +10,7 @@
 import MainLayout from "@/Layouts/MainLayout.vue";
 import MainTableInfoLayout from "@/Layouts/MainTableInfoLayout.vue";
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
+import CheckLayout from "@/Layouts/CheckLayout.vue";
 
 export default {
   computed: {
@@ -20,7 +21,7 @@ export default {
   created() {
     this.$store.dispatch("auth/CHECK_TOKEN");
   },
-  components: { MainLayout, MainTableInfoLayout, DefaultLayout },
+  components: { MainLayout, MainTableInfoLayout, DefaultLayout, CheckLayout },
 };
 </script>
 

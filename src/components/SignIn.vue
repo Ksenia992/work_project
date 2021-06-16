@@ -86,6 +86,8 @@ import { required, minLength, email } from "vuelidate/lib/validators";
 import ButtonWithout from "@/components/Buttons/ButtonWithoutBorder.vue";
 import { mapState } from "vuex";
 import Component from "vue-class-component";
+import sha256 from "crypto-js/sha256";
+import Base64 from "crypto-js/enc-base64";
 
 @Component({
   mixins: [validationMixin],
@@ -119,6 +121,7 @@ export default class SignIn extends Vue {
     const formData = {
       username: this.username,
       password: this.password,
+      // password: Base64.stringify(sha256(this.password)),
     };
     await this.$store.dispatch("auth/SIGN_IN", formData);
 

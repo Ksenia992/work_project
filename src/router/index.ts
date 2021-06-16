@@ -83,7 +83,7 @@ const routes = [
   
       path: '/search',
       name: 'main.search',
-      meta:{layout:'Main', breadCrumb: 'search' },
+      meta:{layout:'Check', breadCrumb: 'search' },
       component: () => import('../views/Search.vue')
   
 },
@@ -105,14 +105,14 @@ const routes = [
   {
     path: '/admins',
     name: 'admins',
-    meta:{layout:'MainTableInfo', breadCrumb: 'Admins' },
+    meta:{layout:'Check', breadCrumb: 'Admins' },
     component: () => import('../views/Admins.vue')
   },
   {
     path: '/users',
     name: 'users',
     meta:{layout:'MainTableInfo', breadCrumb: 'Users' },
-    component: () => import('../views/Users.vue')
+    component: () => import('../components/Users.vue')
   },
   
   

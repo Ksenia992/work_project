@@ -1,7 +1,9 @@
 <template>
   <v-row>
     <v-col
-      cols="2"
+      cols="12"
+      md="2"
+      sm="4"
       class="for_padding"
       position="absolute"
       style="background: #1ba890"
@@ -48,11 +50,32 @@
           elevate-on-scroll
           scroll-target="#scrolling-techniques-7"
         >
+          <v-col cols="12" class="d-flex justify-center col-md-6">
+            <v-toolbar-title class="font-weight-thin text-h6">
+              <!-- <v-breadcrumbs :items="items" divider=">"></v-breadcrumbs> -->
+              <v-col class="d-flex">
+                <v-breadcrumbs-item to="/admins" class="mx-3 text-h6"
+                  >Admins
+                </v-breadcrumbs-item>
+
+                <v-breadcrumbs-item to="/search" class="mx-3 text-h6"
+                  >Search
+                </v-breadcrumbs-item>
+                <v-breadcrumbs-item to="/tenants" class="mx-3 text-h6"
+                  >Tenants
+                </v-breadcrumbs-item>
+                <v-breadcrumbs-item
+                  class="mx-3 text-h6 teal--text font-italic"
+                  >{{ tenantName }}</v-breadcrumbs-item
+                >
+              </v-col>
+            </v-toolbar-title>
+          </v-col>
           <v-row class="d-flex justify-center">
             <v-col cols="10" class="d-flex justify-center">
-              <v-toolbar-title class="font-weight-thin text-h6"
+              <!-- <v-toolbar-title class="font-weight-thin text-h6"
                 >Tenants
-              </v-toolbar-title>
+              </v-toolbar-title> -->
 
               <v-spacer></v-spacer>
 
@@ -64,33 +87,53 @@
                 <v-icon>mdi-information-outline</v-icon>
               </v-btn>
 
-              <v-btn icon color="#30B78D">
+              <v-btn @click="btnLogOut" icon color="#30B78D">
                 <v-icon>mdi-account-circle-outline</v-icon>
               </v-btn>
             </v-col>
           </v-row>
+          <v-btn small rounded v-if="outLog" @click="logOut" color="primary"
+            >Logout</v-btn
+          >
         </v-app-bar>
-
-        <v-main>
-          <router-view />
-        </v-main>
       </v-col>
     </v-row>
+    <v-main>
+      <router-view />
+    </v-main>
   </v-row>
 </template>
 
 <script lang='ts'>
 import MainTable from "../views/MainTable.vue";
 import Search from "../views/Search.vue";
+
 import Vue from "vue";
 import Component from "vue-class-component";
+import { mapState } from "vuex";
 
 @Component({
   components: { MainTable, Search },
+  computed: {
+    ...mapState("auth", ["isLogged"]),
+  },
 })
 export default class MainLayout extends Vue {
   drawer: boolean = true;
   group: any = null;
+  isLogged!: boolean;
+  outLog: boolean = false;
+
+  async logOut() {
+    await this.$store.dispatch("auth/LOG_OUT");
+    console.log(this.isLogged);
+    if (!this.isLogged) {
+      this.$router.push("/login");
+    }
+  }
+  btnLogOut() {
+    this.outLog = !this.outLog;
+  }
 }
 </script>
 <style lang="scss">

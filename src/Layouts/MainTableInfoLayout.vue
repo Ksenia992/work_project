@@ -92,17 +92,15 @@
           <!-- <v-breadcrumbs :items="items" divider=">"></v-breadcrumbs> -->
           <v-col class="d-flex">
             <v-breadcrumbs-item to="/admins" class="mx-3 text-h6"
-              >Admins ></v-breadcrumbs-item
-            >
-            <v-breadcrumbs-item to="/groups" class="mx-3 text-h6"
-              >Groups ></v-breadcrumbs-item
-            >
+              >Admins
+            </v-breadcrumbs-item>
+
             <v-breadcrumbs-item to="/search" class="mx-3 text-h6"
-              >Search ></v-breadcrumbs-item
-            >
+              >Search
+            </v-breadcrumbs-item>
             <v-breadcrumbs-item to="/tenants" class="mx-3 text-h6"
-              >Tenants ></v-breadcrumbs-item
-            >
+              >Tenants
+            </v-breadcrumbs-item>
             <v-breadcrumbs-item class="mx-3 text-h6 teal--text font-italic">{{
               tenantName
             }}</v-breadcrumbs-item>

@@ -2,8 +2,8 @@
   <v-row class="justify-center">
     <router-view />
     <v-col cols="10">
-      <v-card flat outlined class="mt-4">
-        <v-card-title outlined>
+      <v-card flat class="mt-4">
+        <v-card-title>
           <v-text-field
             dense
             prepend-icon="mdi-magnify"
@@ -35,13 +35,13 @@
               @update:page="updatePage"
               @click:row="openById"
             >
-              <template v-slot:top>
+              <!-- <template v-slot:top>
                 <v-toolbar flat>
                   <v-spacer></v-spacer>
-                  <!-- <AddBtn @showModal="openAdd" />
-                  <AddTable ref="addTenants" /> -->
+                  <AddBtn @showModal="openAdd" />
+                  <AddTable ref="addTenants" />
                 </v-toolbar>
-              </template>
+              </template> -->
             </v-data-table>
             <v-card v-else>
               <v-row>
@@ -193,6 +193,9 @@ export default class MainTable extends Vue {
 
 
 <style lang="scss">
+// .v-card {
+//   border: none !important;
+// }
 .v-data-table-header th {
   background: #1aaa8d !important;
   color: #fff !important;
