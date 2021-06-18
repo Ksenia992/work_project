@@ -30,6 +30,7 @@ export default {
   user-select: none;
   list-style-type: none;
 }
+
 .v-application a {
   text-decoration: none;
 }

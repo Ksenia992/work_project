@@ -1,8 +1,7 @@
 <template>
   <v-card class="overflow-hidden" height="100%">
     <v-app-bar
-      v-if="$vuetify.breakpoint.xsOnly"
-      color="#1AAA8D"
+      :color="color || '#1AAA8D'"
       elevate-on-scroll
       scroll-target="#scrolling-techniques-7"
     >
@@ -24,7 +23,9 @@
           cols="12"
           class="for_padding"
           position="absolute"
-          style="background: #1ba890"
+          :style="{
+            background: color || '#1AAA8D',
+          }"
         >
           <v-col cols="8" class="d-flex align-center">
             <v-img src="@/assets/Logo.png" />
@@ -152,6 +153,7 @@ import { mapState } from "vuex";
   computed: {
     ...mapState("auth", ["isLogged"]),
     ...mapState("tenants", ["tenantById"]),
+    ...mapState("settings", ["activeColor"]),
   },
 })
 export default class MainTableLayout extends Vue {
@@ -162,17 +164,20 @@ export default class MainTableLayout extends Vue {
   tenantName: string = "";
   tenantId: string = "";
   outLog: boolean = false;
+  color: string | null = localStorage.getItem("color");
+
+  //  v-if="$vuetify.breakpoint.xsOnly"
+
+  // #1AAA8D
 
   @Watch("tenantById.name")
   watchName(val: string) {
     this.tenantName = val;
   }
-
-  // @Watch("tenantById.id")
-  // watchId(val: string) {
-  //   console.log(val);
-  //   this.tenantId = val;
-  // }
+  @Watch("activeColor")
+  changeCurrentColor(val: any) {
+    this.color = val;
+  }
 
   btnLogOut() {
     this.outLog = !this.outLog;
@@ -230,6 +235,15 @@ export default class MainTableLayout extends Vue {
 
       path: "/search",
       href: "/search",
+    },
+    {
+      text: "Settings",
+
+      disabled: true,
+      icon: "mdi-application-settings",
+
+      path: "/settings",
+      href: "/settings",
     },
   ];
 }

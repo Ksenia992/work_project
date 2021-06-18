@@ -114,6 +114,12 @@ const routes = [
     meta:{layout:'MainTableInfo', breadCrumb: 'Users' },
     component: () => import('../components/Users.vue')
   },
+  {
+    path: '/settings',
+    name: 'settings',
+    meta:{layout:'MainTableInfo' },
+    component: () => import('../views/Settings.vue')
+  },
   
   
   
