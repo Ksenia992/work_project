@@ -1,107 +1,122 @@
 <template>
-  <v-row>
+  <div class="d-flex">
+    <v-app-bar-nav-icon
+      v-if="$vuetify.breakpoint.smAndDown"
+      absolute
+      color="red"
+      @click="drawer = !drawer"
+    ></v-app-bar-nav-icon>
+
     <v-col
       cols="12"
+      sm="3"
       md="2"
-      sm="4"
+      v-if="drawer"
       class="for_padding"
-      position="absolute"
-      style="background: #1ba890"
+      :style="{
+        background: color || '#1AAA8D',
+      }"
     >
-      <v-col cols="4" class="d-flex align-center">
+      <v-col cols="6" class="d-flex align-center">
         <v-img src="@/assets/Logo.png" />
         <span
           class="white--text text-h4 pa-3 font-weight-bold text-body-2 for xs"
           >Rylex</span
         >
       </v-col>
-      <v-list style="background: transparent" dense nav>
-        <router-link to="/tenants">
-          <v-list-item link>
-            <v-list-item-icon>
-              <v-icon color="white">mdi-home</v-icon>
-            </v-list-item-icon>
 
-            <v-list-item-content>
-              <v-list-item-title class="white--text">Tenants</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </router-link>
+      <v-col cols="12" class="d-flex">
+        <v-list style="background: transparent" dense nav>
+          <router-link to="/tenants">
+            <v-list-item link>
+              <v-list-item-icon>
+                <v-icon color="white">mdi-home</v-icon>
+              </v-list-item-icon>
 
-        <router-link to="/search">
-          <v-list-item link>
-            <v-list-item-icon>
-              <v-icon color="white">mdi-magnify</v-icon>
-            </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="white--text"
+                  >Tenants</v-list-item-title
+                >
+              </v-list-item-content>
+            </v-list-item>
+          </router-link>
 
-            <v-list-item-content>
-              <v-list-item-title class="white--text">Search</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </router-link>
-      </v-list>
+          <router-link to="/search">
+            <v-list-item link>
+              <v-list-item-icon>
+                <v-icon color="white">mdi-magnify</v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title class="white--text"
+                  >Search</v-list-item-title
+                >
+              </v-list-item-content>
+            </v-list-item>
+          </router-link>
+        </v-list>
+      </v-col>
     </v-col>
 
-    <v-row>
-      <v-col>
-        <v-app-bar
-          relative
-          color="transparent"
-          elevate-on-scroll
-          scroll-target="#scrolling-techniques-7"
-        >
-          <v-col cols="12" class="d-flex justify-center col-md-6">
-            <v-toolbar-title class="font-weight-thin text-h6">
-              <!-- <v-breadcrumbs :items="items" divider=">"></v-breadcrumbs> -->
-              <v-col class="d-flex">
-                <v-breadcrumbs-item to="/admins" class="mx-3 text-h6"
-                  >Admins
-                </v-breadcrumbs-item>
+    <v-app-bar
+      relative
+      color="transparent"
+      elevate-on-scroll
+      scroll-target="#scrolling-techniques-7"
+    >
+      <v-col cols="10" class="d-flex justify-center">
+        <v-toolbar-title class="font-weight-thin text-h6">
+          <!-- <v-breadcrumbs :items="items" divider=">"></v-breadcrumbs> -->
+          <v-col class="d-flex">
+            <v-breadcrumbs-item to="/admins" class="mx-3 text-h6"
+              >Admins
+            </v-breadcrumbs-item>
 
-                <v-breadcrumbs-item to="/search" class="mx-3 text-h6"
-                  >Search
-                </v-breadcrumbs-item>
-                <v-breadcrumbs-item to="/tenants" class="mx-3 text-h6"
-                  >Tenants
-                </v-breadcrumbs-item>
-                <v-breadcrumbs-item
-                  class="mx-3 text-h6 teal--text font-italic"
-                  >{{ tenantName }}</v-breadcrumbs-item
-                >
-              </v-col>
-            </v-toolbar-title>
+            <v-breadcrumbs-item to="/search" class="mx-3 text-h6"
+              >Search
+            </v-breadcrumbs-item>
+            <v-breadcrumbs-item to="/tenants" class="mx-3 text-h6"
+              >Tenants
+            </v-breadcrumbs-item>
+            <v-breadcrumbs-item class="mx-3 text-h6 teal--text font-italic">{{
+              tenantName
+            }}</v-breadcrumbs-item>
           </v-col>
-          <v-row class="d-flex justify-center">
-            <v-col cols="10" class="d-flex justify-center">
-              <!-- <v-toolbar-title class="font-weight-thin text-h6"
-                >Tenants
-              </v-toolbar-title> -->
-
-              <v-spacer></v-spacer>
-
-              <v-btn icon color="#30B78D">
-                <v-icon>mdi-earth</v-icon>
-              </v-btn>
-
-              <v-btn icon color="#30B78D">
-                <v-icon>mdi-information-outline</v-icon>
-              </v-btn>
-
-              <v-btn @click="btnLogOut" icon color="#30B78D">
-                <v-icon>mdi-account-circle-outline</v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-          <v-btn small rounded v-if="outLog" @click="logOut" color="primary"
-            >Logout</v-btn
-          >
-        </v-app-bar>
+        </v-toolbar-title>
       </v-col>
-    </v-row>
+
+      <!-- <v-spacer></v-spacer> -->
+      <v-row class="d-flex justify-center">
+        <v-col cols="10" class="d-flex justify-center">
+          <v-btn icon :color="color || '#1AAA8D'">
+            <v-icon>mdi-earth</v-icon>
+          </v-btn>
+
+          <v-btn icon :color="color || '#1AAA8D'">
+            <v-icon>mdi-information-outline</v-icon>
+          </v-btn>
+
+          <v-btn icon :color="color || '#1AAA8D'" @click="btnLogOut">
+            <v-icon>mdi-account-circle-outline</v-icon>
+          </v-btn>
+        </v-col>
+
+        <v-btn
+          class="mb-3"
+          small
+          rounded
+          v-if="outLog"
+          @click="logOut"
+          color="primary"
+          >Logout</v-btn
+        >
+      </v-row>
+    </v-app-bar>
+
     <v-main>
       <router-view />
     </v-main>
-  </v-row>
+  </div>
 </template>
 
 <script lang='ts'>

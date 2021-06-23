@@ -105,7 +105,7 @@ const routes = [
   {
     path: '/admins',
     name: 'admins',
-    meta:{layout:'Check', breadCrumb: 'Admins' },
+    meta:{layout:'Main', breadCrumb: 'Admins' },
     component: () => import('../views/Admins.vue')
   },
   {

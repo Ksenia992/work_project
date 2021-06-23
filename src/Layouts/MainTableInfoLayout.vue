@@ -112,15 +112,15 @@
       <!-- <v-spacer></v-spacer> -->
       <v-row class="d-flex justify-center">
         <v-col cols="10" class="d-flex justify-center">
-          <v-btn icon color="#30B78D">
+          <v-btn icon :color="color || '#1AAA8D'">
             <v-icon>mdi-earth</v-icon>
           </v-btn>
 
-          <v-btn icon color="#30B78D">
+          <v-btn icon :color="color || '#1AAA8D'">
             <v-icon>mdi-information-outline</v-icon>
           </v-btn>
 
-          <v-btn icon color="#30B78D" @click="btnLogOut">
+          <v-btn icon :color="color || '#1AAA8D'" @click="btnLogOut">
             <v-icon>mdi-account-circle-outline</v-icon>
           </v-btn>
         </v-col>

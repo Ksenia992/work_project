@@ -9,7 +9,7 @@
       class="elevation-1"
     >
       <template v-slot:top>
-        <v-row class="mb-5 pl-5">
+        <v-row class="mb-5 mt-3 pl-5">
           <v-col cols="12" class="d-flex flex-column">
             <h1>Admin management</h1>
           </v-col>
