@@ -83,7 +83,7 @@ const routes = [
   
       path: '/search',
       name: 'main.search',
-      meta:{layout:'Check', breadCrumb: 'search' },
+      meta:{layout:'Main', breadCrumb: 'search' },
       component: () => import('../views/Search.vue')
   
 },

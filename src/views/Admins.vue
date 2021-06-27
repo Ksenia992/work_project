@@ -1,7 +1,7 @@
 <template>
-  <!-- <v-row>
-    <v-col cols="10" class="offset-md-2"> -->
-  <v-container>
+  <v-row>
+    <v-col cols="12" >
+ 
     <v-data-table
       :headers="headers"
       :items="admins"
@@ -110,9 +110,9 @@
         <v-icon small @click="openModal('deleteAdm')"> mdi-delete </v-icon>
       </template>
     </v-data-table>
-  </v-container>
-  <!-- </v-col>
-  </v-row> -->
+ 
+  </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">

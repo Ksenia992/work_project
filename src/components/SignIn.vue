@@ -64,11 +64,21 @@
 
               <ButtonWithout
                 :loading="isPageLoading"
-                :disabled="this.$v.$invalid"
+                :disabled="this.$v.$invalid" 
                 type="submit"
                 :btn_text="btn_text"
                 @click="submit"
+                ref='btn'
               ></ButtonWithout>
+               <v-alert
+      dense
+      outlined
+      type="error"
+      v-if='error'
+    >
+     Incorrect username or password
+    </v-alert>
+    <p>{{errorText}}</p>
             </v-form>
           </v-col>
         </v-row>
@@ -88,6 +98,7 @@ import { mapState } from "vuex";
 import Component from "vue-class-component";
 import sha256 from "crypto-js/sha256";
 import Base64 from "crypto-js/enc-base64";
+import { Watch } from "vue-property-decorator";
 
 @Component({
   mixins: [validationMixin],
@@ -97,7 +108,7 @@ import Base64 from "crypto-js/enc-base64";
   },
   components: { ButtonWithout },
   computed: {
-    ...mapState("auth", ["isLogged", "isPageLoading"]),
+    ...mapState("auth", ["isLogged", "isPageLoading",'error','errorText']),
     passwordErrors() {
       const errors: string[] = [];
       if (!this.$v.password.$dirty) return errors;
@@ -110,7 +121,8 @@ import Base64 from "crypto-js/enc-base64";
 })
 export default class SignIn extends Vue {
   isLogged!: boolean;
-
+error!:boolean;
+errorText!:string;
   username: string = "";
   password: string = "";
   showPass: boolean = false;
@@ -129,6 +141,10 @@ export default class SignIn extends Vue {
     if (this.isLogged) {
       this.$router.push("/tenants");
     }
+  }
+     @Watch("error")
+  disableBtn(val: boolean) {
+  this.$refs.btn.disabled=val
   }
 }
 </script>

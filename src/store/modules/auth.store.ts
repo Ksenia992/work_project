@@ -6,6 +6,8 @@ const state = {
     isPageLoading:false,
     token: null,
     isLogged: false,
+    error:false,
+    errorText:''
     
 };
 
@@ -13,6 +15,8 @@ type AuthState = {
   isPageLoading: boolean;
   token: string | null;
   isLogged: boolean
+  error:boolean
+  errorText:string
 }
 
 type AuthMethods = {
@@ -52,6 +56,12 @@ const mutations = {
   LOADING: (state: AuthState, payload:boolean) => {
     state.isPageLoading = payload;
   },
+  SET_ERROR: (state: AuthState, payload:boolean) => {
+    state.error = payload;
+  },
+  SET_TEXT_ERROR: (state: AuthState, payload:any) => {
+    state.errorText = payload;
+  },
    
 };
 
@@ -72,6 +82,8 @@ const actions = {
    } catch (error) {
     console.log("Error");
     console.log(error);
+    commit("SET_ERROR", true);
+    commit("SET_TEXT_ERROR", error);
   }
   commit("LOADING", false);
   },

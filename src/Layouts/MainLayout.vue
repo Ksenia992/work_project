@@ -1,28 +1,30 @@
 <template>
   <div class="d-flex">
-    <v-app-bar-nav-icon
-      v-if="$vuetify.breakpoint.smAndDown"
-      absolute
-      color="red"
-      @click="drawer = !drawer"
-    ></v-app-bar-nav-icon>
+ 
 
     <v-col
       cols="12"
       sm="3"
       md="2"
-      v-if="drawer"
-      class="for_padding"
-      :style="{
-        background: color || '#1AAA8D',
-      }"
+     v-if="drawer && '$vuetify.breakpoint.smAndUp'"
+     
+     height='100vh'
+         :style="{
+            background: color || '#1AAA8D',
+          }"
+      
     >
+   
+ 
+  
       <v-col cols="6" class="d-flex align-center">
         <v-img src="@/assets/Logo.png" />
         <span
           class="white--text text-h4 pa-3 font-weight-bold text-body-2 for xs"
           >Rylex</span
-        >
+        > 
+        
+ 
       </v-col>
 
       <v-col cols="12" class="d-flex">
@@ -56,15 +58,31 @@
           </router-link>
         </v-list>
       </v-col>
+     
+      
     </v-col>
+      <v-col class='mt-12'>
+         <router-view />
+         </v-col>
 
     <v-app-bar
-      relative
+  absolute
       color="transparent"
       elevate-on-scroll
       scroll-target="#scrolling-techniques-7"
     >
+    
+        
+  
       <v-col cols="10" class="d-flex justify-center">
+        <v-col cols='4'>
+       <v-app-bar-nav-icon
+        v-if='$vuetify.breakpoint.smAndDown'
+    
+      color="teal"
+      @click="drawer = !drawer"
+    ></v-app-bar-nav-icon>
+    </v-col>
         <v-toolbar-title class="font-weight-thin text-h6">
           <!-- <v-breadcrumbs :items="items" divider=">"></v-breadcrumbs> -->
           <v-col class="d-flex">
@@ -78,9 +96,9 @@
             <v-breadcrumbs-item to="/tenants" class="mx-3 text-h6"
               >Tenants
             </v-breadcrumbs-item>
-            <v-breadcrumbs-item class="mx-3 text-h6 teal--text font-italic">{{
+            <!-- <v-breadcrumbs-item class="mx-3 text-h6 teal--text font-italic">{{
               tenantName
-            }}</v-breadcrumbs-item>
+            }}</v-breadcrumbs-item> -->
           </v-col>
         </v-toolbar-title>
       </v-col>
@@ -95,27 +113,54 @@
           <v-btn icon :color="color || '#1AAA8D'">
             <v-icon>mdi-information-outline</v-icon>
           </v-btn>
+      
 
-          <v-btn icon :color="color || '#1AAA8D'" @click="btnLogOut">
+          <!-- <v-btn icon :color="color || '#1AAA8D'"  
+      @click="btnLogOut"  open-on-hover
+      top
+      offset-y>
             <v-icon>mdi-account-circle-outline</v-icon>
-          </v-btn>
-        </v-col>
-
+          </v-btn> -->
+      
+             <v-menu
+      open-on-hover
+      
+      offset-y
+      content-class="elevation-0"
+    >
+      <template v-slot:activator="{ on, attrs }">
         <v-btn
-          class="mb-3"
+          icon :color="color || '#1AAA8D'"
+          v-bind="attrs"
+          v-on="on"
+        >
+       
+           <v-icon>mdi-account-circle-outline</v-icon>
+        </v-btn>
+      </template>
+
+  
+         <v-btn
+       
           small
           rounded
-          v-if="outLog"
+         
           @click="logOut"
-          color="primary"
+          :color="color || '#1AAA8D'"
           >Logout</v-btn
         >
+ 
+    </v-menu>
+ 
+        </v-col>
+
+   
       </v-row>
     </v-app-bar>
 
-    <v-main>
-      <router-view />
-    </v-main>
+
+      
+  
   </div>
 </template>
 
@@ -126,11 +171,14 @@ import Search from "../views/Search.vue";
 import Vue from "vue";
 import Component from "vue-class-component";
 import { mapState } from "vuex";
+import { Watch } from "vue-property-decorator";
 
 @Component({
   components: { MainTable, Search },
   computed: {
     ...mapState("auth", ["isLogged"]),
+    ...mapState("settings", ["activeColor"]),
+  
   },
 })
 export default class MainLayout extends Vue {
@@ -138,6 +186,8 @@ export default class MainLayout extends Vue {
   group: any = null;
   isLogged!: boolean;
   outLog: boolean = false;
+  color: string | null = localStorage.getItem("color");
+
 
   async logOut() {
     await this.$store.dispatch("auth/LOG_OUT");
@@ -149,13 +199,18 @@ export default class MainLayout extends Vue {
   btnLogOut() {
     this.outLog = !this.outLog;
   }
+
+    @Watch("activeColor")
+  changeCurrentColor(val: any) {
+    this.color = val;
+  }
 }
 </script>
 <style lang="scss">
 .v-btn {
   border: none;
 }
-.for_padding {
-  padding-bottom: 1024px;
-}
+// .for_padding {
+//   padding-bottom: 1024px;
+// }
 </style>
