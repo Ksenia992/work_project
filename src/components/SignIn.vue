@@ -64,21 +64,18 @@
 
               <ButtonWithout
                 :loading="isPageLoading"
-                :disabled="this.$v.$invalid" 
+                :disabled="this.$v.$invalid"
                 type="submit"
                 :btn_text="btn_text"
                 @click="submit"
-                ref='btn'
+                ref="btn"
               ></ButtonWithout>
-               <v-alert
-      dense
-      outlined
-      type="error"
-      v-if='error'
-    >
-     Incorrect username or password
-    </v-alert>
-    <p>{{errorText}}</p>
+              <v-alert dense outlined type="error" v-if="no_internet">
+                Check your internet connection
+              </v-alert>
+              <v-alert dense outlined type="error" v-if="invalid_data">
+                Incorrect password or username
+              </v-alert>
             </v-form>
           </v-col>
         </v-row>
@@ -108,7 +105,7 @@ import { Watch } from "vue-property-decorator";
   },
   components: { ButtonWithout },
   computed: {
-    ...mapState("auth", ["isLogged", "isPageLoading",'error','errorText']),
+    ...mapState("auth", ["isLogged", "isPageLoading", "error", "errorText"]),
     passwordErrors() {
       const errors: string[] = [];
       if (!this.$v.password.$dirty) return errors;
@@ -121,12 +118,14 @@ import { Watch } from "vue-property-decorator";
 })
 export default class SignIn extends Vue {
   isLogged!: boolean;
-error!:boolean;
-errorText!:string;
+  error!: boolean;
+  errorText!: string;
   username: string = "";
   password: string = "";
   showPass: boolean = false;
   btn_text: string = "Sign In";
+  no_internet: boolean = false;
+  invalid_data: boolean = false;
 
   async submit() {
     this.$v.$touch();
@@ -142,9 +141,19 @@ errorText!:string;
       this.$router.push("/tenants");
     }
   }
-     @Watch("error")
-  disableBtn(val: boolean) {
-  this.$refs.btn.disabled=val
+  //    @Watch("error")
+  // disableBtn(val: boolean) {
+  // this.$refs.btn.disabled=val
+  // }
+
+  @Watch("errorText")
+  message(val: string) {
+    if (val === "Cannot read property 'status' of undefined") {
+      this.no_internet = true;
+    }
+    if (val === "Request failed with status code 400") {
+      this.invalid_data = true;
+    }
   }
 }
 </script>

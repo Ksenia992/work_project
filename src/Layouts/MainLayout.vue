@@ -1,30 +1,21 @@
 <template>
   <div class="d-flex">
- 
-
     <v-col
       cols="12"
       sm="3"
       md="2"
-     v-if="drawer && '$vuetify.breakpoint.smAndUp'"
-     
-     height='100vh'
-         :style="{
-            background: color || '#1AAA8D',
-          }"
-      
+      v-if="drawer || '$vuetify.breakpoint.smAndUp'"
+      height="100vh"
+      :style="{
+        background: color || '#1AAA8D',
+      }"
     >
-   
- 
-  
       <v-col cols="6" class="d-flex align-center">
         <v-img src="@/assets/Logo.png" />
         <span
           class="white--text text-h4 pa-3 font-weight-bold text-body-2 for xs"
           >Rylex</span
-        > 
-        
- 
+        >
       </v-col>
 
       <v-col cols="12" class="d-flex">
@@ -58,31 +49,25 @@
           </router-link>
         </v-list>
       </v-col>
-     
-      
     </v-col>
-      <v-col class='mt-12'>
-         <router-view />
-         </v-col>
+    <v-col class="mt-12">
+      <router-view />
+    </v-col>
 
     <v-app-bar
-  absolute
+      absolute
       color="transparent"
       elevate-on-scroll
       scroll-target="#scrolling-techniques-7"
     >
-    
-        
-  
       <v-col cols="10" class="d-flex justify-center">
-        <v-col cols='4'>
-       <v-app-bar-nav-icon
-        v-if='$vuetify.breakpoint.smAndDown'
-    
-      color="teal"
-      @click="drawer = !drawer"
-    ></v-app-bar-nav-icon>
-    </v-col>
+        <v-col cols="4">
+          <v-app-bar-nav-icon
+            color="teal"
+            v-if="$vuetify.breakpoint.smAndDown"
+            @click="drawer = !drawer"
+          ></v-app-bar-nav-icon>
+        </v-col>
         <v-toolbar-title class="font-weight-thin text-h6">
           <!-- <v-breadcrumbs :items="items" divider=">"></v-breadcrumbs> -->
           <v-col class="d-flex">
@@ -113,7 +98,6 @@
           <v-btn icon :color="color || '#1AAA8D'">
             <v-icon>mdi-information-outline</v-icon>
           </v-btn>
-      
 
           <!-- <v-btn icon :color="color || '#1AAA8D'"  
       @click="btnLogOut"  open-on-hover
@@ -121,46 +105,21 @@
       offset-y>
             <v-icon>mdi-account-circle-outline</v-icon>
           </v-btn> -->
-      
-             <v-menu
-      open-on-hover
-      
-      offset-y
-      content-class="elevation-0"
-    >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          icon :color="color || '#1AAA8D'"
-          v-bind="attrs"
-          v-on="on"
-        >
-       
-           <v-icon>mdi-account-circle-outline</v-icon>
-        </v-btn>
-      </template>
 
-  
-         <v-btn
-       
-          small
-          rounded
-         
-          @click="logOut"
-          :color="color || '#1AAA8D'"
-          >Logout</v-btn
-        >
- 
-    </v-menu>
- 
+          <v-menu open-on-hover offset-y content-class="elevation-0">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn icon :color="color || '#1AAA8D'" v-bind="attrs" v-on="on">
+                <v-icon>mdi-account-circle-outline</v-icon>
+              </v-btn>
+            </template>
+
+            <v-btn small rounded @click="logOut" :color="color || '#1AAA8D'"
+              >Logout</v-btn
+            >
+          </v-menu>
         </v-col>
-
-   
       </v-row>
     </v-app-bar>
-
-
-      
-  
   </div>
 </template>
 
@@ -178,7 +137,6 @@ import { Watch } from "vue-property-decorator";
   computed: {
     ...mapState("auth", ["isLogged"]),
     ...mapState("settings", ["activeColor"]),
-  
   },
 })
 export default class MainLayout extends Vue {
@@ -187,7 +145,6 @@ export default class MainLayout extends Vue {
   isLogged!: boolean;
   outLog: boolean = false;
   color: string | null = localStorage.getItem("color");
-
 
   async logOut() {
     await this.$store.dispatch("auth/LOG_OUT");
@@ -200,7 +157,7 @@ export default class MainLayout extends Vue {
     this.outLog = !this.outLog;
   }
 
-    @Watch("activeColor")
+  @Watch("activeColor")
   changeCurrentColor(val: any) {
     this.color = val;
   }

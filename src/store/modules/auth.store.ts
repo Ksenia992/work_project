@@ -81,9 +81,9 @@ const actions = {
      }
    } catch (error) {
     console.log("Error");
-    console.log(error);
+    console.dir(error);
     commit("SET_ERROR", true);
-    commit("SET_TEXT_ERROR", error);
+    commit("SET_TEXT_ERROR", error.message);
   }
   commit("LOADING", false);
   },
